@@ -1,0 +1,54 @@
+/* .main-section {
+    padding: 30px 0;
+  }
+  
+  .main-section h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  .main-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .main-section .card {
+    border: none;
+    margin-bottom: 30px;
+  }
+  
+  .main-section .card-img-top {
+    height: 210px;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: transform .4s;
+  }
+  .main-section .card-img-top:hover{
+   opacity: 1;
+   transform: scale(1.1)
+  }
+  
+  .main-section .card-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .main-section .card-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .main-section .btn-primary {
+    background-color: #007bff;
+    border: none;
+    outline: none;
+  }
+  
+  .main-section .btn-primary:hover {
+    background-color: #0069d9;
+  }
+   */
