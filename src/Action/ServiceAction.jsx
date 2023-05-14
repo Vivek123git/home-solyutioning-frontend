@@ -64,7 +64,6 @@ export const fetchSubServices = (data, setServices) => (dispatch, getState) => {
   commonAxios("fetch-service-type", data, dispatch)
     .then((res) => {
       if (res.status) {
-        console.log("success");
         setServices(res.data);
       }
     })

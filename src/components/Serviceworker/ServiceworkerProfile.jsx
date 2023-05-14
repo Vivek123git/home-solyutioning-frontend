@@ -10,6 +10,8 @@ const ServiceWorkerProfile = () => {
   const dispatch = useDispatch();
   const workerDetails = useSelector((state) => state.workerAcc);
 
+  console.log(workerDetails,"sdf")
+
   const [checked, setChecked] = useState(false);
   const [status, setStatus] = useState("Available");
   const [worker, setWorker] = useState([]);
@@ -36,14 +38,14 @@ const ServiceWorkerProfile = () => {
     }
   };
 
-  // const fetchWorkerDetails = () => {
-  //   let data = {};
-  //   dispatch(onfetchWorkerDetails(data, setWorker));
-  // };
+  const fetchWorkerDetails = () => {
+    let data = {};
+    dispatch(onfetchWorkerDetails(data, setWorker));
+  };
 
-  // useEffect(() => {
-  //   fetchWorkerDetails();
-  // });
+  useEffect(() => {
+    fetchWorkerDetails();
+  });
 
   console.log(workerDetails,"details")
 
@@ -67,8 +69,8 @@ const ServiceWorkerProfile = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <h5>Name : {workerDetails.worker.name}</h5> */}
-                  {/* <p>Mobile No.: {workerDetails.worker.mobileNumber}</p> */}
+                  <h5>Name : {workerDetails.worker.name}</h5>
+                  <p>Mobile No.: {workerDetails.worker.mobileNumber}</p>
                   <div className="d-flex">
                     <h5>Status : </h5>
                     <h5
@@ -93,7 +95,7 @@ const ServiceWorkerProfile = () => {
                   style={{ display: "flex", justifyContent: "flex-end" }}
                 >
                   <div>
-                    {/* <img
+                    <img
                       style={{ maxWidth: "200px" }}
                       src={
                         workerDetails.worker.image
@@ -102,7 +104,7 @@ const ServiceWorkerProfile = () => {
                       }
                       roundedCircle
                       alt="avatar"
-                    /> */}
+                    />
                     <br />
                     <input
                       style={{ display: "none" }}

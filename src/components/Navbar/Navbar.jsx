@@ -64,8 +64,8 @@ function NavbarHead() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate("/serviceworkerprofile")
-    // dispatch(loginWorkerAccount(formDataLogin,navigate))
+    // navigate("/serviceworkerprofile")
+    dispatch(loginWorkerAccount(formDataLogin,navigate))
   };
 
   const fetchServiceData = () => {

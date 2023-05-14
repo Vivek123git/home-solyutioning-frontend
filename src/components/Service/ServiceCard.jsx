@@ -37,7 +37,6 @@ const ServiceCard = () => {
     if (id == "1") {
       navigate(`/byown?name=${head}&id=${ind}`);
     } else if (id === "2") {
-      console.log("first");
       navigate(`/oursite?name=${head}&type=${name}`);
     }
   };
@@ -53,7 +52,7 @@ const ServiceCard = () => {
       return elem;
     }
   });
-  console.log(filterServices,"filter")
+ 
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -90,25 +89,6 @@ const ServiceCard = () => {
           </div>
 
           <Row>
-            <Col md={4} className=" p-3 mb-5 bg-white rounded cardBody">
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src="https://cdn.pixabay.com/photo/2019/08/22/13/37/electrician-4423534__340.jpg"
-                />
-                <Card.Body>
-                  <Card.Title>Home Wiring Problem</Card.Title>
-                  <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    auctor ipsum vitae .
-                  </Card.Text>
-                  <Button variant="primary" onClick={handleClick}>
-                    Book Now
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-
             {filterServices.length > 0 ? (
               filterServices.map((elem, ind) => {
                 return (
