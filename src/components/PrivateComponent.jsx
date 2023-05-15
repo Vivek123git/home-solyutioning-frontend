@@ -8,7 +8,7 @@ const PrivateComponent = ({children}) => {
     if(auth && auth.login && auth.login.isAuthenticated && auth.login.user){
       return children;
     }else{
-      return <Navigate to ="/"/>;
+      return <Navigate to ="/login"/>;
     }
     
 }

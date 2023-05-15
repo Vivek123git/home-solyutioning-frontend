@@ -30,7 +30,7 @@ export const onCreateServiceman = (data, setLoader, navigate) => (
   commonAxios("register-worker", data, dispatch)
     .then((res) => {
       if (res.status) {
-        navigate("/home");
+        navigate("/");
         dispatch(onSetAlert("success", res.msg));
       } else {
         console.log("failure");

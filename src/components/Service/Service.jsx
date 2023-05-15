@@ -55,24 +55,7 @@ function Service() {
     },
   };
 
-  // let data=JSON.stringify({
-  //   email:state.email,
-  //   password:state.password,
-  //   name:state.name,
-  //   mobile:state.mobile
-  // })
-
   const fetchServiceData = () => {
-    // axios
-    //   .get("https://onehomesolution.000webhostapp.com/fetch-service", {
-    //     options,
-    //   })
-    //   .then((res) => {
-    //     setService(res.data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.msg);
-    //   });
     let data={}
     dispatch(onFetchServices(setService,data))
   };
@@ -124,23 +107,6 @@ function Service() {
         </div>
       </div>
 
-      {/* <Col md={4}  className="shadow-lg p-3 mb-5 bg-white rounded cardBody">
-            <Card>
-              <Card.Img variant="top" src="https://cdn.pixabay.com/photo/2021/04/21/02/43/plumber-6195292__340.png" />
-              <Card.Body>
-                <Card.Title>Plumbing Services</Card.Title>
-                <Card.Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor ipsum vitae turpis .
-                </Card.Text>
-                <Link to="/plumber"><Button variant="primary">Book Plumber</Button></Link>
-              </Card.Body>
-            </Card>
-          </Col>
-          
-          
-          
-
-      {/* </Container> */}
       <Modal show={show.modal} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Select an option</Modal.Title>
@@ -150,14 +116,14 @@ function Service() {
               aria-label="Default select example"
               onChange={(e) => handleModal(e)}
             >
-              <option>Open this select menu</option>
-              <option value="1">Booking by Yourself</option>
-              <option value="2">Booking By Our Platform</option>
+              <option>What would you prefer</option>
+              <option value="1">Directly talk to technician</option>
+              <option value="2">Book your technician using our platform</option>
             </Form.Select>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={()=>handleGo(show.id,show.type)}>
-              Go
+              Next
             </Button>
           </Modal.Footer>
         </Modal>

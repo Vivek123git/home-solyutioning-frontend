@@ -41,7 +41,7 @@ function Services() {
                     </div>
                     <div className="service-details">
                       <h4>Customer 1</h4>
-                      <p>
+                      <p style={{fontWeight:"0"}}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Nullam at massa sapien.
                       </p>

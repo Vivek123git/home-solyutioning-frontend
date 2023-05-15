@@ -5,7 +5,6 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import CheckIcon from '@mui/icons-material/Check';
 import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import { Container } from 'react-bootstrap';
 import 'animate.css';
 
 
@@ -19,8 +18,8 @@ const BenefitsPage = () => {
     },
     {
       icon: <  AccessAlarmIcon sx={{ fontSize: 40 }}/>,
-      title: 'Before 60 min. solution',
-      description: ' Our fast and efficient service guarantees a solution within 60 minutes.'
+      title: 'Assured solution',
+      description: ' Our fast and efficient service give guarantees for solution.'
     },
     {
       icon: <HandshakeIcon sx={{ fontSize: 40 }}/>,
@@ -52,8 +51,8 @@ const BenefitsPage = () => {
           {benefits.map((benefit, index) => (
             <div key={index} className="benefit-card">
               <div className='animate__animated animate__bounce animate__infinite	infinite' style={{textAlign:"left"}}>{benefit.icon}</div>
-              <h4 style={{textAlign:"left",fontSize:"large"}}>{benefit.title}</h4>
-              <p style={{ fontSize:"16px",fontWeight:"100",fontFamily:"roboto",textAlign:"left"}}>{benefit.description}</p>
+              <h4 className="benifit" >{benefit.title}</h4>
+              <p className="benifit" >{benefit.description}</p>
             </div>
           ))}
         </div>

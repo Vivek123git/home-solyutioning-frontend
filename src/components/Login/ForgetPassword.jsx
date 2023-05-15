@@ -56,17 +56,6 @@ const [loader,setLoader] = useState(false)
           </div>
 
           <div className="container" style={{ paddingBottom: "30px" }}>
-            {/* style={{
-              backgroundColor: "#71a1e9",
-              borderRadius: "20px",
-              padding: "20px",
-              marginTop: "80px",
-            }} */}
-
-            {/* <Row
-              className="justify-content-md-center"
-              style={{ marginTop: "5%" }}
-            > */}
 
             <div className="row justify-content-center">
               <div className="col-md-6">
@@ -99,7 +88,7 @@ const [loader,setLoader] = useState(false)
                         >
                           <Form.Label>Confirm Password</Form.Label>
                           <Form.Control
-                            // type="pasword"
+                           type="password"
                             name="cnfPassword"
                             value={formData.cnfPassword}
                             onChange={handleChange}

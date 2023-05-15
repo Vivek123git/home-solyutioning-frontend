@@ -20,13 +20,19 @@ body {
   justify-content: center;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 350px) {
   .row {
     width: 100%;
     max-width: 100%;
     /* padding-right: calc(var(--bs-gutter-x) * .5); */
     /* padding-left: calc(var(--bs-gutter-x) * .5); */
     margin-top: var(--bs-gutter-y); /* replace red with the desired color */
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .button[type="submit"] {
+   margin: 4px !important;
   }
 }
 
@@ -48,11 +54,20 @@ h6 {
   color: #222;
 }
 
-p {
+/* p {
   font-family: "Roboto", sans-serif;
   font-weight: 600;
   padding: 5px;
-}
+} */
+
+@media (max-width: 767px) {
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    padding: 5px;
+    font-size: small;
+  }
+ }
 
 a {
   color: #587a9e;
@@ -244,8 +259,23 @@ h1 {
 .login_btn {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
+
+.fgtPass{
+  flex-direction: row-reverse;
+  padding-right: 70px;
+  color: #0a3f79;
+}
+
+@media (max-width: 767px) {
+  .fgtPass{
+    flex-direction: row-reverse;
+    padding-right: 20px;
+    color: #0a3f79;
+  }
+ }
+
 .contact_btn {
   display: flex;
   justify-content: flex-end;
@@ -579,7 +609,7 @@ swiper-slide img {
 
 .navigation .nav-link:hover,
 .navigation .nav-item:hover .nav-link {
-  color: #007bff;
+  color: #000;
 }
 
 .navigation .dropdown-menu {
@@ -588,7 +618,7 @@ swiper-slide img {
 }
 
 .navigation .dropdown-item:hover {
-  color: #007bff;
+  color: #000;
   background-color: #f8f9fa;
 }
 
@@ -929,5 +959,34 @@ swiper-slide img {
 @media (max-width: 767px) {
   .otp_btn{
   margin-left: 80px;
+  }
+}
+
+.benefit-card h4{
+/* style={{textAlign:"left",fontSize:"large"}} */
+text-align: left;
+font-size: large;
+}
+
+@media (max-width:450px) {
+  .benefit-card h4{
+    font-size: 15px;
+  }
+}
+
+.benefit-card p{
+  /* style={{ fontSize:"16px",fontWeight:"100",fontFamily:"roboto",textAlign:"left"}} */
+  font-size: 16px;
+  font-weight: 100;
+  font-family: "roboto";
+  text-align: left;
+}
+
+@media (max-width: 450px) {
+  .benefit-card p{
+    font-size:11px;
+    font-weight: 100;
+    font-family: "roboto";
+    text-align: left;
   }
 }

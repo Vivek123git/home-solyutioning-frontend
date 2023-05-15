@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import axios from "axios";
+import { Form, Button } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import {  useLocation, useNavigate } from "react-router";
 import { onBookingServiceman } from "../../Action/ServiceAction";
 import { useDispatch } from "react-redux";
@@ -61,12 +61,19 @@ function OurSite() {
   };
   return (
     <>
+      <Helmet>
+        <title>Repairinminute | Book your skilled technician</title>
+        <meta
+          name="description"
+          content="Book your skilled technician"
+        />
+      </Helmet>
     {name?<Navbar/>:""}
     <section className="contact-section ">
       <div className="container">
         <div className="row">
           <div className="contact_heading text-center py-4">
-            <h3>Book your ServiceMan</h3>
+            <h3>Book your Technician</h3>
           </div>
         </div>
       </div>
@@ -85,7 +92,7 @@ function OurSite() {
             <div className="row">
               <div className="col-md-6 p-2">
                 <Form.Group controlId="formName" className="input_wrap ">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Enter your name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter name"

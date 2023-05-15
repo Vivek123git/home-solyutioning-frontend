@@ -20,7 +20,7 @@ const Alert1 = () => {
         setShowAlert(false)
       }
         
-    }, [alert]);
+    }, []);
 
     return (
         <div style={{position:"absolute",right:"0px" ,zIndex:"999",margin:"5px"}}>

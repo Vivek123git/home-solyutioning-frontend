@@ -10,6 +10,7 @@ import { fetchSubServices } from "../../Action/ServiceAction";
 import Skelton from "./Skelton";
 import { onSetAlert } from "../../Action/AlertAction";
 import Alert1 from "../Alert";
+import { Helmet } from "react-helmet";
 
 const ServiceCard = () => {
   const navigate = useNavigate();
@@ -66,6 +67,13 @@ const ServiceCard = () => {
 
   return (
     <>
+       <Helmet>
+        <title>Repairinminute | Book Your Skilled {name}</title>
+        <meta
+          name="description"
+          content={`Book your skilled ${name}`}
+        />
+      </Helmet>
       <Navbar />
       <Alert1 />
       <section className="main-section">
@@ -123,7 +131,7 @@ const ServiceCard = () => {
                           >
                             {id === "2"
                               ? "Book Now"
-                              : "Get Serviceworker Details"}
+                              : "Get technician details"}
                           </Button>
                           {id === "2" ? (
                             <Button style={{ float: "right" }}>

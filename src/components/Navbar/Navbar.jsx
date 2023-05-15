@@ -3,12 +3,10 @@ import { Navbar, Nav, NavDropdown, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import axios from "axios"
 import "../../../src/App.css";
 import logo from "../../img/HOMOSOLUTION.png";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { onFetchServices } from "../../Action/ServiceAction";
 import { logOutUser } from "../../Action/AuthAction";
 import { loginWorkerAccount } from "../../Action/WorkerAuth";
@@ -50,12 +48,6 @@ function NavbarHead() {
       ...form,
     [name]:value
     })
-  };
-
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-    },
   };
 
   let formDataLogin = new FormData();
@@ -118,7 +110,7 @@ function NavbarHead() {
                 <NavLink
                   className="nav-link"
                   as={Link}
-                  to="/home"
+                  to="/"
                   activeClassName="active"
                 >
                   Home
@@ -127,9 +119,9 @@ function NavbarHead() {
                 <Nav.Link
                   onClick={handleShow}
                   className="nav-link"
-                  activeClassName="none"
+                  activeClassName="active"
                 >
-                  ServiceWorker Account
+                  Technician Account
                 </Nav.Link>
 
                 <NavDropdown
@@ -174,7 +166,7 @@ function NavbarHead() {
                 >
                   {/* {profile.name?profile.name:"Userprofile"} */}
 
-                  <NavDropdown title="Userprofile" id="basic-nav-dropdown">
+                  <NavDropdown title="User" id="basic-nav-dropdown">
                     {auth && auth.login && auth.login.user ? (
                       <>
                         <NavDropdown.Item as={Link} to="/userProfile">

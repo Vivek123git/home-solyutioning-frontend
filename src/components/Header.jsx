@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import About from "./About/About";
 import Navbar from "./Navbar/Navbar";
 import Service from "./Service/Service";
 import Contact from "./Contact/Contact";
@@ -14,11 +13,16 @@ import { onSetAlert } from "../Action/AlertAction";
 import team from "../img/team.png.jpg";
 import DemandServices from "./Service/DemandServices";
 import OurSite from "./Booking/OurSite";
+import { HelmetProvider, Helmet } from "react-helmet-async"
 // import HOMOSOLUTION from '../img/HOMOSOLUTION.png'
 
 function Header() {
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>Repairinminute | Home Services</title>
+        <meta name='description' content='Book your electrician, plumber, ac technician, ro technician , broadband technician, cctv technician at one platform' />
+      </Helmet>
       <Navbar />
       <Alert1 />
       <div className="container-fluid p-0">
@@ -116,7 +120,7 @@ function Header() {
         </div>
         <ChatBotrobo />
       </section>
-    </>
+    </HelmetProvider>
   );
 }
 export default Header;
