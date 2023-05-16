@@ -7,10 +7,14 @@ import { Link } from "react-router-dom";
 import { loginAccount } from "../../Action/AuthAction";
 import { useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
+import Alert1 from "../Alert";
+import { useEffect } from "react";
+import { onSetAlert } from "../../Action/AlertAction";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const auth = JSON.parse(localStorage.getItem('state'))
 
   const [formData, setFormData] = useState({
     email: "",
@@ -39,8 +43,13 @@ const [loader,setLoader] = useState(false)
     }
   };
 
+  useEffect(()=>{
+      dispatch(onSetAlert("If you are not login first logged in","danger"))
+  },[])
+
   return (
     <>
+    <Alert1/>
       <div className="container-fluid main_bg">
         <div className="row">
           <div className="col-md-12">

@@ -16,7 +16,7 @@ function Services() {
                   color: "#fff",
                 }}
               >
-                 See how customer love us We give Awesome Service
+                 See how customer love us we give awesome service
               </h3>
             </div>
             <swiper-container

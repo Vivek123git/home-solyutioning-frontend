@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchSubServices } from "../../Action/ServiceAction";
 import Skelton from "./Skelton";
-import { onSetAlert } from "../../Action/AlertAction";
 import Alert1 from "../Alert";
 import { Helmet } from "react-helmet";
 

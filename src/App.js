@@ -1,5 +1,4 @@
 import "./App.css";
-import "../src/components/Service/Service.css";
 import Header from "./components/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Electrician from "./components/Service/Electrician/Electrician";
@@ -14,8 +13,6 @@ import UserProfile from "./components/UserProfile";
 import ServiceCard from "./components/Service/ServiceCard"
 import ContactUs2 from "./components/ContactUs2";
 import About from "./components/About/About";
-import { useEffect } from "react";
-import { loginAccount } from "./Action/AuthAction";
 import ForgetPasword from "./components/Login/ForgetPassword";
 
 function App() {

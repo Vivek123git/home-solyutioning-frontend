@@ -392,7 +392,7 @@ h3::after {
 @media (max-width: 767px) {
   .carousel-item img {
     object-fit: cover;
-    height: 0% !important;
+    height: 500px !important;
   }
 }
 
@@ -549,7 +549,7 @@ swiper-slide img {
   padding: 20px;
   border-radius: 25px; */
 
-  height: 305px;
+  height: 210px;
     object-fit: cover;
     /* padding: 11px; */
     /* border-radius: 25px;*/
@@ -565,6 +565,7 @@ swiper-slide img {
   font-weight: 600;
   padding: 5px;
   text-align: center;
+  color: #ffff;
 }
 
 .main-section .card-text {
@@ -930,7 +931,7 @@ swiper-slide img {
   color: rgb(2, 46, 111);
   font-family: Roboto, sans-serif;
   font-size: 16px;
-  font-weight: 100 !important;
+  font-weight: 400 !important;
 }
 
 .spinner_icon{
@@ -984,7 +985,7 @@ font-size: large;
 
 @media (max-width: 450px) {
   .benefit-card p{
-    font-size:11px;
+    font-size:12px;
     font-weight: 100;
     font-family: "roboto";
     text-align: left;

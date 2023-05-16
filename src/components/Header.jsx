@@ -2,29 +2,28 @@ import React from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import Navbar from "./Navbar/Navbar";
 import Service from "./Service/Service";
-import Contact from "./Contact/Contact";
 import Footer from "./Footer/Footer";
 import Customer from "./Customer/Customer";
 import { Carousel } from "react-bootstrap";
 import ChatBotrobo from "./Chatbot";
 import BenefitsPage from "./Contact/Benifit";
-import Alert1 from "./Alert";
-import { onSetAlert } from "../Action/AlertAction";
 import team from "../img/team.png.jpg";
 import DemandServices from "./Service/DemandServices";
 import OurSite from "./Booking/OurSite";
 import { HelmetProvider, Helmet } from "react-helmet-async"
+import Alert1 from "./Alert";
 // import HOMOSOLUTION from '../img/HOMOSOLUTION.png'
 
 function Header() {
   return (
-    <HelmetProvider>
+<>  
+  <HelmetProvider>
       <Helmet>
         <title>Repairinminute | Home Services</title>
         <meta name='description' content='Book your electrician, plumber, ac technician, ro technician , broadband technician, cctv technician at one platform' />
       </Helmet>
+      
       <Navbar />
-      <Alert1 />
       <div className="container-fluid p-0">
         <div className="row m-0">
           <div className="col-md-12 p-0">
@@ -121,6 +120,7 @@ function Header() {
         <ChatBotrobo />
       </section>
     </HelmetProvider>
+    </>
   );
 }
 export default Header;

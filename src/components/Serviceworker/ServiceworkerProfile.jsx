@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Switch from "@mui/material/Switch";
-import { Row, Col, Image, Table } from "react-bootstrap";
+import { Row, Col,Table } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
 import { onfetchWorkerDetails } from "../../Action/ServiceAction";
 import { useDispatch, useSelector } from "react-redux";

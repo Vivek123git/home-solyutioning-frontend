@@ -177,7 +177,7 @@ function NavbarHead() {
                         </NavDropdown.Item>
                       </>
                     ) : (
-                      <NavDropdown.Item as={Link} to="/">
+                      <NavDropdown.Item as={Link} to="/login">
                         Sign in
                       </NavDropdown.Item>
                     )}
@@ -241,6 +241,7 @@ function NavbarHead() {
               size="lg"
               onClick={handleShow1}
               className="my-2 w-100"
+              closeButton
             >
               Login
             </Button>
@@ -249,7 +250,7 @@ function NavbarHead() {
       </Modal>
 
       <>
-        <Modal show={show1} onHide={handleClose1}>
+        <Modal show={show1} onHide={handleClose1}style={{zIndex:"9999"}}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-import { Link } from "react-router-dom";
-import "./Service.css";
 import Skelton from "./Skelton";
 import { onSetAlert } from "../../Action/AlertAction";
 import { useDispatch } from "react-redux";
@@ -48,12 +45,6 @@ function Service() {
   });
 
   const [service, setService] = useState([]);
-
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
   const fetchServiceData = () => {
     let data={}

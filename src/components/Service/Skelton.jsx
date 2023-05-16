@@ -1,5 +1,4 @@
 import { Container } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 
@@ -25,10 +24,6 @@ function Skelton() {
             <Placeholder as={Card} animation="glow" >
               <Placeholder style={{ width: "250px", height: "50px" ,backgroundColor: "#71a1e9"}} />
             </Placeholder>
-            {/* <Placeholder as={Card.Text} animation="glow">
-<Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-<Placeholder xs={6} /> <Placeholder xs={8} />
-</Placeholder> */}
             <Placeholder.Button variant="primary" xs={6} />
           </Card.Body>
         </Card>

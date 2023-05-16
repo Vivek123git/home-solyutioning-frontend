@@ -36,13 +36,13 @@ export const loginAccount = (formData, navigate) => (dispatch, getState) => {
       }
     })
     .catch((error) => {
-      console.log(error);
       dispatch({ type: "LOGIN_FAILURE", error: error.message });
     });
 };
 
 export const logOutUser=()=>(dispatch, getState)=>{
     dispatch({type:"LOG_OUT_USER"})
+    dispatch(onSetAlert("Log out successfully", "success"))
 }
 
 
