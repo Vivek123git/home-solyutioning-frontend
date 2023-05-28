@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "../../../src/App.css";
-import logo from "../../img/HOMOSOLUTION.png";
+import logo from "../../img/logo.png";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 import { onFetchServices } from "../../Action/ServiceAction";
@@ -20,7 +20,7 @@ function NavbarHead() {
 
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const [profile, setProfile] = useState();
+  // const [profile, setProfile] = useState();
   const [form, setForm] = useState({
     mobile: "",
     password: "",
@@ -86,22 +86,23 @@ function NavbarHead() {
             src={logo}
             alt=""
             style={{
-              width: "80px",
+              width: "200px",
               height: "80px",
               padding: "9px",
               position: "absolute",
               left: "0px",
             }}
           />
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} style={{height: "50px",width: "60px"}} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
             placement="end"
+            
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                HomoSolution
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`} style={{color:"#71a1e9"}}>
+                RepairInMinute
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -150,14 +151,14 @@ function NavbarHead() {
                   className="nav-link"
                   activeClassName="active"
                 >
-                  About Us
+                  About us
                 </NavLink>
                 <NavLink
                   className="nav-link"
                   activeClassName="active"
                   to="/contactus"
                 >
-                  Contact Us
+                  Contact us
                 </NavLink>
                 <NavLink
                   className="nav-link"
@@ -171,6 +172,9 @@ function NavbarHead() {
                       <>
                         <NavDropdown.Item as={Link} to="/userProfile">
                           Profile
+                        </NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/dashboard">
+                          Dashboard
                         </NavDropdown.Item>
                         <NavDropdown.Item onClick={handleSignOut}>
                           Sign out

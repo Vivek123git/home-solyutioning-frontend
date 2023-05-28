@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import HOMOSOLUTION from "../../img/HOMOSOLUTION.png";
+import HOMOSOLUTION from "../../img/logo.png";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { createAccount } from "../../Action/AuthAction";
@@ -57,7 +57,7 @@ const CreateLogin = () => {
           </div>
           <div className="col-md-12">
             <div className="header p-4">
-              <h1 style={{fontSize:"33px"}}>Welcome to Our Home Services Website</h1>
+              <h1 style={{fontSize:"25px"}}>Welcome to Our Home Services Website</h1>
             </div>
           </div>
 
@@ -75,7 +75,7 @@ const CreateLogin = () => {
             > */}
 
             <div className="row justify-content-center">
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="create_page ">
                   <h1 style={{fontSize:"28px"}}>Create Account</h1>
                   <hr style={{color:"#0062cc"}}/>
@@ -148,7 +148,7 @@ const CreateLogin = () => {
                         </Form.Group>
                       </div>
 
-                      <Button variant="primary" type="submit" style={{width:'36%',height:"60px", margin:"25px auto",}}>
+                      <Button variant="primary" type="submit" style={{width:'100%',height:"60px", margin:"25px auto",}}>
                         Submit
                       </Button>
                     </div>

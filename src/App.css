@@ -100,7 +100,7 @@ a:hover {
   /* height: 500px; */
 }
 
-.carousel-caption {
+/* .carousel-caption {
   position: absolute;
   bottom: 50px;
   left: 50%;
@@ -108,21 +108,21 @@ a:hover {
   color: #fff;
   text-align: center;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-}
+} */
 
-.carousel-caption h3 {
+/* .carousel-caption h3 {
   font-size: 36px;
   font-weight: 600;
   margin-bottom: 20px;
   text-transform: uppercase;
-}
+} */
 
-.carousel-caption p {
+/* .carousel-caption p {
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400;
   color: #ddd;
-}
+} */
 
 .backColor {
   background-color: #71a1e9;
@@ -216,18 +216,18 @@ h1 {
   padding-top: 10px;
 }
 .logo img {
-  width: 80px;
+  width: 200px;
   height: 80px;
 }
 .main_bg {
   height: calc(100vh);
-  background: url(./img/Destop_img.jpg);
+  /* background: url(./img/Destop_img.jpg); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 .create_page {
-  background: #71a1e99e;
+  /* background: #71a1e99e; */
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 30px;
@@ -235,7 +235,7 @@ h1 {
 
 @media (max-width: 767px) {
   .create_page {
-    background: #71a1e99e;
+    /* background: #71a1e99e; */
     border-radius: 20px;
     padding: 20px;
     margin-top: 30px;
@@ -257,7 +257,7 @@ h1 {
   color: #000;
 }
 .login_btn {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   /* align-items: center; */
 }
@@ -348,8 +348,8 @@ h3::after {
 
 /* carousel css */
 
-.carousel {
-  /* height: 100vh; */
+.carousel-caption {
+  bottom: 30% !important;
 }
 .carousel-inner {
   /* height: 100%; */
@@ -388,6 +388,7 @@ h3::after {
 .carousel-item img {
   object-fit: cover;
   height: 500px !important;
+  opacity: 0.5;
 }
 @media (max-width: 767px) {
   .carousel-item img {
@@ -396,7 +397,7 @@ h3::after {
   }
 }
 
-.carousel-caption {
+/* .carousel-caption {
   position: absolute;
   bottom: 50px;
   left: 50%;
@@ -411,7 +412,7 @@ h3::after {
   animation-name: example;
   animation-duration: 8s;
   animation-iteration-count: one;
-}
+} */
 
 @keyframes example {
   0% {
@@ -435,13 +436,13 @@ h3::after {
 }
 
 .carousel-caption h3 {
-  font-size: 36px;
+  font-size: 60px;
   font-weight: 600;
   margin-bottom: 20px;
   /* background-color: darkslateblue; */
   font-family: initial;
   /* text-decoration: underline; */
-  color: #fff;
+  color: #000;
 }
 .carousel-caption btn {
   font-size: 36px;
@@ -453,11 +454,11 @@ h3::after {
 }
 
 .carousel-caption p {
-  font-size: 18px;
+  font-size: 27px;
   line-height: 1.6;
   /* background-color: darkslateblue; */
   font-family: initial;
-  color: #fff;
+  color: #000;
   /* text-decoration: underline; */
 }
 
@@ -990,4 +991,9 @@ font-size: large;
     font-family: "roboto";
     text-align: left;
   }
+}
+
+.searchWrapper {
+  border: 0px solid #71a1e9 !important;
+  border-radius: 8px !important;
 }

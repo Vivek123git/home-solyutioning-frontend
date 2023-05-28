@@ -14,8 +14,12 @@ import ServiceCard from "./components/Service/ServiceCard"
 import ContactUs2 from "./components/ContactUs2";
 import About from "./components/About/About";
 import ForgetPasword from "./components/Login/ForgetPassword";
+import Dashboard from "./components/Dashboard"
 
 function App() {
+
+  const auth = JSON.parse(localStorage.getItem('state'))
+
 
   // useEffect(()=>{
   //   dispatch(loginAccount)
@@ -37,11 +41,12 @@ function App() {
             <Route exact path="/byown" element={<PrivateComponent><ByOwn /></PrivateComponent>} />
             <Route exact path="/oursite" element={<PrivateComponent><OurSite /></PrivateComponent>} />
             <Route exact path="/serviceworker" element={<ServiceWorker />} />
-            <Route exact path="/serviceworkerprofile" element={<ServiceWorkerProfile />} />
-            <Route exact path="/userprofile" element={<UserProfile />} />
+            <Route exact path="/serviceworkerprofile" element={<PrivateComponent><ServiceWorkerProfile /></PrivateComponent>} />
+            <Route exact path="/userprofile" element={<PrivateComponent><UserProfile /></PrivateComponent>} />
             <Route exact path="/servicecard" element={<ServiceCard />} />
             <Route exact path="/contactus" element={<ContactUs2 />} />
             <Route exact path="/aboutus" element={<About />} />
+            <Route exact path="/dashboard" element={<Dashboard/>} />
          
         </Routes>
       </BrowserRouter>

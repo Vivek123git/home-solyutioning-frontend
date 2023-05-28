@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { onFetchWorkerData } from "../../Action/ServiceAction";
+import Skelton from "../Service/Skelton";
 
 
 const ByOwn = () => {
@@ -26,8 +27,6 @@ const ByOwn = () => {
 
     dispatch(onFetchWorkerData(setWorkerData, formData))
   }
-
-  console.log(workerData, "data")
 
   useEffect(() => {
     fetchWorkerData()
@@ -119,7 +118,12 @@ const ByOwn = () => {
                 )
               })
 
-              : ""}
+              : <div
+              className="p-3 m-2"
+              style={{ justifyContent: "space-evenly" }}
+            >
+              <Skelton />
+            </div>}
           </Row>
         </Container>
       </section>

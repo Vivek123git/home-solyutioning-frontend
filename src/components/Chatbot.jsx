@@ -29,12 +29,12 @@ const ChatBotrobo = () => {
         options: [
           {
             value: "enquiry",
-            label: "Product Enquiry",
+            label: "Services Enquiry",
             trigger: "enquiry"
           },
           {
             value: "complaint",
-            label: "Product Complaint",
+            label: "Services Complaint",
             trigger: "complaint"
           },
           {
@@ -71,17 +71,27 @@ const ChatBotrobo = () => {
             value: "cctv",
             label: "CCTV",
             trigger: "cctv"
-          }
+          },
+          {
+            value: "ro",
+            label: "R.O.",
+            trigger: "ro"
+          },
+          {
+            value: "broadband",
+            label: "BroadBand",
+            trigger: "broadband"
+          },
         ]
       },
       {
         id: "complaint",
-        message: "Sample of Product Complaint Page",
+        message: "Please call on this no. 987****** for register your services complaint",
         trigger: "8"
       },
       {
         id: "about",
-        message: "Sample of Company Profile Page",
+        message: "We are providing home services",
         trigger: "8"
       },
       {
@@ -112,6 +122,16 @@ const ChatBotrobo = () => {
       {
         id: "cctv",
         message: "Do you want CCTV services?",
+        trigger: "conf"
+      },
+      {
+        id: "ro",
+        message: "Do you want RO services?",
+        trigger: "conf"
+      },
+      {
+        id: "broadband",
+        message: "Do you want Broadband services?",
         trigger: "conf"
       },
       {

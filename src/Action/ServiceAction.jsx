@@ -9,17 +9,31 @@ const options = {
   },
 };
 
-export const onBookingServiceman = (data) => (dispatch, getState) => {
-  commonAxios("", data, dispatch)
+export const onBookingServiceman = (data,setLoader,setForm, form) => (dispatch, getState) => {
+  commonAxios("booking", data, dispatch)
     .then((res) => {
       if (res.status) {
         console.log("success");
       } else {
         console.log("failure");
       }
+      setLoader(false)
+      setForm({...form,name: "",
+      mobile: "",
+      address: "",
+      state: "",
+      city: "",
+      service:"",
+      description: "",
+      near: "",
+      pinCode: "",
+      id:""
     })
+    })
+    
     .catch((err) => {
       console.log(err.msg);
+      setLoader(false)
     });
 };
 
@@ -126,6 +140,34 @@ export const onfetchWorkerDetails = (data, setWorker) => (
     });
 };
 
+
+export const onfetchUserBookingDetails = (data, setUserData) => (
+  dispatch,
+  getState
+) => {
+  commonAxios("show-worker-booking", data, dispatch, getState)
+    .then((res) => {
+      if (res.status) {
+        setUserData(res.data);
+      }
+    })
+    .catch((err) => {
+      console.log(err.msg);
+    });
+};
+
+export const onstatusUpdate=(data)=>(dispatch,getState)=>{
+  commonAxios("worker-status", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      dispatch(onSetAlert("success",res.msg))
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+}
+
 // UserProfile page...................................................................................
 export const onfetchUserrDetails = (data, setUser) => (dispatch, getState) => {
   commonAxios("", data, dispatch, getState)
@@ -139,14 +181,117 @@ export const onfetchUserrDetails = (data, setUser) => (dispatch, getState) => {
     });
 };
 
+export const onRating = (data) => (dispatch, getState) => {
+  commonAxios("worker-rating", data, dispatch, getState)
+    .then((res) => {
+      if (res.status) {
+        dispatch(onSetAlert("success" , "rating Successfully"))
+      }
+    })
+    .catch((err) => {
+      console.log(err.msg);
+    });
+};
+
+
+export const onfetchWorkerBookingDetails = (data, setUserData) => (
+  dispatch,
+  getState
+) => {
+  commonAxios("show-user-booking", data, dispatch, getState)
+    .then((res) => {
+      if (res.status) {
+        setUserData(res.data);
+      }
+    })
+    .catch((err) => {
+      console.log(err.msg);
+    });
+};
+
 // OTP..........................................
 
 export const otpVerification = (data, setLoader, setOtp) => (dispatch,getState) => {
-  commonAxios("", data, dispatch, getState().auth.token)
+  commonAxios("", data, dispatch, getState)
   .then((res) => {
     if (res.status) {
       dispatch(onSetAlert(res.msg, "success"));
       setOtp(false);
+    }
+    setLoader(false)
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+};
+
+
+// Dashboard axios call....................................................
+
+export const onFetchAllBooking=(SetBookingData,data)=>(dispatch,getState)=>{
+  commonAxios("fetch-bookings", data,dispatch,getState)
+  .then((res)=>{
+    if(res.status){
+      SetBookingData(res.data)
+    }else{
+      // dispatch(onSetAlert(res.msg, "warning"));
+    }
+  })
+  .catch((err)=>{
+    // dispatch(onSetAlert(err.msg, "warning"));
+  })
+}
+
+export const onFetchAllWorker=(setWorkerData,data)=>(dispatch,getState)=>{
+  commonAxios("fetch-all-workers", data,dispatch,getState)
+  .then((res)=>{
+    if(res.status){
+      setWorkerData(res.data)
+    }else{
+      // dispatch(onSetAlert(res.msg, "warning"));
+    }
+  })
+  .catch((err)=>{
+    dispatch(onSetAlert("warning", "Data not send"))
+  })
+}
+
+export const onSendUserData=(data)=>(dispatch,getState)=>{
+  console.log(data,"data")
+  commonAxios("register-worker-booking" , data , dispatch , getState)
+  .then((res)=>{
+    if(res.status){
+       dispatch(onSetAlert( "warning", res.msg,));
+    }else{
+      dispatch(onSetAlert("warning", res.msg))
+    }
+  })
+  .catch((err)=>{
+     dispatch(onSetAlert("warning",err.msg ));
+  })
+}
+
+export const onSendWorkerData=(data)=>(dispatch,getState)=>{
+  console.log(data,"data")
+  commonAxios("register-user-booking" , data , dispatch , getState)
+  .then((res)=>{
+    if(res.status){
+       dispatch(onSetAlert( "warning", res.msg,));
+    }else{
+      dispatch(onSetAlert("warning", res.msg))
+    }
+  })
+  .catch((err)=>{
+     dispatch(onSetAlert("warning",err.msg ));
+  })
+}
+
+// Contact Us..................................................
+export const onContactSubmit = (data, setLoader) => (dispatch,getState) => {
+  commonAxios("contact-us", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      dispatch(onSetAlert( "success",res.msg,));
     }
     setLoader(false)
   })

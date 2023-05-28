@@ -58,6 +58,7 @@ const ServiceCard = () => {
     const searchParams = new URLSearchParams(location.search);
     const newSId = searchParams.get("sId");
     setSid(newSId);
+    window.scrollTo(0, 0);
   }, [location]);
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const ServiceCard = () => {
         />
       </Helmet>
       <Navbar />
-      <Alert1 />
+      {/* <Alert1 /> */}
       <section className="main-section">
         <Container>
           <div className="service_headinng text-center">
@@ -134,8 +135,9 @@ const ServiceCard = () => {
                           </Button>
                           {id === "2" ? (
                             <Button style={{ float: "right" }}>
-                              Price {elem.price}
+                              Booking start with {elem.price} &#x20B9;
                             </Button>
+                            
                           ) : (
                             ""
                           )}

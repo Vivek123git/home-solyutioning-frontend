@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import HOMOSOLUTION from "../../img/HOMOSOLUTION.png";
+import HOMOSOLUTION from "../../img/logo.png";
 import "../../../src/App.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -116,7 +116,7 @@ const [loader,setLoader] = useState(false)
                             variant="primary"
                             type="submit"
                             style={{
-                              width: "36%",
+                              width: "100%",
                               height: "60px",display:"flex",justifyContent:"space-around",alignItems:"center"
                             }}
                           >

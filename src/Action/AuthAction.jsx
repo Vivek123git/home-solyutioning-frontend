@@ -1,10 +1,10 @@
 import { commonAxios } from "../components/CommonAxios";
-import { onSetAlert } from "./AlertAction";
+import { onClearAlert, onSetAlert } from "./AlertAction";
 
 
 
 export const createAccount = (data, navigate) => (dispatch, getState) => {
-  localStorage.clear();
+  // localStorage.clear();
   commonAxios("ragister", data, dispatch)
     .then((res) => {
       const data = res.data;
@@ -30,19 +30,24 @@ export const loginAccount = (formData, navigate) => (dispatch, getState) => {
         navigate("/");
         //  localStorage.setItem("user", JSON.stringify(res.data));
         dispatch({ type: "LOGIN_SUCCESS", payload: data });
-        dispatch(onSetAlert("success",res.msg))
+        console.log("first")
+        dispatch(onSetAlert("success","Login successfully"))
+        
       } else {
         dispatch({ type: "LOGIN_FAILURE", error: data.error });
+        dispatch(onSetAlert("warning","Login failed please try again"))
       }
     })
     .catch((error) => {
       dispatch({ type: "LOGIN_FAILURE", error: error.message });
+      dispatch(onSetAlert("warning","Login failed please try again"))
     });
 };
 
 export const logOutUser=()=>(dispatch, getState)=>{
     dispatch({type:"LOG_OUT_USER"})
-    dispatch(onSetAlert("Log out successfully", "success"))
+    window.location.reload();
+    dispatch(onSetAlert("success", "Log out successfully"))
 }
 
 

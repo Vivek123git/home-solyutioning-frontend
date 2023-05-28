@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import {Container,Row,Col,Image,Form,Button,Table,} from "react-bootstrap";
+import { Container, Row, Col, Image, Form, Button, Table, } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import Navbar from "./Navbar/Navbar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useDispatch, useSelector } from "react-redux";
-import { onfetchUserrDetails } from "../Action/ServiceAction";
+import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails } from "../Action/ServiceAction";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state)=>state.login)
+  //  const userDetails = useSelector((state)=>state.login)
+  //  console.log(userDetails,"user")
+  const auth = JSON.parse(localStorage.getItem('state'))
+  const userDetails = auth.login.user
+
 
   const [rating, setRating] = useState({
     name: "",
@@ -18,7 +22,9 @@ const UserProfile = () => {
     rate: "",
   });
 
+  const [workerData, setWorkerData] = useState([])
   const [user, setUser] = useState([]);
+  const [workId , setWorkId] = useState("")
   const [image, setImage] = useState(
     "https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
   );
@@ -34,28 +40,46 @@ const UserProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-   
-  setRating((prevState) => ({ ...prevState, [name]: value }));
+
+    setRating((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleRatingChange = (newRating) => {
     setRating((prevState) => ({ ...prevState, rating: newRating }));
   };
 
-  const handleSubmit = () => {
-    let data = {...rating,}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let ratingPayload = new FormData();
+    ratingPayload.append("worker_id", workId)
+    ratingPayload.append("name", rating.name)
+    ratingPayload.append("description", rating.text)
+    ratingPayload.append("rating", rating.rate)
+    dispatch(onRating(ratingPayload))
   };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (id) =>{
+    setShow(true)
+    setWorkId(id)
+  };
 
   const fetchUserDetails = () => {
     dispatch(onfetchUserrDetails(setUser));
   };
 
+  const fetchWorkerDetails = () => {
+    let userPayload = new FormData();
+    userPayload.append("id", userDetails.id)
+    dispatch(onfetchWorkerBookingDetails(userPayload, setWorkerData));
+  };
+
+  console.log(workerData)
+
   useEffect(() => {
     fetchUserDetails();
+    fetchWorkerDetails();
   }, []);
 
   return (
@@ -78,8 +102,8 @@ const UserProfile = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <h5>Name : {userDetails.user.name}</h5>
-                  <p>Mobile No.: {userDetails.user.mobileNumber}</p>
+                  <h5>Name : {userDetails.name}</h5>
+                  <p>Mobile No.: {userDetails.mobileNumber}</p>
                 </Col>
                 <Col
                   xs={12}
@@ -137,24 +161,24 @@ const UserProfile = () => {
                             <button onClick={handleShow}>Rating</button>
                           </td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Service 2</td>
-                          <td>123456789</td>
-                          <td>Plumber</td>
-                          <td>2023-04-03</td>
-                          <td>Completed</td>
-                          <td>******</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Service 3</td>
-                          <td>123456789</td>
-                          <td>Elctrician</td>
-                          <td>2023-04-04</td>
-                          <td>Cancelled</td>
-                          <td>******</td>
-                        </tr>
+                        {workerData.length > 0 ?
+                          workerData.map((elem, id) => {
+                            return (
+                              <tr>
+                                <td>{elem.id}</td>
+                                <td>{elem.worker_name}</td>
+                                <td>{elem.worker_number}</td>
+                                <td>Elctrician</td>
+                                <td>{elem.worker_date}</td>
+                                <td>{elem.status}</td>
+                                <td>
+                                  <button onClick={()=>handleShow(elem.id)}>Rating</button>
+                                </td>
+                              </tr>
+                            )
+                          })
+                          :
+                          ""}
                       </tbody>
                     </Table>
                   </div>
@@ -194,13 +218,13 @@ const UserProfile = () => {
                               {rating.rating >= index + 1 ? (
                                 <BsStarFill
                                   className="star cursor-pointer"
-                                  style={{color:"#f5f508" , cursor:"pointer"}}
+                                  style={{ color: "#f5f508", cursor: "pointer" }}
                                   onClick={() => handleRatingChange(index + 1)}
                                 />
                               ) : (
                                 <BsStar
                                   className="star cursor-pointer"
-                                  style={{ cursor:"pointer"}}
+                                  style={{ cursor: "pointer" }}
                                   onClick={() => handleRatingChange(index + 1)}
                                 />
                               )}

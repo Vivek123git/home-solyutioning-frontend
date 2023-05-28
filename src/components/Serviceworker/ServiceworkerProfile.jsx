@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import Switch from "@mui/material/Switch";
 import { Row, Col,Table } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
-import { onfetchWorkerDetails } from "../../Action/ServiceAction";
+import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate } from "../../Action/ServiceAction";
 import { useDispatch, useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 const ServiceWorkerProfile = () => {
   const dispatch = useDispatch();
-  const workerDetails = useSelector((state) => state.workerAcc);
+  // const workerDetails = useSelector((state) => state.workerAcc);
 
-  console.log(workerDetails,"sdf")
+  const auth = JSON.parse(localStorage.getItem('state'))
+  const workerDetails = auth.workerAcc.worker
 
   const [checked, setChecked] = useState(false);
   const [status, setStatus] = useState("Available");
@@ -18,6 +19,7 @@ const ServiceWorkerProfile = () => {
   const [image, setImage] = useState(
     "https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
   );
+  const [userData,setUserData] = useState([])
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -29,13 +31,22 @@ const ServiceWorkerProfile = () => {
   };
 
   const handleChange = (e) => {
-    if (checked) {
-      setChecked(e.target.checked);
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setChecked(true);
       setStatus("Available");
     } else {
-      setChecked(e.target.checked);
+      setChecked(false);
       setStatus("Booked");
     }
+    statusUpdate(isChecked);
+  };
+  
+  const statusUpdate = (isChecked) => {
+    let statusPayload = new FormData();
+    statusPayload.append("id", workerDetails.id);
+    statusPayload.append("status", isChecked ? "1" : "0");
+    dispatch(onstatusUpdate(statusPayload));
   };
 
   const fetchWorkerDetails = () => {
@@ -43,11 +54,17 @@ const ServiceWorkerProfile = () => {
     dispatch(onfetchWorkerDetails(data, setWorker));
   };
 
+  const fetchUserDetails = () => {
+    let workerPayload = new FormData();
+        workerPayload.append("id", workerDetails.id)
+    dispatch(onfetchUserBookingDetails(workerPayload, setUserData));
+  };
+
   useEffect(() => {
     fetchWorkerDetails();
-  });
+    fetchUserDetails()
+  },[]);
 
-  console.log(workerDetails,"details")
 
   return (
     <>
@@ -69,8 +86,8 @@ const ServiceWorkerProfile = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <h5>Name : {workerDetails.worker.name}</h5>
-                  <p>Mobile No.: {workerDetails.worker.mobileNumber}</p>
+                  <h5>Name : {workerDetails.name}</h5>
+                  <p>Mobile No.: {workerDetails.mobileNumber}</p>
                   <div className="d-flex">
                     <h5>Status : </h5>
                     <h5
@@ -98,8 +115,8 @@ const ServiceWorkerProfile = () => {
                     <img
                       style={{ maxWidth: "200px" }}
                       src={
-                        workerDetails.worker.image
-                          ? workerDetails.worker.image
+                        workerDetails.image
+                          ? workerDetails.image
                           : image
                       }
                       roundedCircle
@@ -133,42 +150,33 @@ const ServiceWorkerProfile = () => {
                       <thead>
                         <tr>
                           <th>Booking ID</th>
-                          <th>ServiceWorker Name</th>
-                          <th>ServiceWorker Mobile No.</th>
-                          <th>Services</th>
+                          <th>User Name</th>
+                          <th>User Mobile No.</th>
+                          <th>User address</th>
+                          <th>Service</th>
                           <th>Date</th>
                           <th>Status</th>
                           <th>Rating</th>
                         </tr>
                       </thead>
                       <tbody>
+                        {userData.length>0?
+                        userData.map((elem,id)=>{
+                       return(
                         <tr>
                           <td>1</td>
-                          <td>Service 1</td>
-                          <td>123456789</td>
+                          <td>{elem.user_name}</td>
+                          <td>{elem.number}</td>
+                          <td>{elem.address}</td>
                           <td>Elctrician</td>
-                          <td>2023-04-02</td>
-                          <td>Pending</td>
+                          <td>{elem.date}</td>
+                          <td>{elem.status}</td>
                           <td>******</td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Service 2</td>
-                          <td>123456789</td>
-                          <td>Plumber</td>
-                          <td>2023-04-03</td>
-                          <td>Completed</td>
-                          <td>******</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Service 3</td>
-                          <td>123456789</td>
-                          <td>Elctrician</td>
-                          <td>2023-04-04</td>
-                          <td>Cancelled</td>
-                          <td>******</td>
-                        </tr>
+                       )
+                        })
+                        
+                        :""}
                       </tbody>
                     </Table>
                   </div>

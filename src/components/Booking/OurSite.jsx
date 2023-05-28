@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import {  useLocation, useNavigate } from "react-router";
 import { onBookingServiceman } from "../../Action/ServiceAction";
+import { fetchSubServicesData,onFetchServices } from "../../Action/ServiceAction";
 import { useDispatch } from "react-redux";
 import Navbar from "../Navbar/Navbar";
+import Multiselect from "multiselect-react-dropdown";
+import { onSetAlert } from "../../Action/AlertAction";
+import { CircularProgress } from "@mui/material";
+import Alert1 from "../Alert";
 
 function OurSite() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+   const auth = JSON.parse(localStorage.getItem("state"));
 
   const searchParams = new URLSearchParams(location.search);
   const name = searchParams.get("name");
@@ -24,32 +31,49 @@ function OurSite() {
     service:(type?`${type}`:""),
     description: (name?`${name}`:""),
     near: "",
-    pin: "",
+    pinCode: "",
+    id:""
   });
+  const [loader , setLoader] = useState(false)
+  const [servicesData, setServicesData] = useState([]);
+  const [skill,setSkill] = useState([])
 
   const handleSelect = (e) => {
     const { name, value } = e.target;
     setForm({
       ...form,
       [name]: value,
+      skills:[]
     });
   };
 
-  let data = JSON.stringify({
-    name: form.name,
-    service: form.service,
-    mobile: form.mobile,
-    description: form.description,
-    address: form.address,
-    state: form.state,
-    city: form.city,
-    landmark: form.near,
-    pincode: form.pincode,
-  });
+let data;
+  if(auth && auth.login && auth.login.isAuthenticated && auth.login.user){
+     data = JSON.stringify({
+      name: form.name,
+      service: form.service,
+      mobile: form.mobile,
+      description:  JSON.stringify(form.description),
+      address: form.address,
+      state: form.state,
+      city: form.city,
+      landmark: form.near,
+      pincode: form.pinCode,
+      id:auth.login.user.id
+    });
+  }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(onBookingServiceman(data));
+    setLoader(true)
+    if(auth && auth.login && auth.login.isAuthenticated && auth.login.user){
+      dispatch(onBookingServiceman(data,setLoader,setForm,form));
+    }else{
+      dispatch(onSetAlert("Please login then book the form", "warning"))
+      console.log("logout")
+    }
+    
   };
 
   const handlehange = (e) => {
@@ -59,6 +83,30 @@ function OurSite() {
       [name]: value,
     });
   };
+
+
+  const options = skill.map((elem) => ({ name: elem.heading, id: elem.id }));
+
+  function onSelect(selectedList, selectedItem) {
+    setForm({...form,description:selectedList})
+  }
+  
+
+  function onRemove(selectedList, removedItem) {
+    setForm({...form,description:selectedList.id})
+  }
+
+  useEffect(()=>{
+    dispatch(onFetchServices(setServicesData,{}))
+  },[])
+
+  let formDataFetch = new FormData(); 
+  formDataFetch.append("id",form.service ); 
+
+  useEffect(()=>{
+    dispatch(fetchSubServicesData(formDataFetch,setSkill))
+   },[form.service])
+
   return (
     <>
       <Helmet>
@@ -69,6 +117,7 @@ function OurSite() {
         />
       </Helmet>
     {name?<Navbar/>:""}
+    <Alert1/>
     <section className="contact-section ">
       <div className="container">
         <div className="row">
@@ -122,22 +171,21 @@ function OurSite() {
                     {name?<option value="1">{form.service}</option>
                     :
                      <>
-                     <option value="">Select a Service</option>
-                     <option value={1}>Electrician</option>
-                     <option value={2}>Plumbing</option>
-                     <option value={3}>AC Technician</option>
-                     <option value={4}>RO Services</option>
-                     <option value={5}>CCTV Services</option>
-                     <option value={6}>BroadBand Services</option></> }
+                     <option value="">Select an option</option>
+                      {servicesData.map((elem,id)=>{
+                            return(
+                              <option value={elem.id}>{elem.type}</option>
+                            )
+                          })}</> }
                   </Form.Control>
                 </Form.Group>
               </div>
               <div className="col-md-12 p-2">
                 <Form.Group controlId="formDescription" className="input_wrap ">
                   <Form.Label>
-                    {name?"Service that you want":"Write a sort Description of your problem"}
+                    {name?"Service that you want":"Select your problem"}
                   </Form.Label>
-                  <Form.Control
+              {name ? <Form.Control
                     as="textarea"
                     rows={3}
                     placeholder="Enter a description"
@@ -145,7 +193,14 @@ function OurSite() {
                     value={form.description}
                     readOnly={name ? true : false}
                     onChange={(e) => handlehange(e)}
-                  />
+                  />:
+                  <Multiselect
+                          options={options}
+                          selectedValues={form.description}
+                          onSelect={onSelect}
+                          onRemove={onRemove}
+                          displayValue="name"
+                        />}
                 </Form.Group>
               </div>
               <div className="col-md-12 p-2">
@@ -203,8 +258,8 @@ function OurSite() {
                   <Form.Control
                     type="text"
                     placeholder="Enter Pin Code"
-                    name="pin"
-                    value={form.pin}
+                    name="pinCode"
+                    value={form.pinCode}
                     onChange={(e) => handlehange(e)}
                   />
                 </Form.Group>
@@ -216,6 +271,7 @@ function OurSite() {
                   style={{ width: "26%", height: "60px" }}
                 >
                   Submit
+                  {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'inherit',marginLeft:"0px"}}/>:""}
                 </Button>
               </div>
             </div>

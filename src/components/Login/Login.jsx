@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {Form, Button } from "react-bootstrap";
-import HOMOSOLUTION from "../../img/HOMOSOLUTION.png";
+import HOMOSOLUTION from "../../img/logo.png";
 import "../../../src/App.css";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { loginAccount } from "../../Action/AuthAction";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,9 @@ import { onSetAlert } from "../../Action/AlertAction";
 
 const Login = () => {
   const navigate = useNavigate();
+  // const location = useLocation();
+  // console.log(location.state)
+ 
   const dispatch = useDispatch();
   const auth = JSON.parse(localStorage.getItem('state'))
 
@@ -44,22 +47,23 @@ const [loader,setLoader] = useState(false)
   };
 
   useEffect(()=>{
-      dispatch(onSetAlert("If you are not login first logged in","danger"))
+      dispatch(onSetAlert("warning","Please login first then start booking technician"))
   },[])
 
   return (
     <>
-    <Alert1/>
+      
       <div className="container-fluid main_bg">
         <div className="row">
           <div className="col-md-12">
+          <Alert1/>
             <div className="logo">
               <img src={HOMOSOLUTION} />
             </div>
           </div>
           <div className="col-md-12">
             <div className="header p-4">
-              <h1 style={{ fontSize: "33px" }}>
+              <h1 style={{ fontSize: "25px" }}>
                 Welcome to Our Home Services Website
               </h1>
             </div>
@@ -109,18 +113,18 @@ const [loader,setLoader] = useState(false)
                       
                       <div className="col-md-12">
                         <div className="login_btn">
-                          <div className="d-flex justify-content-center align-items-baseline">
-                            <p className="mb-0"> If you dont have account</p>
+                          <div className="d-flex  align-items-baseline">
+                            <p className="mb-0"> If you don't have account ?</p>
                             
-                            <Button
+                            <a
                               variant="primary"
                               
                               onClick={(e)=>handleSubmit(e,"create")}
                               
-                              className="ms-2"
+                              style={{cursor:"pointer"}}
                             >
-                              Create
-                            </Button>
+                              Create it
+                            </a>
                             
                           </div>
                           <Button
@@ -128,12 +132,12 @@ const [loader,setLoader] = useState(false)
                            
                             onClick={(e)=>handleSubmit(e,"login")}
                             style={{
-                              width: "30%",
+                              width: "100%",
                               height: "60px",display:"flex",justifyContent:"space-around",alignItems:"center"
                             }}
                           >
                             Login
-                            {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'inherit',marginLeft:"0px"}}/>:""}
+                            {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'absolute',marginLeft:"200px"}}/>:""}
                           </Button>
                         </div>
                       </div>

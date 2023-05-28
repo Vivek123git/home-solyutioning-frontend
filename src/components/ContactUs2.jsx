@@ -1,15 +1,44 @@
-import React from 'react'
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import React,{useState} from 'react'
+import { Form, Button } from "react-bootstrap";
 import Footer from './Footer/Footer';
 import Navbar from './Navbar/Navbar'
+import { useDispatch } from 'react-redux';
+import { onContactSubmit } from '../Action/ServiceAction';
 
 const ContactUs2 = () => {
+  const dispatch = useDispatch()
 
-  const handleSubmit=()=>{
+  const [socialLinks, setSocialLinks] = useState({
+    facebook: 'https://www.facebook.com/your-page',
+    whatsapp: 'https://wa.me/9140734396',
+    instagram: 'https://www.instagram.com/vivekk_upadhyay',
+    twitter: 'https://twitter.com/your-handle',
+    linkedin: 'https://www.linkedin.com/in/your-profile',
+  });
+  const [form , setForm] = useState({
+    name:"",
+    mobile:"",
+    message:""
+  })
+  const [loader , setLoader] = useState(false)
 
+  let formDataLogin = new FormData();
+  formDataLogin.append("name",form.name)
+  formDataLogin.append("message",form.message)
+  formDataLogin.append("contact",form.mobile)
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    setLoader(true)
+  dispatch(onContactSubmit(formDataLogin,setLoader))
   }
 
-  const handlehange=()=>{
+  const handlehange=(e)=>{
+    const {name,value} = e.target;
+   setForm({
+    ...form,
+    [name]:value
+   })
 
   }
 
@@ -21,16 +50,16 @@ const ContactUs2 = () => {
       <div className="container">
         <div className="row">
           <div className="contact_heading text-center py-4">
-            <h3>Get intouch !</h3>
+            <h3>Get in touch !</h3>
           </div>
         </div>
       </div>
       <div className="mt-3 icon-Btn">
-        <a href="#" className="me-3"><span id="boot-icon" className="bi bi-envelope" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1", margin:"10px"}}></span></a>
-        <a href="#" className="me-3"><i className="bi bi-linkedin" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
-        <a href="#" className="me-3"><i className="bi bi-whatsapp" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
-        <a href="#" className="me-3"><i className="bi bi-telephone" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
-        <a href="#" className="me-3"><i className="bi bi-instagram" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1", margin:"10px"}}></i></a>
+        <a href={socialLinks.whatsapp} target='blank' className="me-3"><span id="boot-icon" className="bi bi-whatsapp" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1", margin:"10px"}}></span></a>
+        <a href={socialLinks.linkedin} target='blank' className="me-3"><i className="bi bi-linkedin" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
+        <a href={socialLinks.twitter} target='blank' className="me-3"><i className="bi bi-twitter" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
+        <a href={socialLinks.facebook} target='blank' className="me-3"><i className="bi bi-facebook" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>
+        <a href={socialLinks.instagram} target='blank' className="me-3"><i className="bi bi-instagram" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1", margin:"10px"}}></i></a>
       </div>
       <div className="row justify-content-center contact-container">
         <div className="col-md-9">
@@ -52,7 +81,7 @@ const ContactUs2 = () => {
                     type="text"
                     placeholder="Enter name"
                     name="name"
-                    // value={form.name}
+                    value={form.name}
                     onChange={(e) => handlehange(e)}
                   />
                 </Form.Group>
@@ -64,7 +93,7 @@ const ContactUs2 = () => {
                     type="text"
                     placeholder="Enter mobile number"
                     name="mobile"
-                    // value={form.mobile}
+                    value={form.mobile}
                     onChange={(e) => handlehange(e)}
                   />
                 </Form.Group>
@@ -75,8 +104,8 @@ const ContactUs2 = () => {
                   <Form.Control
                     type="text"
                     placeholder="write a messager"
-                    name="mobile"
-                    // value={form.mobile}
+                    name="message"
+                    value={form.message}
                     onChange={(e) => handlehange(e)}
                   />
                 </Form.Group>

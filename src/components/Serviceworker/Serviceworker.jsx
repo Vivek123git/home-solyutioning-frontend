@@ -63,29 +63,23 @@ function ServiceWorker() {
       ...form,
       [name]: value,
     });
-    const file = e.target.files[0];
+
+   
   
     if (name === "image") {
+      const file = e.target.files[0];
       if (file) {
         setForm({ ...form, img: file });
       }
     } else if (name === "aadhar") {
+      const file = e.target.files[0];
       if (file) {
         setForm({ ...form, aadhar: file });
       }
     }
   };
 
-  let formData = new FormData(); //formdata object
-
-  formData.append("name", form.name);
-  formData.append("service", form.service);
-  formData.append("skill", JSON.stringify(form.skills));
-  formData.append("mobile", form.mobile);
-  formData.append("address", form.address);
-  formData.append("password", form.password);
-  formData.append("image", form.img);
-  formData.append("file", form.aadhar);
+ 
 
   let formDataFetch = new FormData(); 
   formDataFetch.append("id",form.service ); 
@@ -99,6 +93,18 @@ function ServiceWorker() {
   },[])
 
   const handleSubmit = (e,type) => {
+
+    let formData = new FormData(); //formdata object
+
+    formData.append("name", form.name);
+    formData.append("service", form.service);
+    formData.append("skill", JSON.stringify(form.skills));
+    formData.append("mobile", form.mobile);
+    formData.append("address", form.address);
+    formData.append("password", form.password);
+    formData.append("image", form.img);
+    formData.append("file", form.aadhar);
+
     e.preventDefault();
     if(type==="submit"){ 
     setLoader(true)
