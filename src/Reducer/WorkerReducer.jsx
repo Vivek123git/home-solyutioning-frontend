@@ -6,6 +6,8 @@ let auth = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('stat
   worker:null,
 }
 
+console.log(auth,"worker")
+
 const initialState = {
   isAuthenticated: auth && auth.isAuthenticated ? auth.isAuthenticated : false,
   error: auth && auth.error ? auth.error : null,
@@ -16,7 +18,6 @@ const WorkerReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case "LOGIN_SUCCESS_WORKER":
-      console.log(action.payload,"payload");
         return produce(state, (draftState) => {
           draftState.isAuthenticated = true;
           draftState.worker = action.payload;

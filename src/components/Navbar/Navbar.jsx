@@ -9,7 +9,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 import { onFetchServices } from "../../Action/ServiceAction";
 import { logOutUser } from "../../Action/AuthAction";
-import { loginWorkerAccount } from "../../Action/WorkerAuth";
+import { logOutWorker, loginWorkerAccount } from "../../Action/WorkerAuth";
 import { useDispatch } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 
@@ -69,6 +69,11 @@ function NavbarHead() {
     dispatch(logOutUser())
   };
 
+  const handleSignOutWorker = () =>{
+    console.log("worker")
+    dispatch(logOutWorker())
+  }
+
   useEffect(() => {
     fetchServiceData();
   }, []);
@@ -117,13 +122,27 @@ function NavbarHead() {
                   Home
                 </NavLink>
 
-                <Nav.Link
-                  onClick={handleShow}
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  Technician Account
-                </Nav.Link>
+              
+                {auth && auth.workerAcc && auth.workerAcc.isAuthenticated ? (
+                <NavDropdown title="Technician Account" id="basic-nav-dropdown">
+                    
+                      <>
+                        <NavDropdown.Item as={Link} to="/serviceworkerProfile">
+                          Profile
+                        </NavDropdown.Item>
+                        <NavDropdown.Item onClick={handleSignOutWorker}>
+                          Sign out
+                        </NavDropdown.Item>
+                      </>
+                      </NavDropdown> ) :  
+                     <Nav.Link
+                    onClick={handleShow}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    Technician Account
+                  </Nav.Link>}
+                  
 
                 <NavDropdown
                   title="Our Services"
@@ -173,9 +192,9 @@ function NavbarHead() {
                         <NavDropdown.Item as={Link} to="/userProfile">
                           Profile
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={Link} to="/dashboard">
+                        {auth.login.user.isDeleted==="1"?<NavDropdown.Item as={Link} to="/dashboard">
                           Dashboard
-                        </NavDropdown.Item>
+                        </NavDropdown.Item>:""}
                         <NavDropdown.Item onClick={handleSignOut}>
                           Sign out
                         </NavDropdown.Item>

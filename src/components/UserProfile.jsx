@@ -139,10 +139,10 @@ const UserProfile = () => {
                   <div className="userTable" style={{ overflow: "auto" }}>
                     <Table striped bordered hover>
                       <thead>
-                        <tr>
+                        <tr >
                           <th>Booking ID</th>
-                          <th>ServiceWorker Name</th>
-                          <th>ServiceWorker Mobile No.</th>
+                          <th>Technician Name</th>
+                          <th>Technician Mobile No.</th>
                           <th>Services</th>
                           <th>Date</th>
                           <th>Status</th>

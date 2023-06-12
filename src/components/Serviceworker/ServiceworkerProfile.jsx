@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate } from "../../Action/ServiceAction";
 import { useDispatch, useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { Select } from "@mui/material";
 
 const ServiceWorkerProfile = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const ServiceWorkerProfile = () => {
 
   const [checked, setChecked] = useState(false);
   const [status, setStatus] = useState("Available");
+  const [workStatus , setWorkStatus] = useState("")
   const [worker, setWorker] = useState([]);
   const [image, setImage] = useState(
     "https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
@@ -170,7 +172,13 @@ const ServiceWorkerProfile = () => {
                           <td>{elem.address}</td>
                           <td>Elctrician</td>
                           <td>{elem.date}</td>
-                          <td>{elem.status}</td>
+                          <td>
+                            <select onChange={(e)=>setWorkStatus(e.target.value)}>
+                              <option value={""}>Select a option</option>
+                              <option value={"accept"}> Accept</option>
+                              <option value={"reject"}>Reject</option>
+                            </select>
+                          </td>
                           <td>******</td>
                         </tr>
                        )

@@ -9,10 +9,11 @@ const options = {
   },
 };
 
-export const onBookingServiceman = (data,setLoader,setForm, form) => (dispatch, getState) => {
+export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (dispatch, getState) => {
   commonAxios("booking", data, dispatch)
     .then((res) => {
       if (res.status) {
+        navigate("/")
         console.log("success");
       } else {
         console.log("failure");

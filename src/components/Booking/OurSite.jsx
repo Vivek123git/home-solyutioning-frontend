@@ -68,7 +68,7 @@ let data;
     e.preventDefault();
     setLoader(true)
     if(auth && auth.login && auth.login.isAuthenticated && auth.login.user){
-      dispatch(onBookingServiceman(data,setLoader,setForm,form));
+      dispatch(onBookingServiceman(data,setLoader,setForm,form ,navigate));
     }else{
       dispatch(onSetAlert("Please login then book the form", "warning"))
       console.log("logout")

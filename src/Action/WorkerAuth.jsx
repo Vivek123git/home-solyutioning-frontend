@@ -5,6 +5,8 @@ import { onSetAlert } from "./AlertAction";
 
 export const logOutWorker=()=>(dispatch, getState)=>{
     dispatch({type:"LOG_OUT_WORKER"})
+    window.location.reload();
+    dispatch(onSetAlert("success", "Log out successfully"))
 }
 
 export const loginWorkerAccount = (formData, navigate) => (dispatch, getState) => {

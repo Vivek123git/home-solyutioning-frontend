@@ -38,11 +38,11 @@ function App() {
             {/* <Route exact path="/electrician" element={<Electrician />} />
             <Route exact path="/plumber" element={<Plumber />} />
             <Route exact path="/actech" element={<PrivateComponent><Actech /></PrivateComponent>} />*/}
-            <Route exact path="/byown" element={<PrivateComponent><ByOwn /></PrivateComponent>} />
-            <Route exact path="/oursite" element={<PrivateComponent><OurSite /></PrivateComponent>} />
+            <Route exact path="/byown" element={<PrivateComponent checkUserAuth={true}><ByOwn /></PrivateComponent>} />
+            <Route exact path="/oursite" element={<PrivateComponent checkUserAuth={true}><OurSite /></PrivateComponent>} />
             <Route exact path="/serviceworker" element={<ServiceWorker />} />
-            <Route exact path="/serviceworkerprofile" element={<PrivateComponent><ServiceWorkerProfile /></PrivateComponent>} />
-            <Route exact path="/userprofile" element={<PrivateComponent><UserProfile /></PrivateComponent>} />
+            <Route exact path="/serviceworkerprofile" element={<PrivateComponent checkUserAuth={false}><ServiceWorkerProfile /></PrivateComponent>} />
+            <Route exact path="/userprofile" element={<PrivateComponent checkUserAuth={true}><UserProfile /></PrivateComponent>} />
             <Route exact path="/servicecard" element={<ServiceCard />} />
             <Route exact path="/contactus" element={<ContactUs2 />} />
             <Route exact path="/aboutus" element={<About />} />

@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 const Alert1 = () => {
     const [showAlert, setShowAlert] = useState(true);
     const alert = useSelector((state) => state.alert);
-    console.log(alert,"alert")
-   
 
     useEffect(() => {
         if(alert.msg && alert !== undefined && alert !== null && alert.msg !== undefined){
