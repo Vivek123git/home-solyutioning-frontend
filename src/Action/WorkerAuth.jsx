@@ -9,7 +9,7 @@ export const logOutWorker=()=>(dispatch, getState)=>{
     dispatch(onSetAlert("success", "Log out successfully"))
 }
 
-export const loginWorkerAccount = (formData, navigate) => (dispatch, getState) => {
+export const loginWorkerAccount = (formData, navigate,setLoader) => (dispatch, getState) => {
   commonAxios("login-worker", formData, dispatch)
     .then((res) => {
       const data = res.data;
@@ -22,6 +22,7 @@ export const loginWorkerAccount = (formData, navigate) => (dispatch, getState) =
         dispatch({ type: "LOGIN_FAILURE_WORKER", error: data.error });
       }
     })
+    setLoader(false)
     .catch((err) => {
       console.log(err);
       dispatch({ type: "LOGIN_FAILURE_WORKER", err: err.message });

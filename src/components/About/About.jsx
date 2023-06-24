@@ -71,10 +71,9 @@ function About() {
               <Card>
                 <CardImg top src={team} alt="About Us" />
                 <CardBody>
-                  <CardTitle tag="h5">Director</CardTitle>
+                  <CardTitle tag="h5">Founder and CEO</CardTitle>
                   <CardText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    auctor ipsum vitae turpis elementum pharetra.
+                  <span className="text-bold">Vivek Upadhyay</span>, a dynamic and visionary entrepreneur, is the proud Founder and CEO of Repairinminute, a leading-edge organization at the forefront of innovation.
                   </CardText>
                   <div className="d-flex align-items-center">
                     <FaEnvelope className="mr-2" />
@@ -93,7 +92,7 @@ function About() {
               <Card>
                 <CardImg top src={team} alt="About Us" />
                 <CardBody>
-                  <CardTitle tag="h5">Manager</CardTitle>
+                  <CardTitle tag="h5">Software Engineer</CardTitle>
                   <CardText>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     auctor ipsum vitae turpis elementum pharetra.
@@ -113,7 +112,7 @@ function About() {
               <Card>
                 <CardImg top src={team} alt="About Us" />
                 <CardBody>
-                  <CardTitle tag="h5">CEO</CardTitle>
+                  <CardTitle tag="h5">Manager</CardTitle>
                   <CardText>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     auctor ipsum vitae turpis elementum pharetra.

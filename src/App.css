@@ -212,8 +212,17 @@ h1 {
 
 .logo {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   padding-top: 10px;
+  background-color: cornflowerblue;
+  padding-bottom: 10px;
+}
+.logo_div{
+ 
+    background-color: cornflowerblue;
+    display: flex;
+    justify-content: center;
 }
 .logo img {
   width: 200px;
@@ -560,11 +569,8 @@ swiper-slide img {
   padding: 20px;
   border-radius: 25px; */
 
-  height: 210px;
-    object-fit: cover;
-    /* padding: 11px; */
-    /* border-radius: 25px;*/
-  
+  height: 100%;
+  object-fit: cover;
 }
 
 .main-section .card-img-top:hover {
@@ -1006,4 +1012,20 @@ font-size: large;
 .searchWrapper {
   border: 0px solid #71a1e9 !important;
   border-radius: 8px !important;
+}
+
+.google_btn{
+  background-color: rgb(255, 255, 255);
+  display: inline-flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  padding: 0px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+  width: 100% !important;
+  justify-content: center !important;
+  color: black !important;
+  border-radius: 5px !important;
 }

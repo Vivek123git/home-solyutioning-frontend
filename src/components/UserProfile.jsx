@@ -10,8 +10,6 @@ import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails } from "../A
 const UserProfile = () => {
   const dispatch = useDispatch();
 
-  //  const userDetails = useSelector((state)=>state.login)
-  //  console.log(userDetails,"user")
   const auth = JSON.parse(localStorage.getItem('state'))
   const userDetails = auth.login.user
 
@@ -54,7 +52,7 @@ const UserProfile = () => {
     ratingPayload.append("worker_id", workId)
     ratingPayload.append("name", rating.name)
     ratingPayload.append("description", rating.text)
-    ratingPayload.append("rating", rating.rate)
+    ratingPayload.append("rating", rating.rating)
     dispatch(onRating(ratingPayload))
   };
 
@@ -74,8 +72,6 @@ const UserProfile = () => {
     userPayload.append("id", userDetails.id)
     dispatch(onfetchWorkerBookingDetails(userPayload, setWorkerData));
   };
-
-  console.log(workerData)
 
   useEffect(() => {
     fetchUserDetails();
@@ -233,6 +229,7 @@ const UserProfile = () => {
                         </Row>
                       </Form.Group>
                       <Button variant="primary" type="submit">
+                        
                         Submit
                       </Button>
                     </Form>

@@ -3,7 +3,7 @@ import { onClearAlert, onSetAlert } from "./AlertAction";
 
 
 
-export const createAccount = (data, navigate) => (dispatch, getState) => {
+export const createAccount = (data, navigate,setLoader) => (dispatch, getState) => {
   // localStorage.clear();
   commonAxios("ragister", data, dispatch)
     .then((res) => {
@@ -15,14 +15,16 @@ export const createAccount = (data, navigate) => (dispatch, getState) => {
       } else {
         dispatch({ type: "LOGIN_FAILURE", error: data.error });
       }
+      setLoader(false)
     })
     .catch((error) => {
       console.log(error);
       dispatch({ type: "LOGIN_FAILURE", error: error.message });
+      setLoader(false)
     });
 };
 
-export const loginAccount = (formData, navigate) => (dispatch, getState) => {
+export const loginAccount = (formData, navigate,setLoader) => (dispatch, getState) => {
   commonAxios("login-user", formData, dispatch)
     .then((res) => {
       const data = res.data;
@@ -30,17 +32,19 @@ export const loginAccount = (formData, navigate) => (dispatch, getState) => {
         navigate("/");
         //  localStorage.setItem("user", JSON.stringify(res.data));
         dispatch({ type: "LOGIN_SUCCESS", payload: data });
-        console.log("first")
         dispatch(onSetAlert("success","Login successfully"))
         
       } else {
         dispatch({ type: "LOGIN_FAILURE", error: data.error });
         dispatch(onSetAlert("warning","Login failed please try again"))
       }
+
+           setLoader(false)
     })
     .catch((error) => {
       dispatch({ type: "LOGIN_FAILURE", error: error.message });
       dispatch(onSetAlert("warning","Login failed please try again"))
+           setLoader(false)
     });
 };
 

@@ -38,12 +38,6 @@ function Service() {
    navigate(`/servicecard?sId=${show.id}&name=${show.type}&id=${modalId}`  )
   };
 
-  const [state, setState] = useState({
-    image: "",
-    heading: "",
-    paragraph: "",
-  });
-
   const [service, setService] = useState([]);
 
   const fetchServiceData = () => {
@@ -78,7 +72,7 @@ function Service() {
                           {/* <Link to={`/servicecard?name=${elem.heading}`}> */}
                             <div className="service_btn text-center pb-3" >
                               <Button variant="primary" onClick={()=>handleShow(elem.id,elem.type)}>
-                                Show more
+                                Start Booking
                               </Button>
                             </div>
                           {/* </Link> */}

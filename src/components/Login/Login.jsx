@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import {Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import HOMOSOLUTION from "../../img/logo.png";
 import "../../../src/App.css";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { GoogleLogin } from 'react-google-login';
 import { Link } from "react-router-dom";
 import { loginAccount } from "../../Action/AuthAction";
 import { useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import Alert1 from "../Alert";
-import { useEffect } from "react";
-import { onSetAlert } from "../../Action/AlertAction";
 
 const Login = () => {
   const navigate = useNavigate();
   // const location = useLocation();
   // console.log(location.state)
- 
+
   const dispatch = useDispatch();
   const auth = JSON.parse(localStorage.getItem('state'))
 
@@ -23,7 +22,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-const [loader,setLoader] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,35 +32,36 @@ const [loader,setLoader] = useState(false)
     });
   };
   let formDataLogin = new FormData();
-  formDataLogin.append("email",formData.email)
-  formDataLogin.append("password",formData.password)
+  formDataLogin.append("email", formData.email)
+  formDataLogin.append("password", formData.password)
 
-  const handleSubmit = (e,type) => {
+  const handleSubmit = (e, type) => {
     e.preventDefault();
-    if(type==="create"){
+    if (type === "create") {
       navigate("/create")
-    }else{
+    } else {
       setLoader(true)
-      dispatch(loginAccount(formDataLogin,navigate))
+      dispatch(loginAccount(formDataLogin, navigate,setLoader))
     }
   };
 
-  useEffect(()=>{
-      dispatch(onSetAlert("warning","Please login first then start booking technician"))
-  },[])
+  const responseGoogle = (response) => {
+    // Handle the response from Google login
+    console.log(response);
+  };
 
   return (
     <>
-      
+
       <div className="container-fluid main_bg">
         <div className="row">
-          <div className="col-md-12">
-          <Alert1/>
+          <div className="col-md-12 p-0">
+            <Alert1 />
             <div className="logo">
               <img src={HOMOSOLUTION} />
             </div>
           </div>
-          <div className="col-md-12">
+          <div className="col-md-12 ">
             <div className="header p-4">
               <h1 style={{ fontSize: "25px" }}>
                 Welcome to Our Home Services Website
@@ -77,7 +77,7 @@ const [loader,setLoader] = useState(false)
                   <hr style={{ color: "#0062cc" }} />
                   <Form>
                     <div className="row">
-                      
+
                       <div className="col-md-12 p-2">
                         <Form.Group
                           controlId="formMobile"
@@ -110,41 +110,51 @@ const [loader,setLoader] = useState(false)
                           />
                         </Form.Group>
                       </div>
-                      
+
                       <div className="col-md-12">
                         <div className="login_btn">
                           <div className="d-flex  align-items-baseline">
                             <p className="mb-0"> If you don't have account ?</p>
-                            
+
                             <a
                               variant="primary"
-                              
-                              onClick={(e)=>handleSubmit(e,"create")}
-                              
-                              style={{cursor:"pointer"}}
+
+                              onClick={(e) => handleSubmit(e, "create")}
+
+                              style={{ cursor: "pointer" }}
                             >
                               Create it
                             </a>
-                            
+
                           </div>
                           <Button
                             variant="primary"
-                           
-                            onClick={(e)=>handleSubmit(e,"login")}
+
+                            onClick={(e) => handleSubmit(e, "login")}
                             style={{
                               width: "100%",
-                              height: "60px",display:"flex",justifyContent:"space-around",alignItems:"center"
+                              height: "60px", display: "flex", justifyContent: "space-around", alignItems: "center"
                             }}
                           >
                             Login
-                            {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'absolute',marginLeft:"200px"}}/>:""}
+                            {loader ? <CircularProgress className="spinner_icon" style={{ color: "white", height: "30px", width: "30px", position: 'absolute', marginLeft: "200px" }} /> : ""}
                           </Button>
                         </div>
                       </div>
-                      <Link to="/forget-password" className="mb-0 d-flex fgtPass" >Forget password</Link>
+                      <Link to="/forget-password" className="mb-0 d-flex fgtPass" >Forget password?</Link>
+                      <div>
+                        <GoogleLogin
+                        className="google_btn"
+                          clientId="384608491688-p5pbvda9h7mfklit55gfm880tqlgbu1p.apps.googleusercontent.com"
+                          buttonText="Login with Google"
+                          onSuccess={responseGoogle}
+                          onFailure={responseGoogle}
+                          cookiePolicy={'single_host_origin'}
+                        /></div>
                     </div>
                   </Form>
                 </div>
+
               </div>
             </div>
           </div>

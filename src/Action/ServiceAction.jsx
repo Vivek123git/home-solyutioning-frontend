@@ -169,6 +169,19 @@ export const onstatusUpdate=(data)=>(dispatch,getState)=>{
   });
 }
 
+export const onWorkerStatus=(data)=>(dispatch,getState)=>{
+  commonAxios("booking-status", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      dispatch(onSetAlert(res.msg,"success"))
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+ 
+}
+
 // UserProfile page...................................................................................
 export const onfetchUserrDetails = (data, setUser) => (dispatch, getState) => {
   commonAxios("", data, dispatch, getState)
@@ -183,7 +196,7 @@ export const onfetchUserrDetails = (data, setUser) => (dispatch, getState) => {
 };
 
 export const onRating = (data) => (dispatch, getState) => {
-  commonAxios("worker-rating", data, dispatch, getState)
+  commonAxios("rating", data, dispatch, getState)
     .then((res) => {
       if (res.status) {
         dispatch(onSetAlert("success" , "rating Successfully"))
@@ -250,6 +263,19 @@ export const onFetchAllWorker=(setWorkerData,data)=>(dispatch,getState)=>{
       setWorkerData(res.data)
     }else{
       // dispatch(onSetAlert(res.msg, "warning"));
+    }
+  })
+  .catch((err)=>{
+    dispatch(onSetAlert("warning", "Data not send"))
+  })
+}
+
+export const onFetchBookingStatus = (data,setBookingStatus)=>(dispatch,getState)=>{
+  commonAxios("fetch-booking-status",data,dispatch,getState)
+  .then((res)=>{
+    console.log(res.data[0].booking_status,"res")
+    if(res.status){
+      setBookingStatus(res.data[0].booking_status)
     }
   })
   .catch((err)=>{

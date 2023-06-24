@@ -18,21 +18,10 @@ import { onClearAlert, onSetAlert } from "../Action/AlertAction";
 
 function Header() {
 
-  const dispatch = useDispatch()
-  // const auth = JSON.parse(localStorage.getItem("state"));
-
   useEffect(()=>{
     window.scrollTo(0, 0);
   },[])
 
-//   useEffect(()=>{
-//    if(auth && auth.login && auth.login.isAuthenticated){
-//     dispatch(onClearAlert())
-//    }else{
-//     dispatch(onSetAlert("warning","Please login first then start booking technician"))
-//    }
-    
-// },[])
 
   return (
 <>  
@@ -42,6 +31,8 @@ function Header() {
         <title>Repairinminute | Home Services</title>
         <meta name='description' content='Book your electrician, plumber, ac technician, ro technician , broadband technician, cctv technician at one platform' />
       </Helmet>
+
+      <div>
       <Navbar />
       
       <div className="container-fluid p-0">
@@ -140,6 +131,7 @@ function Header() {
         </div>
         <ChatBotrobo />
       </section>
+      </div>
     </HelmetProvider>
     </>
   );

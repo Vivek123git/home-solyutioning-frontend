@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import HOMOSOLUTION from "../../img/logo.png";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { createAccount } from "../../Action/AuthAction";
+import { CircularProgress } from "@mui/material";
 
 const CreateLogin = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const CreateLogin = () => {
     cnfPassword: "",
   });
   const [msg, setMsg] = useState(false);
-  console.log(formData.cnfPassword);
+const [loader , setLoader] = useState(false)
 
   const handleChange = (e) => {
     setMsg(false);
@@ -39,10 +39,11 @@ const CreateLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoader(true)
     if (formData.password !== formData.cnfPassword) {
       setMsg(true);
     } else {
-      dispatch(createAccount(data, navigate));
+      dispatch(createAccount(data, navigate,setLoader));
     }
   };
 
@@ -50,7 +51,7 @@ const CreateLogin = () => {
     <>
       <div className="container-fluid main_bg">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 p-0">
             <div className="logo">
               <img src={HOMOSOLUTION} />
             </div>
@@ -150,6 +151,7 @@ const CreateLogin = () => {
 
                       <Button variant="primary" type="submit" style={{width:'100%',height:"60px", margin:"25px auto",}}>
                         Submit
+                        {loader ? <CircularProgress className="spinner_icon" style={{ color: "white", height: "30px", width: "30px", position: 'absolute', marginLeft: "200px" }} /> : ""}
                       </Button>
                     </div>
                   </Form>

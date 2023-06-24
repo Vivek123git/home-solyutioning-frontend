@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Table } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { onFetchAllBooking, onFetchAllWorker, onSendUserData, onSendWorkerData } from '../Action/ServiceAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { onFetchAllBooking, onFetchAllWorker, onFetchBookingStatus, onSendUserData, onSendWorkerData } from '../Action/ServiceAction';
 import NavbarHead from './Navbar/Navbar';
 import { CircularProgress } from "@mui/material";
 import Footer from './Footer/Footer';
@@ -16,12 +16,10 @@ const Dashboard = () => {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
-    console.log(formattedDate);
-
-
     const [workerData, setWorkerData] = useState([]);
     const [bookingData, setBookingData] = useState([]);
     const [userData, setUserData] = useState([]);
+    const [bookingStatus,setBookingStatus] = useState()
 
     const handleSendWorker = (elem) => {
         let sendUserData = new FormData();
@@ -38,7 +36,9 @@ const Dashboard = () => {
         let sendWorkerData = new FormData();
         sendWorkerData.append('user_id', auth.login.user.id);
         sendWorkerData.append('worker_name', userData.name);
-        sendWorkerData.append('worker_service', userData.address);
+        sendWorkerData.append('worker_id', userData.id);
+        sendWorkerData.append('worker_address', userData.address);
+        sendWorkerData.append('worker_service', userData.service);
         sendWorkerData.append('worker_number', userData.mobileNumber);
         sendWorkerData.append('status', '0');
         sendWorkerData.append('rating', '5');
@@ -58,7 +58,15 @@ const Dashboard = () => {
         dispatch(onFetchAllWorker(setWorkerData, workerPayload));
     };
 
+    // const fetchBookingStatus = () =>{
+    //     let bookingStatusPayload = new FormData();
+    //     bookingStatusPayload.append('id', auth.login.user.id);
+    //     dispatch(onFetchBookingStatus(bookingStatusPayload,setBookingStatus))
+    // }
+    // console.log(bookingStatus,"staus")
+
     useEffect(() => {
+        // fetchBookingStatus();
         fetchAllBooking();
         fetchAllWorker();
     }, []);
@@ -117,15 +125,13 @@ const Dashboard = () => {
                                                                         .filter((curElem) => {
                                                                             const skillData = JSON.parse(curElem.skill);
                                                                             if (Array.isArray(skillData)) {
-
-                                                                                return skillData.some((skill) =>
-                                                                                    descriptionData.some(
-                                                                                        (description) => description.name === skill.name
-                                                                                    )
-                                                                                );
+                                                                              const isNameMatch = Object.values(descriptionData).some(
+                                                                                (description) => skillData.some((skill) => description.name === skill.name)
+                                                                              );
+                                                                            
+                                                                              return isNameMatch;
                                                                             }
-
-
+                                                                            
                                                                             return false;
                                                                         })
                                                                         .map((elem1, id) => (
@@ -147,7 +153,7 @@ const Dashboard = () => {
                                                                 send to user
                                                             </button>
                                                         </td>
-                                                        <td>Status</td>
+                                                        <td>{elem.booking_status==="3"?"Rejected" : elem.booking_status==="2"? "Accepted":"NotSelected"}</td>
                                                     </tr>
                                                 );
                                             })}

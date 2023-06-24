@@ -1,7 +1,8 @@
 import produce from "immer";
 
 const initialState={
-   worker:""
+   worker:"",
+   workerStatus:""
 }
 
 export const ServiceReducer = (state=initialState,action)=>{
@@ -11,7 +12,13 @@ export const ServiceReducer = (state=initialState,action)=>{
                 draftState.worker = action.payload
             })
 
+        case "WORKER_STATUS" :
+            return produce(state,(draftState)=>{
+                draftState.workerStatus = action.payload.temp
+            })     
+
         default: 
             return state ;    
     }
 }
+

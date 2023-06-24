@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import "../../../src/App.css";
 import logo from "../../img/logo.png";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { CircularProgress } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { onFetchServices } from "../../Action/ServiceAction";
 import { logOutUser } from "../../Action/AuthAction";
@@ -20,6 +21,7 @@ function NavbarHead() {
 
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
+  const [loader , setLoader] = useState(false)
   // const [profile, setProfile] = useState();
   const [form, setForm] = useState({
     mobile: "",
@@ -57,7 +59,8 @@ function NavbarHead() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // navigate("/serviceworkerprofile")
-    dispatch(loginWorkerAccount(formDataLogin,navigate))
+    setLoader(true)
+    dispatch(loginWorkerAccount(formDataLogin,navigate,setLoader))
   };
 
   const fetchServiceData = () => {
@@ -70,7 +73,6 @@ function NavbarHead() {
   };
 
   const handleSignOutWorker = () =>{
-    console.log("worker")
     dispatch(logOutWorker())
   }
 
@@ -303,6 +305,7 @@ function NavbarHead() {
 
               <Button variant="primary" type="submit">
                 Login
+                {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'absolute',marginLeft:"200px"}}/>:""}
               </Button>
             </Form>
           </Modal.Body>

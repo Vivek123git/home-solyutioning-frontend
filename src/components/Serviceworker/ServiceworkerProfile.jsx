@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Switch from "@mui/material/Switch";
 import { Row, Col,Table } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
-import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate } from "../../Action/ServiceAction";
+import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate, onWorkerStatus } from "../../Action/ServiceAction";
 import { useDispatch, useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { Select } from "@mui/material";
@@ -31,6 +31,8 @@ const ServiceWorkerProfile = () => {
       setImage(reader.result);
     };
   };
+
+  
 
   const handleChange = (e) => {
     const isChecked = e.target.checked;
@@ -66,6 +68,15 @@ const ServiceWorkerProfile = () => {
     fetchWorkerDetails();
     fetchUserDetails()
   },[]);
+
+  const handleWorkerBookingStatus=(e,id)=>{
+    const updatedWorkStatus = e.target.value;
+    let bookingStatusPayload = new FormData();
+    bookingStatusPayload.append("status", updatedWorkStatus)
+    bookingStatusPayload.append("id", id)
+    setWorkStatus(updatedWorkStatus);
+    dispatch(onWorkerStatus(bookingStatusPayload));
+  }
 
 
   return (
@@ -173,10 +184,10 @@ const ServiceWorkerProfile = () => {
                           <td>Elctrician</td>
                           <td>{elem.date}</td>
                           <td>
-                            <select onChange={(e)=>setWorkStatus(e.target.value)}>
-                              <option value={""}>Select a option</option>
-                              <option value={"accept"}> Accept</option>
-                              <option value={"reject"}>Reject</option>
+                            <select onChange={(e)=>handleWorkerBookingStatus(e,elem.id)}>
+                              <option value={"1"}>Select a option</option>
+                              <option value={"2"}> Accept</option>
+                              <option value={"3"}>Reject</option>
                             </select>
                           </td>
                           <td>******</td>

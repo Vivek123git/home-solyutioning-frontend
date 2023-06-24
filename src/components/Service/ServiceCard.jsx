@@ -37,7 +37,7 @@ const ServiceCard = () => {
     if (id == "1") {
       navigate(`/byown?name=${head}&id=${ind}`);
     } else if (id === "2") {
-      navigate(`/oursite?name=${head}&type=${name}`);
+      navigate(`/oursite?name=${head}&type=${name}&id=${ind}`);
     }
   };
 
