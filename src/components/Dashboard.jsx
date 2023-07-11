@@ -19,7 +19,6 @@ const Dashboard = () => {
     const [workerData, setWorkerData] = useState([]);
     const [bookingData, setBookingData] = useState([]);
     const [userData, setUserData] = useState([]);
-    const [bookingStatus,setBookingStatus] = useState()
 
     const handleSendWorker = (elem) => {
         let sendUserData = new FormData();
@@ -58,15 +57,7 @@ const Dashboard = () => {
         dispatch(onFetchAllWorker(setWorkerData, workerPayload));
     };
 
-    // const fetchBookingStatus = () =>{
-    //     let bookingStatusPayload = new FormData();
-    //     bookingStatusPayload.append('id', auth.login.user.id);
-    //     dispatch(onFetchBookingStatus(bookingStatusPayload,setBookingStatus))
-    // }
-    // console.log(bookingStatus,"staus")
-
     useEffect(() => {
-        // fetchBookingStatus();
         fetchAllBooking();
         fetchAllWorker();
     }, []);
@@ -102,13 +93,19 @@ const Dashboard = () => {
                                             bookingData.map((elem, id) => {
                                                 // Parse the description field if it's a valid JSON string
                                                 let descriptionData = JSON.parse(elem.description);
-
+                                                let service =
+                                                    elem.service === "1" ? "Electrician" :
+                                                    elem.service === "4" ? "R.O." : 
+                                                    elem.service==="2" ? "plumber":
+                                                    elem.service==="3"?"A.C. tech." :
+                                                    elem.service==="5"?"Broadband":
+                                                    elem.service==="6"?"CCTV":"";
                                                 return (
                                                     <tr key={id}>
                                                         <td>{elem.id}</td>
                                                         <td>{elem.name}</td>
                                                         <td>{elem.mobileNumber}</td>
-                                                        <td>{elem.service}</td>
+                                                        <td>{service?service:elem.service}</td>
                                                         <td>{elem.description}</td>
                                                         <td>{elem.address}</td>
                                                         <td>
@@ -125,13 +122,12 @@ const Dashboard = () => {
                                                                         .filter((curElem) => {
                                                                             const skillData = JSON.parse(curElem.skill);
                                                                             if (Array.isArray(skillData)) {
-                                                                              const isNameMatch = Object.values(descriptionData).some(
-                                                                                (description) => skillData.some((skill) => description.name === skill.name)
-                                                                              );
-                                                                            
-                                                                              return isNameMatch;
+                                                                                const isNameMatch = Object.values(descriptionData).some(
+                                                                                    (description) => skillData.some((skill) => description.name === skill.name)
+                                                                                );
+                                                                                return isNameMatch;
                                                                             }
-                                                                            
+
                                                                             return false;
                                                                         })
                                                                         .map((elem1, id) => (
@@ -153,7 +149,7 @@ const Dashboard = () => {
                                                                 send to user
                                                             </button>
                                                         </td>
-                                                        <td>{elem.booking_status==="3"?"Rejected" : elem.booking_status==="2"? "Accepted":"NotSelected"}</td>
+                                                        <td>{elem.booking_status === "3" ? "Rejected" : elem.booking_status === "2" ? "Accepted" : "NotSelected"}</td>
                                                     </tr>
                                                 );
                                             })}

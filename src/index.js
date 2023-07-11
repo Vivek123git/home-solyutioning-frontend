@@ -6,10 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import rootReducer from './Reducer/index';
 import store from './Store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
+    <ToastContainer />
   </Provider>,
   document.getElementById('root')
 );

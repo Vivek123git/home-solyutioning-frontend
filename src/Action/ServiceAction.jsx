@@ -1,6 +1,7 @@
 import { commonAxios } from "../components/CommonAxios";
 import axios from "axios";
 import { onSetAlert } from "./AlertAction";
+import { toast } from 'react-toastify';
 
 const options = {
   headers: {
@@ -14,9 +15,10 @@ export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (d
     .then((res) => {
       if (res.status) {
         navigate("/")
-        console.log("success");
+        toast.success('Booking Successfully');
       } else {
         console.log("failure");
+        toast.success('Booking failed');
       }
       setLoader(false)
       setForm({...form,name: "",
@@ -33,24 +35,24 @@ export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (d
     })
     
     .catch((err) => {
+      toast.success('Booking failed');
       console.log(err.msg);
       setLoader(false)
     });
 };
 
-export const onCreateServiceman = (data, setLoader, navigate) => (
-  dispatch,
-  getState
-) => {
+export const onCreateServiceman = (data, setLoader, navigate) => (dispatch,getState) => {
   commonAxios("register-worker", data, dispatch)
     .then((res) => {
       if (res.status) {
+        toast.success('Worker account created Successfully');
         navigate("/");
         dispatch(onSetAlert("success", res.msg));
       } else {
         console.log("failure");
       }
       setLoader(false);
+      toast.warning('Account created failed');
     })
     .catch((err) => {
       console.log(err.msg);
@@ -195,15 +197,17 @@ export const onfetchUserrDetails = (data, setUser) => (dispatch, getState) => {
     });
 };
 
-export const onRating = (data) => (dispatch, getState) => {
+export const onRating = (data,handleClose) => (dispatch, getState) => {
   commonAxios("rating", data, dispatch, getState)
     .then((res) => {
       if (res.status) {
         dispatch(onSetAlert("success" , "rating Successfully"))
       }
     })
+    handleClose(false)
     .catch((err) => {
       console.log(err.msg);
+      handleClose(false)
     });
 };
 
@@ -273,8 +277,8 @@ export const onFetchAllWorker=(setWorkerData,data)=>(dispatch,getState)=>{
 export const onFetchBookingStatus = (data,setBookingStatus)=>(dispatch,getState)=>{
   commonAxios("fetch-booking-status",data,dispatch,getState)
   .then((res)=>{
-    console.log(res.data[0].booking_status,"res")
     if(res.status){
+      toast.success('status update successfully');
       setBookingStatus(res.data[0].booking_status)
     }
   })
@@ -284,31 +288,35 @@ export const onFetchBookingStatus = (data,setBookingStatus)=>(dispatch,getState)
 }
 
 export const onSendUserData=(data)=>(dispatch,getState)=>{
-  console.log(data,"data")
   commonAxios("register-worker-booking" , data , dispatch , getState)
   .then((res)=>{
     if(res.status){
+      toast.success('Send user Data successfully');
        dispatch(onSetAlert( "warning", res.msg,));
     }else{
       dispatch(onSetAlert("warning", res.msg))
+      toast.warning('Failed');
     }
   })
   .catch((err)=>{
+    toast.warning('Failed');
      dispatch(onSetAlert("warning",err.msg ));
   })
 }
 
 export const onSendWorkerData=(data)=>(dispatch,getState)=>{
-  console.log(data,"data")
   commonAxios("register-user-booking" , data , dispatch , getState)
   .then((res)=>{
     if(res.status){
+      toast.success('Send worker Data successfully');
        dispatch(onSetAlert( "warning", res.msg,));
     }else{
+      toast.warning('Failed');
       dispatch(onSetAlert("warning", res.msg))
     }
   })
   .catch((err)=>{
+    toast.warning('Failed');
      dispatch(onSetAlert("warning",err.msg ));
   })
 }
@@ -318,6 +326,7 @@ export const onContactSubmit = (data, setLoader) => (dispatch,getState) => {
   commonAxios("contact-us", data, dispatch, getState)
   .then((res) => {
     if (res.status) {
+      toast.success('Send successfully');
       dispatch(onSetAlert( "success",res.msg,));
     }
     setLoader(false)

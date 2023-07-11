@@ -28,7 +28,6 @@ function ServiceWorker() {
   const [skill,setSkill] = useState([])
   const [loader,setLoader] = useState(false)
   const [otp,setOtp] = useState(false)
-
   
   const options = skill.map((elem) => ({ name: elem.heading, id: elem.id }));
 

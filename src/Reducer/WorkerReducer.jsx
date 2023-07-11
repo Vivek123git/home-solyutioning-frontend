@@ -6,8 +6,6 @@ let auth = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('stat
   worker:null,
 }
 
-console.log(auth,"worker")
-
 const initialState = {
   isAuthenticated: auth && auth.isAuthenticated ? auth.isAuthenticated : false,
   error: auth && auth.error ? auth.error : null,

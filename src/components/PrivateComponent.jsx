@@ -17,7 +17,7 @@ const PrivateComponent = ({children ,checkUserAuth}) => {
       if (auth && auth.workerAcc && auth.workerAcc.isAuthenticated) {
         return children;
       } else {
-        return <Navigate to="/login" state={{ from: location }} />;
+        return <Navigate to="/" state={{ from: location }} />;
       }
     }
   };

@@ -8,12 +8,10 @@ import { Carousel } from "react-bootstrap";
 import ChatBotrobo from "./Chatbot";
 import BenefitsPage from "./Contact/Benifit";
 import team from "../img/team.png.jpg";
-import DemandServices from "./Service/DemandServices";
 import OurSite from "./Booking/OurSite";
 import { HelmetProvider, Helmet } from "react-helmet-async"
-import Alert1 from "./Alert";
 import { useDispatch } from "react-redux";
-import { onClearAlert, onSetAlert } from "../Action/AlertAction";
+import PhoneNumberPopup from "./PhoneNumberPopUP";
 // import HOMOSOLUTION from '../img/HOMOSOLUTION.png'
 
 function Header() {
@@ -23,55 +21,53 @@ function Header() {
   },[])
 
 
-  return (
-<>  
-
+return (
+ <>  
   <HelmetProvider>
       <Helmet>
         <title>Repairinminute | Home Services</title>
         <meta name='description' content='Book your electrician, plumber, ac technician, ro technician , broadband technician, cctv technician at one platform' />
       </Helmet>
 
-      <div>
+      <div style={{overflow:"hidden"}}>
       <Navbar />
       
       <div className="container-fluid p-0">
         <div className="row m-0">
           <div className="col-md-12 p-0">
-          <Alert1/>
             <Carousel fade>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://img.freepik.com/free-vector/electricians-infographics-illustration_1284-67695.jpg?w=900&t=st=1683397819~exp=1683398419~hmac=94a3e9739445b4ab2bf8ed2662eb449dbf5189389bb723953b08d61375bd9d84"
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png.png"
                   alt="First slide"
                 />
-                <Carousel.Caption>
+                {/* <Carousel.Caption>
                   <h3>Electrician</h3>
                   <p>The Best Solution of your all Home problem</p>
-                </Carousel.Caption>
+                </Carousel.Caption> */}
               </Carousel.Item>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://cdn.pixabay.com/photo/2021/04/21/02/43/plumber-6195292__340.png"
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Plumberbanner.png.png"
                   alt="Second slide"
                 />
-                <Carousel.Caption>
+                {/* <Carousel.Caption>
                   <h3>Plumbers</h3>
                   <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption>
+                </Carousel.Caption> */}
               </Carousel.Item>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://media.istockphoto.com/id/1292780000/vector/air-conditioner-installation-by-service-technicians-at-home.jpg?s=612x612&w=0&k=20&c=urBjtAMHm6eifiOw8r_U1_HU-qOSKUoMm6zZ1hL1LSQ="
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Acbanner.png.png"
                   alt="Third slide"
                 />
-                <Carousel.Caption>
+                {/* <Carousel.Caption>
                   <h3>A.C. Technician</h3>
                   <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption>
+                </Carousel.Caption> */}
               </Carousel.Item>
             </Carousel>
           </div>
@@ -129,6 +125,7 @@ function Header() {
             </div>
           </div>
         </div>
+        <PhoneNumberPopup/>
         <ChatBotrobo />
       </section>
       </div>

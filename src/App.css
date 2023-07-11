@@ -406,13 +406,12 @@ h3::after {
 
 .carousel-item img {
   object-fit: cover;
-  height: 500px !important;
-  opacity: 0.5;
+  height: 570px !important;
 }
 @media (max-width: 767px) {
   .carousel-item img {
     object-fit: cover;
-    height: 500px !important;
+    height: 100% !important;
   }
 }
 
@@ -543,6 +542,12 @@ swiper-slide img {
   font-size: 36px;
   font-weight: 600;
   margin-bottom: 10px;
+}
+
+@media (max-width:767px){
+  .main-section h2 {
+    font-size: 20px !important;
+  }
 }
 
 .main-section p {
@@ -1029,3 +1034,36 @@ font-size: large;
   color: black !important;
   border-radius: 5px !important;
 }
+
+.user-img{
+  max-width: 150px;
+}
+
+@media (max-width:767px){
+  .user-img{
+    max-width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      width: 150px;
+  }
+}
+
+.phone-popup{
+  position: fixed;
+  top: 50%;
+  left: 52%;
+  background-color: #0453a8;
+  padding: 10px;
+  color: #ffff;
+  border-radius: 10px;
+}
+/* .phone-popup-cross{
+    position: fixed;
+    top: 46%;
+    left: 94%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-size: 20px;
+    color:#000
+} */
+

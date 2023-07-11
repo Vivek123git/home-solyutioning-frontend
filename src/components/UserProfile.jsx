@@ -5,6 +5,7 @@ import { BsStarFill, BsStar } from "react-icons/bs";
 import Navbar from "./Navbar/Navbar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useDispatch, useSelector } from "react-redux";
+import { CircularProgress } from "@mui/material";
 import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails } from "../Action/ServiceAction";
 
 const UserProfile = () => {
@@ -53,7 +54,7 @@ const UserProfile = () => {
     ratingPayload.append("name", rating.name)
     ratingPayload.append("description", rating.text)
     ratingPayload.append("rating", rating.rating)
-    dispatch(onRating(ratingPayload))
+    dispatch(onRating(ratingPayload,handleClose))
   };
 
   const [show, setShow] = useState(false);
@@ -90,8 +91,7 @@ const UserProfile = () => {
               </div>
               <Row style={{ padding: "20px", alignContent: "center" }}>
                 <Col
-                  xs={12}
-                  md={8}
+                  xs={8}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -102,20 +102,19 @@ const UserProfile = () => {
                   <p>Mobile No.: {userDetails.mobileNumber}</p>
                 </Col>
                 <Col
-                  xs={12}
-                  md={4}
-                  style={{ display: "flex", justifyContent: "flex-end" }}
+                  xs={4}
+                  style={{ display: "flex", }}
                 >
                   <div>
                     <img
-                      style={{ maxWidth: "200px" }}
+                    className="user-img"
                       src={image}
                       roundedCircle
                       alt="avatar"
                     />
                     <br />
                     <input
-                      style={{ display: "none", marginLeft: "40px" }}
+                      style={{ display: "none" }}
                       id="upload-photo"
                       name="upload-photo"
                       type="file"
@@ -131,7 +130,7 @@ const UserProfile = () => {
               </Row>
               <Row>
                 <Col>
-                  <h2>Booking Status</h2>
+                  <h2>Your Booking</h2>
                   <div className="userTable" style={{ overflow: "auto" }}>
                     <Table striped bordered hover>
                       <thead>
@@ -177,6 +176,9 @@ const UserProfile = () => {
                           ""}
                       </tbody>
                     </Table>
+              <div  style={{ left: "50%",position:"relative" }} >
+                {!workerData ? "No data found" : workerData.length > 0 ? "" : <CircularProgress className="spinner_icon"/>}
+            </div>
                   </div>
                 </Col>
               </Row>

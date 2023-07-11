@@ -23,6 +23,8 @@ function OurSite() {
   const id = searchParams.get("id");
   const type = searchParams.get("type");
 
+
+
   const [form, setForm] = useState({
     name: "",
     mobile: "",
@@ -39,6 +41,9 @@ function OurSite() {
   const [servicesData, setServicesData] = useState([]);
   const [skill, setSkill] = useState([])
 
+  console.log(type,"type",typeof(type))
+  console.log(form.service,typeof(form.service))
+
   const handleSelect = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -48,13 +53,18 @@ function OurSite() {
     });
   };
 
+  const obj = [{
+    name: form.description,
+    id: form.id
+  }];
+
   let data;
   if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
     data = JSON.stringify({
       name: form.name,
       service: form.service,
       mobile: form.mobile,
-      description: JSON.stringify(form.description),
+      description: JSON.stringify(obj),
       address: form.address,
       state: form.state,
       city: form.city,
@@ -64,22 +74,15 @@ function OurSite() {
     });
   }
 
-  const obj = [{
-    name: form.description,
-    id: form.id
-  }];
-  
-  //  console.log(obj,"obj");
-  // console.log(form.description)
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("first")
     setLoader(true)
     if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
       dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate));
     } else {
-      dispatch(onSetAlert("Please login then book the form", "warning"))
+      dispatch(onSetAlert("warning","Please login then book the form"))
+      setLoader(false)
       console.log("logout")
     }
 
@@ -100,7 +103,7 @@ function OurSite() {
   function onSelect(selectedList, selectedItem) {
     setForm({ ...form, description: selectedList })
   }
-
+console.log(form.service)
 
   function onRemove(selectedList, removedItem) {
     setForm({ ...form, description: selectedList })
@@ -130,7 +133,6 @@ function OurSite() {
         />
       </Helmet>
       {name ? <Navbar /> : ""}
-      <Alert1 />
       <section className="contact-section ">
         <div className="container">
           <div className="row">
@@ -140,7 +142,7 @@ function OurSite() {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="col-md-9" style={{ marginLeft: "25px" }}>
+          <div className="col-md-9" >
             <h4
               style={{
                 fontSize: "18px",
@@ -186,6 +188,7 @@ function OurSite() {
                         <>
                           <option value="">Select an option</option>
                           {servicesData.map((elem, id) => {
+                            
                             return (
                               <option value={elem.id}>{elem.type}</option>
                             )
@@ -205,7 +208,7 @@ function OurSite() {
                       rows={3}
                       placeholder="Enter a description"
                       name="description"
-                      value={obj}
+                      value={obj[0].name}
                       readOnly={name ? true : false}
                       onChange={(e) => handlehange(e)}
                     /> :
