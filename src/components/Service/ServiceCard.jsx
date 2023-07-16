@@ -106,7 +106,7 @@ const ServiceCard = () => {
                     className=" p-3 mb-5 bg-white rounded cardBody"
                   >
                     <Card>
-                      <Card.Img variant="top" src={elem.image} />
+                      <Card.Img variant="top" rel="preload"  src={elem.image} />
                       <Card.Body
                         style={{
                           backgroundColor: "#71a1e9",

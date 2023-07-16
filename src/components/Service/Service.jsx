@@ -65,7 +65,7 @@ function Service() {
                   return (
                     <div className="col-md-4 col-sm-12">
                       <Card className="card">
-                        <Card.Img variant="top" src={elem.image} />
+                        <Card.Img variant="top" rel="preload"  src={elem.image} />
                         <Card.Body style={{backgroundColor:"#71a1e9",paddingTop:"20px",paddingBottom:"0px"}}>
                           <Card.Title>{elem.heading}</Card.Title>
                           {/* <Card.Text>{elem.paragraph}</Card.Text> */}

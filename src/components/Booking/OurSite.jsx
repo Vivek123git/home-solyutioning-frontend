@@ -41,8 +41,8 @@ function OurSite() {
   const [servicesData, setServicesData] = useState([]);
   const [skill, setSkill] = useState([])
 
-  console.log(type,"type",typeof(type))
-  console.log(form.service,typeof(form.service))
+  console.log(type, "type", typeof (type))
+  console.log(form.service, typeof (form.service))
 
   const handleSelect = (e) => {
     const { name, value } = e.target;
@@ -81,7 +81,7 @@ function OurSite() {
     if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
       dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate));
     } else {
-      dispatch(onSetAlert("warning","Please login then book the form"))
+      dispatch(onSetAlert("warning", "Please login then book the form"))
       setLoader(false)
       console.log("logout")
     }
@@ -98,12 +98,12 @@ function OurSite() {
 
 
   const options = skill.map((elem) => ({ name: elem.heading, id: elem.id }));
- 
+
 
   function onSelect(selectedList, selectedItem) {
     setForm({ ...form, description: selectedList })
   }
-console.log(form.service)
+  console.log(form.service)
 
   function onRemove(selectedList, removedItem) {
     setForm({ ...form, description: selectedList })
@@ -188,7 +188,7 @@ console.log(form.service)
                         <>
                           <option value="">Select an option</option>
                           {servicesData.map((elem, id) => {
-                            
+
                             return (
                               <option value={elem.id}>{elem.type}</option>
                             )
@@ -236,26 +236,35 @@ console.log(form.service)
 
                 <div className="col-md-6 p-2">
                   <Form.Group controlId="formState" className="input_wrap ">
-                    <Form.Label>State</Form.Label>
-                    <Form.Control
+                    {/* <Form.Label>State</Form.Label>
+                    <Form.Select
                       type="text"
                       placeholder="Enter state"
                       name="state"
                       value={form.state}
                       onChange={(e) => handlehange(e)}
-                    />
+                    /> */}
+                    <Form.Select name="state" onChange={(e) => handlehange(e)}>
+                      <option>Select your State</option>
+                      <option value="UP">Uttar Pradesh</option>
+                    </Form.Select>
                   </Form.Group>
                 </div>
                 <div className="col-md-6 p-2">
                   <Form.Group controlId="formCity" className="input_wrap">
-                    <Form.Label>City</Form.Label>
+                    {/* <Form.Label>City</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter city"
                       name="city"
                       value={form.city}
                       onChange={(e) => handlehange(e)}
-                    />
+                    /> */}
+                    <Form.Select name="city" onChange={(e) => handlehange(e)}>
+                      <option>Select your City</option>
+                      <option value="UP">Lucknow</option>
+                      <option value="Barabanki">Barabanki</option>
+                    </Form.Select>
                   </Form.Group>
                 </div>
                 <div className="col-md-6 p-2">

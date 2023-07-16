@@ -39,7 +39,8 @@ return (
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png.png"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
                   alt="First slide"
                 />
                 {/* <Carousel.Caption>
@@ -50,7 +51,8 @@ return (
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://onehomesolution.000webhostapp.com/uploadImage/Plumberbanner.png.png"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Plumberbanner.png"
                   alt="Second slide"
                 />
                 {/* <Carousel.Caption>
@@ -61,7 +63,44 @@ return (
               <Carousel.Item>
                 <img
                   className="d-block w-100"
-                  src="https://onehomesolution.000webhostapp.com/uploadImage/Acbanner.png.png"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Acbanner.png"
+                  alt="Third slide"
+                />
+                {/* <Carousel.Caption>
+                  <h3>A.C. Technician</h3>
+                  <p>The Best Solution of your all Home problem.</p>
+                </Carousel.Caption> */}
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Cctvbanner.png"
+                  alt="Third slide"
+                />
+                {/* <Carousel.Caption>
+                  <h3>A.C. Technician</h3>
+                  <p>The Best Solution of your all Home problem.</p>
+                </Carousel.Caption> */}
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Robanner.png"
+                  alt="Third slide"
+                />
+                {/* <Carousel.Caption>
+                  <h3>A.C. Technician</h3>
+                  <p>The Best Solution of your all Home problem.</p>
+                </Carousel.Caption> */}
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  rel="preload" 
+                  src="https://onehomesolution.000webhostapp.com/uploadImage/Broadbandbanner.png"
                   alt="Third slide"
                 />
                 {/* <Carousel.Caption>
@@ -125,7 +164,7 @@ return (
             </div>
           </div>
         </div>
-        <PhoneNumberPopup/>
+        {/* <PhoneNumberPopup/> */}
         <ChatBotrobo />
       </section>
       </div>

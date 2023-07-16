@@ -501,6 +501,10 @@ swiper-slide img {
   object-fit: cover;
 }
 
+.form-select{
+  border: none;
+}
+
 .autoplay-progress {
   position: absolute;
   right: 16px;
