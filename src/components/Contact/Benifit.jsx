@@ -45,7 +45,7 @@ const BenefitsPage = () => {
 
   return (
     <div className="benefits-container" >
-      <div className="container-fluid">
+      <div className="container">
         <h3 className="text-center mb-5 text-light">Benefits</h3>
         <div className="benefits-grid">
           {benefits.map((benefit, index) => (

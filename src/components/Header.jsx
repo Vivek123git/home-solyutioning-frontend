@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Row, Col,Image } from "react-bootstrap";
 import Navbar from "./Navbar/Navbar";
 import Service from "./Service/Service";
 import Footer from "./Footer/Footer";
@@ -9,16 +9,20 @@ import ChatBotrobo from "./Chatbot";
 import BenefitsPage from "./Contact/Benifit";
 import team from "../img/team.png.jpg";
 import OurSite from "./Booking/OurSite";
+import NewBookingPage from "./Booking/NewBookingPage";
 import { HelmetProvider, Helmet } from "react-helmet-async"
-import { useDispatch } from "react-redux";
-import PhoneNumberPopup from "./PhoneNumberPopUP";
-// import HOMOSOLUTION from '../img/HOMOSOLUTION.png'
+import MultiCarousel from "../MultiCarousel";
+
 
 function Header() {
 
   useEffect(()=>{
     window.scrollTo(0, 0);
   },[])
+
+  const handleBook =()=>{
+    window.scrollTo(0,600)
+  }
 
 
 return (
@@ -31,10 +35,14 @@ return (
 
       <div style={{overflow:"hidden"}}>
       <Navbar />
-      
-      <div className="container-fluid p-0">
+
+      {/* <div style={{padding:"2rem 0rem 0rem"}}>
+      <MultiCarousel/>
+      </div> */}
+      <div className="container-fluid p-1 px-0">
         <div className="row m-0">
           <div className="col-md-12 p-0">
+           
             <Carousel fade>
               <Carousel.Item>
                 <img
@@ -42,11 +50,9 @@ return (
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
                   alt="First slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>Electrician</h3>
-                  <p>The Best Solution of your all Home problem</p>
-                </Carousel.Caption> */}
+               
               </Carousel.Item>
               <Carousel.Item>
                 <img
@@ -54,11 +60,9 @@ return (
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Plumberbanner.png"
                   alt="Second slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>Plumbers</h3>
-                  <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption> */}
+                
               </Carousel.Item>
               <Carousel.Item>
                 <img
@@ -66,61 +70,53 @@ return (
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Acbanner.png"
                   alt="Third slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>A.C. Technician</h3>
-                  <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption> */}
+                
               </Carousel.Item>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Cctvbanner.png"
-                  alt="Third slide"
+                  alt="Forthe slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>A.C. Technician</h3>
-                  <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption> */}
+               
               </Carousel.Item>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Robanner.png"
-                  alt="Third slide"
+                  alt="Fifth slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>A.C. Technician</h3>
-                  <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption> */}
+               
               </Carousel.Item>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
                   rel="preload" 
                   src="https://onehomesolution.000webhostapp.com/uploadImage/Broadbandbanner.png"
-                  alt="Third slide"
+                  alt="Sixth slide"
+                  onClick={handleBook}
                 />
-                {/* <Carousel.Caption>
-                  <h3>A.C. Technician</h3>
-                  <p>The Best Solution of your all Home problem.</p>
-                </Carousel.Caption> */}
+                
               </Carousel.Item>
             </Carousel>
           </div>
         </div>
       </div>
       <section className="add">
-        <div className="container">
+        <div className="container-fluid p-0 m-0">
           <div className="row">
             <div className="col-md-12">
               <Service />
               <BenefitsPage />
               {/* <About /> ............................................................................*/}
               <section className="about-section my-4">
-                <Container>
+                <Container >
                   <Row style={{ padding: "40px" }}>
                     <Col md={6}>
                       <div className="img_wrapper">
@@ -153,7 +149,8 @@ return (
               {/* ...................................................................................... */}
               <Customer />
 
-              <OurSite />
+              {/* <OurSite /> */}
+              <NewBookingPage/>
             </div>
           </div>
         </div>
@@ -164,7 +161,7 @@ return (
             </div>
           </div>
         </div>
-        {/* <PhoneNumberPopup/> */}
+       
         <ChatBotrobo />
       </section>
       </div>

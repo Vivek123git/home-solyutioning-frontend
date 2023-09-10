@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Navbar from "../Navbar/Navbar";
 import { useDispatch } from "react-redux";
-import { fetchSubServicesData,onFetchServices, onCreateServiceman } from "../../Action/ServiceAction";
+import { fetchSubServicesData, onFetchServices, onCreateServiceman } from "../../Action/ServiceAction";
 import { useNavigate } from "react-router";
 import Multiselect from "multiselect-react-dropdown";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Otp from "./OTP/Otp";
+import Loader from "../Loader/Loader";
 
 function ServiceWorker() {
   const navigate = useNavigate();
@@ -21,29 +22,29 @@ function ServiceWorker() {
     skills: [],
     img: null,
     aadhar: null,
-    password: "",
-    cnfPassword: "",
+    password: "123",
+    cnfPassword: "123",
   });
   const [servicesData, setServicesData] = useState([]);
-  const [skill,setSkill] = useState([])
-  const [loader,setLoader] = useState(false)
-  const [otp,setOtp] = useState(false)
-  
+  const [skill, setSkill] = useState([])
+  const [loader, setLoader] = useState(false)
+  const [otp, setOtp] = useState(false)
+  const [validated, setValidated] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
   const options = skill.map((elem) => ({ name: elem.heading, id: elem.id }));
 
   function onSelect(selectedList, selectedItem) {
-    setForm({...form,skills:selectedList})
+    setForm({ ...form, skills: selectedList })
     // setSelectedValues(selectedList);
     // console.log(`Selected List: ${selectedList}`);
     // console.log(`Selected Item: ${selectedItem}`);
   }
-  
+
 
   function onRemove(selectedList, removedItem) {
-    setForm({...form,skills:selectedList.id})
-    // setSelectedValues(selectedList);
-    // console.log(`Selected List: ${selectedList}`);
-    // console.log(`Removed Item: ${removedItem}`);
+    const updatedSelectedList = selectedList.filter(item => item.id !== removedItem.id);
+    setForm({ ...form, skills: updatedSelectedList });
   }
 
   const handleSelect = (e) => {
@@ -51,9 +52,9 @@ function ServiceWorker() {
     setForm({
       ...form,
       [name]: value,
-      skills:[]
+      skills: []
     });
-    
+
   };
 
   const handlehange = (e) => {
@@ -63,8 +64,8 @@ function ServiceWorker() {
       [name]: value,
     });
 
-   
-  
+
+
     if (name === "image") {
       const file = e.target.files[0];
       if (file) {
@@ -78,38 +79,53 @@ function ServiceWorker() {
     }
   };
 
- 
 
-  let formDataFetch = new FormData(); 
-  formDataFetch.append("id",form.service ); 
 
-  useEffect(()=>{
-   dispatch(fetchSubServicesData(formDataFetch,setSkill))
-  },[form.service])
+  let formDataFetch = new FormData();
+  formDataFetch.append("id", form.service);
 
-  useEffect(()=>{
-    dispatch(onFetchServices(setServicesData,{}))
-  },[])
+  useEffect(() => {
+    setLoading(true)
+    dispatch(fetchSubServicesData(formDataFetch, setSkill,setLoading))
+  }, [form.service])
 
-  const handleSubmit = (e,type) => {
+  useEffect(() => {
+    dispatch(onFetchServices(setServicesData, {}))
+  }, [])
 
-    let formData = new FormData(); //formdata object
+  let formData = new FormData(); //formdata object
 
-    formData.append("name", form.name);
-    formData.append("service", form.service);
-    formData.append("skill", JSON.stringify(form.skills));
-    formData.append("mobile", form.mobile);
-    formData.append("address", form.address);
-    formData.append("password", form.password);
-    formData.append("image", form.img);
-    formData.append("file", form.aadhar);
-
+  formData.append("name", form.name);
+  formData.append("service", form.service);
+  formData.append("skill", JSON.stringify(form.skills));
+  formData.append("mobile", form.mobile);
+  formData.append("address", form.address);
+  formData.append("password", form.password);
+  formData.append("image", form.img);
+  formData.append("file", form.aadhar);
+  
+  const handleSubmit = (e, type) => {
     e.preventDefault();
-    if(type==="submit"){ 
-    setLoader(true)
-     dispatch(onCreateServiceman(formData,setLoader,navigate));
-    }else if (type==="otp"){
-       setOtp(true)
+    e.stopPropagation();
+
+    // e.preventDefault();
+    // if (type === "submit") {
+    //   setLoader(true)
+    //   dispatch(onCreateServiceman(formData, setLoader, navigate));
+    // } else if (type === "otp") {
+    //   setOtp(true)
+    // }
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("first")
+      setValidated(true);
+    } else {
+      setValidated(true);
+      setLoader(true)
+      console.log("first123")
+      dispatch(onCreateServiceman(formData, setLoader, navigate));
     }
   };
 
@@ -134,7 +150,7 @@ function ServiceWorker() {
           <div className="row justify-content-center">
             <div className="col-md-12">
               <div className="create_page ">
-                <Form >
+                <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e, "submit")}>
                   <div className="row">
                     <div className="col-md-6 p-2">
                       <Form.Group
@@ -149,7 +165,11 @@ function ServiceWorker() {
                           name="name"
                           value={form.name}
                           onChange={(e) => handlehange(e)}
+                          required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </div>
                     <div className="col-md-6 p-2">
@@ -165,7 +185,11 @@ function ServiceWorker() {
                           name="mobile"
                           value={form.mobile}
                           onChange={(e) => handlehange(e)}
+                          required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                         <Button
                           variant="primary"
                           type="otp"
@@ -174,7 +198,7 @@ function ServiceWorker() {
                             padding: "5px",
                             marginTop: "20px",
                           }}
-                          onClick={(e)=>handleSubmit(e,"otp")}
+                          onClick={(e) => handleSubmit(e, "otp")}
                         >
                           OTP send
                         </Button>
@@ -189,26 +213,34 @@ function ServiceWorker() {
                           name="service"
                           value={form.service}
                           onChange={handleSelect}
+                          required
                         >
                           <option value="">Select an option</option>
-                          {servicesData.map((elem,id)=>{
-                            return(
+                          {servicesData.map((elem, id) => {
+                            return (
                               <option value={elem.id}>{elem.type}</option>
                             )
                           })}
                         </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </div>
                     <div className="col-md-6 p-2">
                       <Form.Group as={Col} className="input_wrap">
-                        <Form.Label>Choose Your Skills</Form.Label>
+                        <Form.Label>Choose Your Skills (First choose service)</Form.Label>
                         <Multiselect
                           options={options}
                           selectedValues={form.skills}
                           onSelect={onSelect}
                           onRemove={onRemove}
                           displayValue="name"
+                          required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </div>
 
@@ -224,7 +256,11 @@ function ServiceWorker() {
                           name="address"
                           value={form.address}
                           onChange={(e) => handlehange(e)}
+                          required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </div>
                     <div className="col-md-6 p-2">
@@ -236,7 +272,11 @@ function ServiceWorker() {
                             name="image"
                             onChange={handlehange}
                             accept="image/jpeg,image/jpg"
+                            required
                           />
+                          <Form.Control.Feedback type="invalid">
+                            This field is required.
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Form>
                     </div>
@@ -249,11 +289,15 @@ function ServiceWorker() {
                           accept="application/pdf,image/jpeg,image/jpg"
                           name="aadhar"
                           onChange={handlehange}
+                          required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          This field is required.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </div>
 
-                    <div className="col-md-6 p-2">
+                    {/* <div className="col-md-6 p-2">
                       <Form.Group as={Col} className="input_wrap">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -262,7 +306,7 @@ function ServiceWorker() {
                           placeholder="Enter password"
                           value={form.password}
                           onChange={(e) => handlehange(e)}
-                          // required
+                        required
                         />
                       </Form.Group>
                     </div>
@@ -275,10 +319,10 @@ function ServiceWorker() {
                           placeholder="Enter password"
                           value={form.cnfPassword}
                           onChange={(e) => handlehange(e)}
-                          // required
+                         required
                         />
                       </Form.Group>
-                    </div>
+                    </div> */}
 
                     <Button
                       variant="primary"
@@ -288,21 +332,21 @@ function ServiceWorker() {
                         height: "60px",
                         margin: "25px auto",
                       }}
-                      onClick={(e)=>handleSubmit(e,"submit")}
                     >
                       Create Account
-                      {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px"}}/>:""}
+                      {loader ? <CircularProgress className="spinner_icon" style={{ color: "white", height: "30px", width: "30px" }} /> : ""}
                     </Button>
                   </div>
                 </Form>
                 <div>
-      
-               </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <Otp otp={otp} setOtp={setOtp}/>
+        <Otp otp={otp} setOtp={setOtp} />
+        <Loader isLoading={isLoading}/>
       </section>
     </>
   );

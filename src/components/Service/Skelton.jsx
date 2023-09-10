@@ -19,12 +19,7 @@ function Skelton() {
             <Placeholder as={Card} animation="glow">
               <Placeholder style={{ width: "260px", height: "200px",backgroundColor: "#71a1e9" }} />
             </Placeholder>
-          </Card.Body>
-          <Card.Body style={{ padding: "5px", backgroundColor: "white" }}>
-            <Placeholder as={Card} animation="glow" >
-              <Placeholder style={{ width: "250px", height: "50px" ,backgroundColor: "#71a1e9"}} />
-            </Placeholder>
-            <Placeholder.Button variant="primary" xs={6} />
+            {/* <Placeholder.Button variant="primary" xs={6} /> */}
           </Card.Body>
         </Card>
       </div>

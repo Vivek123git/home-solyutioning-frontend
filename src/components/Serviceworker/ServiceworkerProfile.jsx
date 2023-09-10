@@ -5,8 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate, onWorkerStatus } from "../../Action/ServiceAction";
 import { useDispatch, useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { CircularProgress } from "@mui/material";
-import { Select } from "@mui/material";
+import Loader from "../Loader/Loader";
 
 const ServiceWorkerProfile = () => {
   const dispatch = useDispatch();
@@ -16,13 +15,14 @@ const ServiceWorkerProfile = () => {
   const workerDetails = auth.workerAcc.worker
 
   const [checked, setChecked] = useState(false);
-  const [status, setStatus] = useState("Available");
+  const [status, setStatus] = useState("Booked");
   const [workStatus, setWorkStatus] = useState("")
   const [worker, setWorker] = useState([]);
   const [image, setImage] = useState(
     "https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
   );
   const [userData, setUserData] = useState([])
+  const [isLoading, setLoading] = useState(true);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,24 +35,38 @@ const ServiceWorkerProfile = () => {
 
 
 
+  // const handleChange = (e) => {
+  //   const isChecked = e.target.checked;
+  //   if (isChecked) {
+  //     setChecked(true);
+  //     setStatus("Available");
+  //   } else {
+  //     setChecked(false);
+  //     setStatus("Booked");
+  //   }
+  //   let statusPayload = new FormData();
+  //   statusPayload.append("id", workerDetails.id);
+  //   statusPayload.append("status", isChecked ? "1" : "0");
+  //   dispatch(onstatusUpdate(statusPayload));
+  // };
   const handleChange = (e) => {
     const isChecked = e.target.checked;
-    if (isChecked) {
-      setChecked(true);
-      setStatus("Available");
-    } else {
-      setChecked(false);
-      setStatus("Booked");
-    }
-    statusUpdate(isChecked);
-  };
-
-  const statusUpdate = (isChecked) => {
+    console.log(isChecked,"check")
+    setStatus((prevStatus) => isChecked ? "Available" : "Booked");
+    setChecked(isChecked);
+  
     let statusPayload = new FormData();
     statusPayload.append("id", workerDetails.id);
     statusPayload.append("status", isChecked ? "1" : "0");
     dispatch(onstatusUpdate(statusPayload));
   };
+
+  // const statusUpdate = (isChecked) => {
+  //   let statusPayload = new FormData();
+  //   statusPayload.append("id", workerDetails.id);
+  //   statusPayload.append("status", isChecked ? "1" : "0");
+  //   dispatch(onstatusUpdate(statusPayload));
+  // };
 
   const fetchWorkerDetails = () => {
     let data = {};
@@ -60,9 +74,10 @@ const ServiceWorkerProfile = () => {
   };
 
   const fetchUserDetails = () => {
+    setLoading(true)
     let workerPayload = new FormData();
     workerPayload.append("id", workerDetails.id)
-    dispatch(onfetchUserBookingDetails(workerPayload, setUserData));
+    dispatch(onfetchUserBookingDetails(workerPayload, setUserData , setLoading));
   };
 
   useEffect(() => {
@@ -148,7 +163,7 @@ const ServiceWorkerProfile = () => {
                           <th>Service</th>
                           <th>Date</th>
                           <th>Status</th>
-                          <th>Rating</th>
+                          {/* <th>Rating</th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -170,7 +185,7 @@ const ServiceWorkerProfile = () => {
                                     <option value={"3"}>Reject</option>
                                   </select>
                                 </td>
-                                <td>******</td>
+                                {/* <td>******</td> */}
                               </tr>
                             )
                           })
@@ -181,13 +196,13 @@ const ServiceWorkerProfile = () => {
                   </div>
                 </Col>
               </Row>
-
-            <div  style={{ left: "50%",position:"relative" }} >
-                {!userData ? "No data found" : userData.length > 0 ? "" : <CircularProgress className="spinner_icon"/>}
-            </div>
+            {/* <div  style={{ left: "50%",position:"relative" }} >
+                {!userData ? "No data found" : userData.length >= 0 ? "" : <CircularProgress className="spinner_icon"/>}
+            </div> */}
             </div>
           </div>
         </div>
+        <Loader isLoading={isLoading}/>
       </section>
     </>
   );

@@ -6,6 +6,7 @@ import CreateLogin from "./components/Login/CreateLogin";
 import Login from "./components/Login/Login";
 import ByOwn from "./components/Booking/ByOwn";
 import OurSite from "./components/Booking/OurSite";
+import NewBookingPage from "./components/Booking/NewBookingPage";
 import ServiceWorker from "./components/Serviceworker/Serviceworker";
 import PrivateComponent from "./components/PrivateComponent";
 import ServiceWorkerProfile from "./components/Serviceworker/ServiceworkerProfile";
@@ -38,8 +39,14 @@ function App() {
             {/* <Route exact path="/electrician" element={<Electrician />} />
             <Route exact path="/plumber" element={<Plumber />} />
             <Route exact path="/actech" element={<PrivateComponent><Actech /></PrivateComponent>} />*/}
+
             <Route exact path="/byown" element={<PrivateComponent checkUserAuth={true}><ByOwn /></PrivateComponent>} />
-            <Route exact path="/oursite" element={<PrivateComponent checkUserAuth={true}><OurSite /></PrivateComponent>} />
+            <Route exact path="/oursite" element={<PrivateComponent checkUserAuth={true}><NewBookingPage /></PrivateComponent>} />
+
+            {/* <Route exact path="/byown" element={<ByOwn />} /> */}
+            {/* <Route exact path="/oursite" element={<OurSite />} /> */}
+            {/* <Route exact path="/oursite" element={<NewBookingPage />} /> */}
+
             <Route exact path="/serviceworker" element={<ServiceWorker />} />
             <Route exact path="/serviceworkerprofile" element={<PrivateComponent checkUserAuth={false}><ServiceWorkerProfile /></PrivateComponent>} />
             <Route exact path="/userprofile" element={<PrivateComponent checkUserAuth={true}><UserProfile /></PrivateComponent>} />

@@ -151,29 +151,29 @@ const ChatBotrobo = () => {
       },
       {
         id: "Yes",
-        message: "Please tell me your mobile number.",
-        trigger: "getMobile"
-      },
-      {
-        id: "getMobile",
-        user: true,
-        trigger: "address"
-      },
-      {
-        id: "address",
-        message: "Please tell me your home address.",
-        trigger: "getAddress"
-      },
-      {
-        id: "getAddress",
-        user: true,
-        trigger: "confirm"
-      },
-      {
-        id: "confirm",
-        message: "Our team will reach you soon. Thank you!",
+        message: "Please Call on this Number 123*****. Thank you",
         trigger: 8
-      }
+      },
+      // {
+      //   id: "getMobile",
+      //   user: true,
+      //   trigger: "address"
+      // },
+      // {
+      //   id: "address",
+      //   message: "Please tell me your home address.",
+      //   trigger: "getAddress"
+      // },
+      // {
+      //   id: "getAddress",
+      //   user: true,
+      //   trigger: "confirm"
+      // },
+      // {
+      //   id: "confirm",
+      //   message: "Our team will reach you soon. Thank you!",
+      //   trigger: 8
+      // }
   ];
 
   const handleUserInput = input => {

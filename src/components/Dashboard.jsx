@@ -125,8 +125,7 @@ const Dashboard = () => {
                                                                                 const isNameMatch = Object.values(descriptionData).some(
                                                                                     (description) => skillData.some((skill) => description.name === skill.name)
                                                                                 );
-                                                                                return isNameMatch;
-                                                                            }
+                                                                                return isNameMatch;                                                                            }
 
                                                                             return false;
                                                                         })

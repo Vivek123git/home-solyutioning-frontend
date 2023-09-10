@@ -103,7 +103,7 @@ const ServiceCard = () => {
                   <Col
                     key={ind}
                     md={4}
-                    className=" p-3 mb-5 bg-white rounded cardBody"
+                    className="mb-4 bg-white rounded cardBody"
                   >
                     <Card>
                       <Card.Img variant="top" rel="preload"  src={elem.image} />
@@ -115,15 +115,16 @@ const ServiceCard = () => {
                         }}
                       >
                         <Card.Title>{elem.heading}</Card.Title>
-                        <Card.Text>{elem.paragraph}</Card.Text>
+                        {/* <Card.Text>{elem.paragraph}</Card.Text> */}
                         <div
-                          className=" text-center pb-3"
+                          className=" text-center"
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
                           }}
                         >
                           <Button
+                          className="m-0"
                             variant="primary"
                             onClick={() =>
                               handleClick(elem.heading, elem.id)
@@ -134,8 +135,8 @@ const ServiceCard = () => {
                               : "Get technician details"}
                           </Button>
                           {id === "2" ? (
-                            <Button style={{ float: "right" }}>
-                              Booking start with {elem.price} &#x20B9;
+                            <Button    className="m-0" style={{ float: "right" }}>
+                              Visiting Charge {elem.price} &#x20B9;
                             </Button>
                             
                           ) : (

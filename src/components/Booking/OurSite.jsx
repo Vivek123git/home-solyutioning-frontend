@@ -10,6 +10,7 @@ import Multiselect from "multiselect-react-dropdown";
 import { onSetAlert } from "../../Action/AlertAction";
 import { CircularProgress } from "@mui/material";
 import Alert1 from "../Alert";
+import Loader from "../Loader/Loader";
 
 function OurSite() {
   const dispatch = useDispatch();
@@ -23,26 +24,22 @@ function OurSite() {
   const id = searchParams.get("id");
   const type = searchParams.get("type");
 
-
-
   const [form, setForm] = useState({
     name: "",
     mobile: "",
     address: "",
-    state: "",
+    state: "U.P.",
     city: "",
     service: (type ? `${type}` : ""),
     description: (name ? `${name}` : ""),
     near: "",
-    pinCode: "",
-    id: (id ? `${id}` : "")
+    pinCode: "000000",
+    id: (id ? `${id}` : "1")
   });
   const [loader, setLoader] = useState(false)
   const [servicesData, setServicesData] = useState([]);
-  const [skill, setSkill] = useState([])
-
-  console.log(type, "type", typeof (type))
-  console.log(form.service, typeof (form.service))
+  const [skill, setSkill] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const handleSelect = (e) => {
     const { name, value } = e.target;
@@ -55,36 +52,50 @@ function OurSite() {
 
   const obj = [{
     name: form.description,
-    id: form.id
+    // id: form.id
   }];
 
-  let data;
-  if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
-    data = JSON.stringify({
-      name: form.name,
-      service: form.service,
-      mobile: form.mobile,
-      description: JSON.stringify(obj),
-      address: form.address,
-      state: form.state,
-      city: form.city,
-      landmark: form.near,
-      pincode: form.pinCode,
-      id: auth.login.user.id
-    });
-  }
+  // let data;
+  // if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
+  //   data = JSON.stringify({
+  //     name: form.name,
+  //     service: form.service,
+  //     mobile: form.mobile,
+  //     description: JSON.stringify(obj),
+  //     address: form.address,
+  //     state: form.state,
+  //     city: form.city,
+  //     landmark: form.near,
+  //     pincode: form.pinCode,
+  //     id: auth.login.user.id
+  //   });
+  // }
+
+ let data = JSON.stringify({
+        name: form.name,
+        service: form.service,
+        mobile: form.mobile,
+        description: JSON.stringify(obj),
+        address: form.address,
+        state: form.state,
+        city: form.city,
+        landmark: form.near,
+        pincode: form.pinCode,
+        id: "1"
+      });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("first")
     setLoader(true)
-    if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
-      dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate));
-    } else {
-      dispatch(onSetAlert("warning", "Please login then book the form"))
-      setLoader(false)
-      console.log("logout")
-    }
+    dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate))
+
+    // if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
+    //   dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate));
+    // } else {
+    //   dispatch(onSetAlert("warning", "Please login then book the form"))
+    //   setLoader(false)
+    //   console.log("logout")
+    // }
 
   };
 
@@ -103,7 +114,6 @@ function OurSite() {
   function onSelect(selectedList, selectedItem) {
     setForm({ ...form, description: selectedList })
   }
-  console.log(form.service)
 
   function onRemove(selectedList, removedItem) {
     setForm({ ...form, description: selectedList })
@@ -116,8 +126,11 @@ function OurSite() {
   let formDataFetch = new FormData();
   formDataFetch.append("id", form.service);
 
+  console.log(setLoading,"fgh")
+
   useEffect(() => {
-    dispatch(fetchSubServicesData(formDataFetch, setSkill))
+    setLoading(true)
+    dispatch(fetchSubServicesData(formDataFetch, setSkill,setLoading))
   }, [form.service])
 
   // const parsedDescription = JSON.parse(form.description);
@@ -234,35 +247,21 @@ function OurSite() {
                   </Form.Group>
                 </div>
 
-                <div className="col-md-6 p-2">
+                {/* <div className="col-md-6 p-2">
                   <Form.Group controlId="formState" className="input_wrap ">
-                    {/* <Form.Label>State</Form.Label>
-                    <Form.Select
-                      type="text"
-                      placeholder="Enter state"
-                      name="state"
-                      value={form.state}
-                      onChange={(e) => handlehange(e)}
-                    /> */}
+                   
                     <Form.Select name="state" onChange={(e) => handlehange(e)}>
                       <option>Select your State</option>
                       <option value="UP">Uttar Pradesh</option>
                     </Form.Select>
                   </Form.Group>
-                </div>
+                </div> */}
                 <div className="col-md-6 p-2">
                   <Form.Group controlId="formCity" className="input_wrap">
-                    {/* <Form.Label>City</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter city"
-                      name="city"
-                      value={form.city}
-                      onChange={(e) => handlehange(e)}
-                    /> */}
+                   
                     <Form.Select name="city" onChange={(e) => handlehange(e)}>
                       <option>Select your City</option>
-                      <option value="UP">Lucknow</option>
+                      <option value="Lucknow">Lucknow</option>
                       <option value="Barabanki">Barabanki</option>
                     </Form.Select>
                   </Form.Group>
@@ -279,7 +278,7 @@ function OurSite() {
                     />
                   </Form.Group>
                 </div>
-                <div className="col-md-6 p-2">
+                {/* <div className="col-md-6 p-2">
                   <Form.Group controlId="formMobile" className="input_wrap">
                     <Form.Label>Pin Code</Form.Label>
                     <Form.Control
@@ -290,7 +289,7 @@ function OurSite() {
                       onChange={(e) => handlehange(e)}
                     />
                   </Form.Group>
-                </div>
+                </div> */}
                 <div className="contact_btn">
                   <Button
                     variant="primary"
@@ -306,6 +305,7 @@ function OurSite() {
           </div>
         </div>
       </section>
+        <Loader isLoading={isLoading}/>
     </>
   );
 }

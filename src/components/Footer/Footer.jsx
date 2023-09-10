@@ -7,7 +7,7 @@ function Footer() {
   const [socialLinks, setSocialLinks] = useState({
     facebook: 'https://www.facebook.com/your-page',
     whatsapp: 'https://wa.me/9140734396',
-    instagram: 'https://www.instagram.com/your-account',
+    instagram: 'https://www.instagram.com/vivekk_upadhyay',
     twitter: 'https://twitter.com/your-handle',
     linkedin: 'https://www.linkedin.com/in/your-profile',
   });

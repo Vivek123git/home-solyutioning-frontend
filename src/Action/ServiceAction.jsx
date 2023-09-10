@@ -18,24 +18,14 @@ export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (d
         toast.success('Booking Successfully');
       } else {
         console.log("failure");
-        toast.success('Booking failed');
+        toast.warning('Booking failed');
       }
       setLoader(false)
-      setForm({...form,name: "",
-      mobile: "",
-      address: "",
-      state: "",
-      city: "",
-      service:"",
-      description: "",
-      near: "",
-      pinCode: "",
-      id:""
-    })
+      window.location.reload();
     })
     
     .catch((err) => {
-      toast.success('Booking failed');
+      toast.warning('Booking failed');
       console.log(err.msg);
       setLoader(false)
     });
@@ -50,16 +40,18 @@ export const onCreateServiceman = (data, setLoader, navigate) => (dispatch,getSt
         dispatch(onSetAlert("success", res.msg));
       } else {
         console.log("failure");
+        toast.warning('Account created failed');
       }
       setLoader(false);
-      toast.warning('Account created failed');
+      // window.location.reload();
     })
     .catch((err) => {
+      toast.warning('Account created failed');
       console.log(err.msg);
     });
 };
 
-export const onFetchServices = (setService, data) => (dispatch, getState) => {
+export const onFetchServices = (setService, data,setLoading) => (dispatch, getState) => {
   axios
     .get(
       "https://onehomesolution.000webhostapp.com/fetch-service",
@@ -71,6 +63,7 @@ export const onFetchServices = (setService, data) => (dispatch, getState) => {
       if (res.status) {
         setService(res.data.data);
       }
+      setLoading(false)
     })
     .catch((err) => {
       console.log(err.msg);
@@ -111,7 +104,7 @@ export const onFetchWorkerData = (setWorkerData, data) => (
 
 // ServiceWorker Acoount create page..................................................
 
-export const fetchSubServicesData = (data, setSkill) => (
+export const fetchSubServicesData = (data, setSkill,setLoading) => (
   dispatch,
   getState
 ) => {
@@ -120,6 +113,7 @@ export const fetchSubServicesData = (data, setSkill) => (
       if (res.status) {
         setSkill(res.data);
       }
+      setLoading(false)
     })
     .catch((err) => {
       console.log(err.msg);
@@ -144,7 +138,7 @@ export const onfetchWorkerDetails = (data, setWorker) => (
 };
 
 
-export const onfetchUserBookingDetails = (data, setUserData) => (
+export const onfetchUserBookingDetails = (data, setUserData,setLoading) => (
   dispatch,
   getState
 ) => {
@@ -153,9 +147,11 @@ export const onfetchUserBookingDetails = (data, setUserData) => (
       if (res.status) {
         setUserData(res.data);
       }
+      setLoading(false)
     })
     .catch((err) => {
       console.log(err.msg);
+      setLoading(false)
     });
 };
 

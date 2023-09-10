@@ -13,6 +13,8 @@ import { logOutUser } from "../../Action/AuthAction";
 import { logOutWorker, loginWorkerAccount } from "../../Action/WorkerAuth";
 import { useDispatch } from "react-redux";
 import Avatar from "@mui/material/Avatar";
+import image from "../../img/repair-man.jpg"
+import PhoneNumberPopup from "../PhoneNumberPopUP";
 
 function NavbarHead() {
   const navigate = useNavigate();
@@ -84,7 +86,7 @@ function NavbarHead() {
     <>
       <div className="nav_head">
         <Navbar
-          style={{ backgroundColor: "#71a1e9", borderRadius: "0px" }}
+          style={{ backgroundColor: "#ffff", borderRadius: "0px" }}
           expand="lg"
           className="navigation"
         >
@@ -100,6 +102,7 @@ function NavbarHead() {
               left: "0px",
             }}
           />
+          <PhoneNumberPopup/>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} style={{height: "50px",width: "60px"}} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
@@ -178,9 +181,10 @@ function NavbarHead() {
                   className="nav-link"
                   activeClassName="active"
                   to="/contactus"
-                >
+                  >
                   Contact us
                 </NavLink>
+                 
                 <NavLink
                   className="nav-link"
                   activeClassName="active"
@@ -227,13 +231,13 @@ function NavbarHead() {
       <Modal show={show} onHide={handleClose} centered style={{zIndex:"9999"}}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <h3>Enter in ServiceWorker account</h3>
+            <h3>Create as a technician account</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex flex-column align-items-center">
             <img
-              src="https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
+              src={image}
               alt="ServiceWorker Account"
               className="my-3"
               style={{ maxWidth: "40%" }}

@@ -56,7 +56,7 @@ const Login = () => {
       <div className="container-fluid main_bg">
         <div className="row">
           <div className="col-md-12 p-0">
-            <Alert1 />
+            {/* <Alert1 /> */}
             <div className="logo">
               <img src={HOMOSOLUTION} />
             </div>
@@ -142,7 +142,7 @@ const Login = () => {
                         </div>
                       </div>
                       <Link to="/forget-password" className="mb-0 d-flex fgtPass" >Forget password?</Link>
-                      <div>
+                      {/* <div>
                         <GoogleLogin
                         className="google_btn"
                           clientId="384608491688-p5pbvda9h7mfklit55gfm880tqlgbu1p.apps.googleusercontent.com"
@@ -150,7 +150,7 @@ const Login = () => {
                           onSuccess={responseGoogle}
                           onFailure={responseGoogle}
                           cookiePolicy={'single_host_origin'}
-                        /></div>
+                        /></div> */}
                     </div>
                   </Form>
                 </div>
