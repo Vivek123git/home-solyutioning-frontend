@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Otp from "./OTP/Otp";
 import Loader from "../Loader/Loader";
+import { toast } from "react-toastify";
 
 function ServiceWorker() {
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ function ServiceWorker() {
     skills: [],
     img: null,
     aadhar: null,
-    password: "123",
-    cnfPassword: "123",
+    password: "",
+    cnfPassword: "",
   });
   const [servicesData, setServicesData] = useState([]);
   const [skill, setSkill] = useState([])
@@ -115,17 +116,20 @@ function ServiceWorker() {
     // } else if (type === "otp") {
     //   setOtp(true)
     // }
-    const form = e.currentTarget;
+    if(form.password===form.cnfPassword){
+      const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
-      console.log("first")
       setValidated(true);
     } else {
       setValidated(true);
       setLoader(true)
       console.log("first123")
       dispatch(onCreateServiceman(formData, setLoader, navigate));
+    }
+    }else{
+      toast.warning("Password not matched")
     }
   };
 
@@ -297,7 +301,7 @@ function ServiceWorker() {
                       </Form.Group>
                     </div>
 
-                    {/* <div className="col-md-6 p-2">
+                    <div className="col-md-6 p-2">
                       <Form.Group as={Col} className="input_wrap">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -322,7 +326,7 @@ function ServiceWorker() {
                          required
                         />
                       </Form.Group>
-                    </div> */}
+                    </div>
 
                     <Button
                       variant="primary"

@@ -157,7 +157,7 @@ function OurSite() {
                         </h4>
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
                             <div className="row">
-                                <div className="col-md-6 p-2">
+                                <div className="col-md-6 px-4 py-2">
                                     <Form.Group controlId="formName" className="input_wrap ">
                                         <Form.Label>Enter your name</Form.Label>
                                         <Form.Control
@@ -173,7 +173,7 @@ function OurSite() {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </div>
-                                <div className="col-md-6 p-2">
+                                <div className="col-md-6 px-4 py-2">
                                     <Form.Group controlId="formMobile" className="input_wrap ">
                                         <Form.Label>Mobile Number</Form.Label>
                                         <Form.Control
@@ -190,7 +190,7 @@ function OurSite() {
                                     </Form.Group>
                                 </div>
 
-                                <div className="col-md-12 p-2">
+                                <div className="col-md-12 px-4 py-2">
                                     <Form.Group controlId="formService" className="input_wrap ">
                                         <Form.Label>Service</Form.Label>
                                         <Form.Control as="select" name="service" onChange={handleSelect} required>
@@ -211,7 +211,7 @@ function OurSite() {
                                     </Form.Group>
                                 </div>
 
-                                <div className="col-md-12 p-2">
+                                <div className="col-md-12 px-4 py-2">
                                     {name ? "" : <p className="p-0 m-0 text-sm">Please first choose services</p>}
                                     <Form.Group controlId="formDescription" className="input_wrap ">
                                         <Form.Label>
@@ -242,7 +242,7 @@ function OurSite() {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </div>
-                                <div className="col-md-12 p-2">
+                                <div className="col-md-12 px-4 py-2">
                                     <Form.Group controlId="formAddress" className="input_wrap ">
                                         <Form.Label>Address</Form.Label>
                                         <Form.Control
@@ -259,7 +259,7 @@ function OurSite() {
                                     </Form.Group>
                                 </div>
 
-                                {/* <div className="col-md-6 p-2">
+                                {/* <div className="col-md-6 px-4 py-2">
                   <Form.Group controlId="formState" className="input_wrap ">
                    
                     <Form.Select name="state" onChange={(e) => handlehange(e)}>
@@ -268,7 +268,7 @@ function OurSite() {
                     </Form.Select>
                   </Form.Group>
                 </div> */}
-                                <div className="col-md-6 p-2">
+                                <div className="col-md-6 px-4 py-2">
                                     <Form.Group controlId="formCity" className="input_wrap">
 
                                         <Form.Select name="city" onChange={(e) => handlehange(e)} required>
@@ -281,7 +281,7 @@ function OurSite() {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </div>
-                                <div className="col-md-6 p-2">
+                                <div className="col-md-6 px-4 py-2">
                                     <Form.Group controlId="formName" className="input_wrap" >
                                         <Form.Label>Near By</Form.Label>
                                         <Form.Control
@@ -297,7 +297,7 @@ function OurSite() {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </div>
-                                {/* <div className="col-md-6 p-2">
+                                {/* <div className="col-md-6 px-4 py-2">
                   <Form.Group controlId="formMobile" className="input_wrap">
                     <Form.Label>Pin Code</Form.Label>
                     <Form.Control

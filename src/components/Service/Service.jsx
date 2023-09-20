@@ -67,7 +67,7 @@ function Service() {
               {service.length > 0 ? (
                 service.map((elem, index) => {
                   return (
-                    <div className="col-md-4 col-sm-12">
+                    <div className="col-md-4 col-sm-6">
                       <Card className="card">
                         <Card.Img variant="top" rel="preload" src={elem.image} />
                         <Card.Body style={{ backgroundColor: "#71a1e9", paddingTop: "20px", paddingBottom: "0px" }}>

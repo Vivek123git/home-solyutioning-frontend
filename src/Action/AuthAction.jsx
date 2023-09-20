@@ -42,15 +42,13 @@ export const loginAccount = (formData, navigate,setLoader) => (dispatch, getStat
       } else {
         toast.warning('Login failed');
         dispatch({ type: "LOGIN_FAILURE", error: data.error });
-        dispatch(onSetAlert("warning","Login failed please try again"))
       }
            setLoader(false)
     })
     .catch((error) => {
       toast.warning('Login failed');
       dispatch({ type: "LOGIN_FAILURE", error: error.message });
-      dispatch(onSetAlert("warning","Login failed please try again"))
-           setLoader(false)
+      setLoader(false)
     });
 };
 

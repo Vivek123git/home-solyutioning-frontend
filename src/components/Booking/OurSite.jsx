@@ -11,6 +11,7 @@ import { onSetAlert } from "../../Action/AlertAction";
 import { CircularProgress } from "@mui/material";
 import Alert1 from "../Alert";
 import Loader from "../Loader/Loader";
+import Footer from "../Footer/Footer";
 
 function OurSite() {
   const dispatch = useDispatch();
@@ -306,6 +307,7 @@ function OurSite() {
         </div>
       </section>
         <Loader isLoading={isLoading}/>
+        <Footer/>
     </>
   );
 }
