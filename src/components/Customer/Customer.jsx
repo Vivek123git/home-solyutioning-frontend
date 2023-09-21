@@ -1,152 +1,137 @@
-import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import "./Customer.css";
+import Carousel from "react-multi-carousel";
+ import "react-multi-carousel/lib/styles.css";
+import { AiOutlineStar } from 'react-icons/ai'
 
-function Services() {
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 1 // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 1 // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
+  }
+};
+
+const items = [
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "Malasiya",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "The TajMahal",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "Indonesia",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "London",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "Paris",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  {
+    description: "Appending currency sign to a purchase form in your e-commerce site using plain JavaScript.",
+    headline: "Paris",
+    image: "https://onehomesolution.000webhostapp.com/uploadImage/Electricianbanner.png"
+  },
+  // Add other items here...
+];
+
+const Customer = () => {
   return (
-    <div className="container-fluid p-0">
-      <div className="row">
-        <div className="co-lg-12 p-0">
-          <div className="services-container backColor">
-            <div className="customer_heading text-center">
-              <h3
-                style={{
-                  justifyContent: "center",
-                  marginBottom: "35px",
-                  color: "#fff",
-                }}
-              >
-                 See how customer love us we give awesome service
-              </h3>
-            </div>
-            <swiper-container
-              className="mySwiper"
-              pagination="true"
-              pagination-clickable="true"
-              navigation="true"
-              space-between="30"
-              centered-slides="true"
-              autoplay-delay="2500"
-              autoplay-disable-on-interaction="false"
-            >
-              <swiper-slide>
-                <div className="col-md-6">
-                  <div className="service-col">
-                    <div className="service-img-wrapper">
-                      <img
-                        src="https://img.freepik.com/free-photo/close-up-portrait-nice-cute-adorable-smiling-charming-cheerful-girl-pointing-with-her-index-finger_176532-7923.jpg?w=996&t=st=1682613125~exp=1682613725~hmac=f23961e5b76dcfb937adbf1fc165a3c9f8249f7daba3d619907e46e6b559289a"
-                        alt="Service 1"
-                        className="service-img"
-                      />
-                    </div>
-                    <div className="service-details">
-                      <h4>Customer 1</h4>
-                      <p style={{fontWeight:"0"}}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam at massa sapien.
-                      </p>
-                      <Button variant="primary">Rating</Button>
-                    </div>
-                  </div>
-                </div>
-              </swiper-slide>
-              <swiper-slide>
-                <div className="col-md-6">
-                  <div className="service-col">
-                    <div className="service-img-wrapper">
-                      <img
-                        src="https://img.freepik.com/free-photo/girl-inviting-grab-bite-pointing-left-local-cafe-smiling-friendly-asking-friend-out-standing-positive-lucky-white-background-hold-hand-pocket-casually-talking-informal-conversation_176420-34954.jpg?w=996&t=st=1682613160~exp=1682613760~hmac=ed1b8f71c5f81463554022fed716bab2bd9733ef08ba890334b64495188cd154"
-                        alt="Service 1"
-                        className="service-img"
-                      />
-                    </div>
-                    <div className="service-details">
-                      <h4>Customer 1</h4>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam at massa sapien.
-                      </p>
-                      <Button variant="primary">Rating</Button>
-                    </div>
-                  </div>
-                </div>
-              </swiper-slide>
-              <swiper-slide>
-                <div className="col-md-6">
-                  <div className="service-col">
-                    <div className="service-img-wrapper">
-                      <img
-                        src="https://img.freepik.com/free-photo/girl-inviting-grab-bite-pointing-left-local-cafe-smiling-friendly-asking-friend-out-standing-positive-lucky-white-background-hold-hand-pocket-casually-talking-informal-conversation_176420-34954.jpg?w=996&t=st=1682613160~exp=1682613760~hmac=ed1b8f71c5f81463554022fed716bab2bd9733ef08ba890334b64495188cd154"
-                        alt="Service 1"
-                        className="service-img"
-                      />
-                    </div>
-                    <div className="service-details">
-                      <h4>Customer 1</h4>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam at massa sapien.
-                      </p>
-                      <Button variant="primary">Rating</Button>
-                    </div>
-                  </div>
-                </div>
-              </swiper-slide>
-              <swiper-slide>
-                <div className="col-md-6">
-                  <div className="service-col">
-                    <div className="service-img-wrapper">
-                      <img
-                        src="https://img.freepik.com/free-photo/excited-stylish-curly-haired-girl-sunglasses-pointing-right-showing-way_176420-20194.jpg?w=996&t=st=1682613227~exp=1682613827~hmac=78f62ad8451b90c1f9ae1a193843f62fc39e7b230b8d70fd120c3d9ba0ddac60"
-                        alt="Service 1"
-                        className="service-img"
-                      />
-                    </div>
-                    <div className="service-details">
-                      <h4>Customer 1</h4>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam at massa sapien.
-                      </p>
-                      <Button variant="primary">Rating</Button>
-                    </div>
-                  </div>
-                </div>
-              </swiper-slide>
-              <swiper-slide>
-                <div className="col-md-6">
-                  <div className="service-col">
-                    <div className="service-img-wrapper">
-                      <img
-                        src="https://img.freepik.com/free-photo/excited-stylish-curly-haired-girl-sunglasses-pointing-right-showing-way_176420-20194.jpg?w=996&t=st=1682613227~exp=1682613827~hmac=78f62ad8451b90c1f9ae1a193843f62fc39e7b230b8d70fd120c3d9ba0ddac60"
-                        alt="Service 1"
-                        className="service-img"
-                      />
-                    </div>
-                    <div className="service-details">
-                      <h4>Customer 1</h4>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nullam at massa sapien.
-                      </p>
-                      <Button variant="primary">Rating</Button>
-                    </div>
-                  </div>
-                </div>
-              </swiper-slide>
-
-              <div className="autoplay-progress" slot="container-end">
-                <svg viewBox="0 0 48 48">
-                  <circle cx="24" cy="24" r="20"></circle>
-                </svg>
-                <span></span>
+    <>
+     <section style={{ color: "#000", backgroundColor: "#e1e1e1" }}>
+          <div class="container py-5">
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-10 col-xl-8 text-center">
+                <h3 class="fw-bold mb-4">What people say about us!</h3>
+                <p class="mb-4 pb-2 mb-md-5 pb-md-0">
+                  We give awesome services see how customer love us
+                </p>
               </div>
-            </swiper-container>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+            </div>
 
-export default Services;
+            <div class="row text-center">
+      <Carousel
+        swipeable={true}
+        draggable={false}
+        showDots={false}
+        responsive={responsive}
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={2000}
+        keyBoardControl={true}
+        customTransition="all 1s"
+        transitionDuration={1000}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+        deviceType={true}
+      // dotListClass="custom-dot-list-style"
+      // itemClass="carousel-item-padding-40-px"
+      >
+       
+              {items.map((elem, id) => {
+                return (
+                  <><div class="col-md-10 ">
+                    <div class=" card">
+                      <div class="card-body py-4 mt-2">
+                        <div class="d-flex justify-content-center mb-4">
+                          <img src={elem.image}
+                            class="rounded-circle shadow-1-strong" width="100" height="100" />
+                        </div>
+                        <h5 class="font-weight-bold">{elem.headline}</h5>
+                        <h6 class="font-weight-bold my-3">Founder at ET Company</h6>
+                        <ul class="list-unstyled d-flex justify-content-center">
+                          <li>
+                            <AiOutlineStar />
+                          </li>
+                          <li>
+                            <AiOutlineStar />
+                          </li>
+                          <li>
+                            <AiOutlineStar />
+                          </li>
+                          <li>
+                            <AiOutlineStar />
+                          </li>
+                          <li>
+                            <i class="fas fa-star-half-alt fa-sm text-info"></i>
+                          </li>
+                        </ul>
+                        <p class="mb-2">
+                          <i class="fas fa-quote-left pe-2"></i>{elem.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div></>
+                )
+              })}
+
+              
+            
+      </Carousel>;
+      </div>
+          </div>
+        </section>
+
+    </>
+  )
+}
+export default Customer;

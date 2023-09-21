@@ -35,33 +35,33 @@ function About() {
             </Col>
             <Col md={6}>
 
-              <p style={{ fontSize: "16px", fontFamily: "roboto" }}>
+              <p style={{ fontSize: "1rem",fontWeight:"600", fontFamily: "roboto" }}>
                 Welcome to our website! We are a one-stop-shop for all your home
                 maintenance and repair needs. Whether you need an electrician,
                 plumber, AC technician, RO service, broadband installation or
                 CCTV installation, we've got you covered.
               </p>
-              <p style={{ fontSize: "16px", fontFamily: "roboto" }}>
+              <p style={{ fontSize: "1rem",fontWeight:"600", fontFamily: "roboto" }}>
                 Our team is made up of highly skilled and experienced
                 professionals who are dedicated to providing you with
                 top-quality services at competitive prices. We take pride in
                 offering exceptional customer service and guaranteeing customer
                 satisfaction with every job we undertake.
               </p>
-              <p style={{ fontSize: "16px", fontFamily: "roboto" }}>
+              <p style={{ fontSize: "1rem",fontWeight:"600", fontFamily: "roboto" }}>
                 We understand that finding reliable and trustworthy service
                 providers can be a daunting task, which is why we have made it
                 our mission to make the process as easy and stress-free as
                 possible. You have the option to either directly contact the
                 service worker details or book the service worker from our site.
               </p>
-              <p style={{ fontSize: "16px", fontFamily: "roboto" }}>
+              <p style={{ fontSize: "1rem",fontWeight:"600", fontFamily: "roboto" }}>
                 We also offer contract services for those who require regular
                 maintenance and repair work. Our team will work closely with you
                 to develop a customized plan that fits your specific needs and
                 budget.
               </p>
-              <p style={{ fontSize: "16px", fontFamily: "roboto" }}>Thank you for considering us for your home maintenance and repair needs. We look forward to serving you soon!</p>
+              <p style={{ fontSize: "1rem",fontWeight:"600", fontFamily: "roboto" }}>Thank you for considering us for your home maintenance and repair needs. We look forward to serving you soon!</p>
             </Col>
           </Row>
         </Container>

@@ -55,9 +55,9 @@ const BenefitsPage = () => {
             //   <p className="benifit" >{benefit.description}</p>
             // </div>
               <div className=" col-md-4">
-            <div className="card text-white mb-3 text-center" style={{ backgroundColor: "#71a1e9" }}>
-              <div className="card-header ">{benefit.icon}</div>
-              <div className="card-body">
+            <div className="card text-white mb-3 text-center" style={{ backgroundColor: "#71a1e9",height:"200px" }}>
+              <div className="card-header " style={{ height:"auto" }}>{benefit.icon}</div>
+              <div className="card-body" style={{ height:"auto" }}>
                 <h5 className="card-title">{benefit.title}</h5>
                 <p className="card-text">{benefit.description}</p>
               </div>

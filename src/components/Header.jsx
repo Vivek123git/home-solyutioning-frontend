@@ -11,7 +11,7 @@ import team from "../img/team.png.jpg";
 import OurSite from "./Booking/OurSite";
 import NewBookingPage from "./Booking/NewBookingPage";
 import { HelmetProvider, Helmet } from "react-helmet-async"
-import MultiCarousel from "../MultiCarousel";
+
 
 
 function Header() {
@@ -127,14 +127,14 @@ return (
                       <h3 className="" style={{ color: "#71a1e9" }}>
                         About Us
                       </h3>
-                      <p>
+                      <p style={{ fontSize: "1.4rem",fontWeight:"600", fontFamily: "roboto" }}>
                         Welcome to our website! We are a one-stop-shop for all
                         your home maintenance and repair needs. Whether you need
                         an electrician, plumber, AC technician, RO service,
                         broadband installation or CCTV installation, we've got
                         you covered.
                       </p>
-                      <p>
+                      <p style={{ fontSize: "1.4rem",fontWeight:"600", fontFamily: "roboto" }}>
                         Our team is made up of highly skilled and experienced
                         professionals who are dedicated to providing you with
                         top-quality services at competitive prices. We take

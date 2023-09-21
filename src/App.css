@@ -1078,15 +1078,15 @@ font-size: large;
 .form-select{
   height: 4.5rem;
 }
-.multi-banner-carousel{
+/* .multi-banner-carousel{
   margin: 0px;
-}
-.react-multi-carousel-list {
-  display: flex;
+} */
+/* .react-multi-carousel-list {
+  display: block !important;
   align-items: center;
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
-}
+}  */
 
 
 /* testimonials........................................................... */
