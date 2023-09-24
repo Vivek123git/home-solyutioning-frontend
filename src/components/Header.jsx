@@ -11,6 +11,7 @@ import team from "../img/team.png.jpg";
 import OurSite from "./Booking/OurSite";
 import NewBookingPage from "./Booking/NewBookingPage";
 import { HelmetProvider, Helmet } from "react-helmet-async"
+import Faq from "./Faq";
 
 
 
@@ -151,6 +152,7 @@ return (
 
               {/* <OurSite /> */}
               <NewBookingPage/>
+              <Faq/>
             </div>
           </div>
         </div>

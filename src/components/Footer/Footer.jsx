@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
 
@@ -52,6 +53,10 @@ function Footer() {
               plumber, AC technician, RO service, broadband installation or CCTV
               installation, we've got you covered.
             </p>
+            <ul className="list-unstyled footer-pointer">
+              <Link to="/term-condition"><li >Term and Condition</li></Link>
+              <Link to="/privacy-policy"><li >Privacy and Policy</li></Link>
+              </ul>
           </div>
         </div>
       </div>

@@ -160,9 +160,11 @@ a:hover {
 .footer_section .list-unstyled {
   display: inline-block;
 }
-.footer_section li:hover {
-  margin-left: 15px;
-  color: #382f2f;
+.footer-pointer li:hover {
+  /* margin-left: 15px;
+  color: #382f2f; */
+  cursor: pointer;
+  text-decoration: none;
 }
 
 

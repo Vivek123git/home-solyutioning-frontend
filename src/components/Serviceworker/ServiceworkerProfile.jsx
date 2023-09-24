@@ -169,7 +169,7 @@ const ServiceWorkerProfile = () => {
                       <tbody>
                         {userData.length > 0 ?
                           userData.map((elem, id) => {
-                            console.log(elem.id,elem.user_name)
+                            console.log(elem)
                             return (
                               <tr>
                                 <td>1</td>
@@ -179,7 +179,7 @@ const ServiceWorkerProfile = () => {
                                 <td>Elctrician</td>
                                 <td>{elem.date}</td>
                                 <td>
-                                  <select onChange={(e) => handleWorkerBookingStatus(e, elem.worker_id)}>
+                                  <select onChange={(e) => handleWorkerBookingStatus(e, elem.id)}>
                                     <option value={"1"}>Select a option</option>
                                     <option value={"2"}> Accept</option>
                                     <option value={"3"}>Reject</option>

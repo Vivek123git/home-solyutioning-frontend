@@ -16,6 +16,8 @@ import ContactUs2 from "./components/ContactUs2";
 import About from "./components/About/About";
 import ForgetPasword from "./components/Login/ForgetPassword";
 import Dashboard from "./components/Dashboard"
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermCondition from "./components/TermCondition";
 
 function App() {
 
@@ -54,7 +56,8 @@ function App() {
             <Route exact path="/contactus" element={<ContactUs2 />} />
             <Route exact path="/aboutus" element={<About />} />
             <Route exact path="/dashboard" element={<Dashboard/>} />
-         
+            <Route exact path="/term-condition" element={<TermCondition/>} />
+            <Route exact path="/privacy-policy" element={<PrivacyPolicy/>} />
         </Routes>
       </BrowserRouter>
     </div>
