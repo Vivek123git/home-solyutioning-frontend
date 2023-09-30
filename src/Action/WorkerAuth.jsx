@@ -18,15 +18,18 @@ export const loginWorkerAccount = (formData, navigate,setLoader) => (dispatch, g
         dispatch({ type: "LOGIN_SUCCESS_WORKER", payload: data });
         navigate("/serviceworkerprofile");
         dispatch(onSetAlert("success",res.msg))
+        setLoader(false)
       } else {
         toast.warning('Login failed');
         dispatch({ type: "LOGIN_FAILURE_WORKER", error: data.error });
+        setLoader(false)
       }
       setLoader(false)
     })
     .catch((err) => {
       console.log(err);
       toast.warning('Login failed');
+      setLoader(false)
     });
 };
 

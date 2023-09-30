@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 function Footer() {
 
   const [socialLinks, setSocialLinks] = useState({
-    facebook: 'https://www.facebook.com/your-page',
-    whatsapp: 'https://wa.me/9140734396',
-    instagram: 'https://www.instagram.com/vivekk_upadhyay',
-    twitter: 'https://twitter.com/your-handle',
-    linkedin: 'https://www.linkedin.com/in/your-profile',
+    facebook: 'https://www.facebook.com/repairinminute',
+    whatsapp: 'https://wa.me/9654155927',
+    instagram: 'https://www.instagram.com/repairinminute',
+    twitter: 'https://twitter.com/repairinminute',
+    linkedin: 'https://www.linkedin.com/in/repairinminute',
   });
 
   return (
@@ -32,10 +32,10 @@ function Footer() {
             <h5>Contact Us</h5>
             <ul className="list-unstyled">
               <li>Lucknow , Chinhat </li>
-              <li>Matiyari</li>
-              <li>Deva Road, Woods Apartment</li>
-              <li>555-555-5555</li>
-              <li>info@yoursite.com</li>
+              <li>Matiyari, Deva Road</li>
+              <li>Near- The Woods Apartment</li>
+              <li>9654155927</li>
+              <li ><a  href="mailto:repairinminute@gmail.com" style={{color:"#fff"}}>repairinminute@gmail.com</a></li>
               <div className="mt-3 icon-Btn">
         <a href={socialLinks.whatsapp} target='blank' className="me-3"><span id="boot-icon" className="bi bi-whatsapp" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1", margin:"10px"}}></span></a>
         <a href={socialLinks.linkedin} target='blank' className="me-3"><i className="bi bi-linkedin" style={{fontSize: "30px", color:" rgb(0, 0, 255)", opacity: "1",margin:"10px" }}></i></a>

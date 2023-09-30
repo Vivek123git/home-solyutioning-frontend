@@ -83,13 +83,13 @@ const Login = () => {
                           controlId="formMobile"
                           className="input_wrap"
                         >
-                          <Form.Label>Mobile No./Email</Form.Label>
+                          <Form.Label>Email</Form.Label>
                           <Form.Control
                             type="text"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="Enter mobile no./email"
+                            placeholder="Enter your registered email"
                             required
                           />
                         </Form.Group>

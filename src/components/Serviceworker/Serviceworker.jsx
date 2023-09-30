@@ -125,7 +125,6 @@ function ServiceWorker() {
     } else {
       setValidated(true);
       setLoader(true)
-      console.log("first123")
       dispatch(onCreateServiceman(formData, setLoader, navigate));
     }
     }else{
@@ -194,7 +193,7 @@ function ServiceWorker() {
                         <Form.Control.Feedback type="invalid">
                           This field is required.
                         </Form.Control.Feedback>
-                        <Button
+                        {/* <Button
                           variant="primary"
                           type="otp"
                           style={{
@@ -205,7 +204,7 @@ function ServiceWorker() {
                           onClick={(e) => handleSubmit(e, "otp")}
                         >
                           OTP send
-                        </Button>
+                        </Button> */}
                       </Form.Group>
                     </div>
 

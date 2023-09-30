@@ -77,18 +77,18 @@ function About() {
                   </CardText>
                   <div className="d-flex align-items-center">
                     <FaEnvelope className="mr-2" />
-                    <a href="mailto:director@example.com">
-                      director@example.com
+                    <a href="mailto:vivek17081998@gmail.com">
+                     vivek17081998@gmail.com
                     </a>
                   </div>
                   <div className="d-flex align-items-center">
                     <FaPhone className="mr-2" />
-                    <a href="tel:+1234567890">(123) 456-7890</a>
+                    <a href="tel:9654155927">(+91)9654155927</a>
                   </div>
                 </CardBody>
               </Card>
             </Col>
-            <Col md={4} sm={12} className="mb-4">
+            {/* <Col md={4} sm={12} className="mb-4">
               <Card>
                 <CardImg top src={team} alt="About Us" />
                 <CardBody>
@@ -127,7 +127,7 @@ function About() {
                   </div>
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
 

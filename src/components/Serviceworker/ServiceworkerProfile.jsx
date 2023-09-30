@@ -6,16 +6,20 @@ import { onfetchUserBookingDetails, onfetchWorkerDetails, onstatusUpdate, onWork
 import { useDispatch, useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import Loader from "../Loader/Loader";
+import { useNavigate } from "react-router";
+import { Pagination } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const ServiceWorkerProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   // const workerDetails = useSelector((state) => state.workerAcc);
 
   const auth = JSON.parse(localStorage.getItem('state'))
   const workerDetails = auth.workerAcc.worker
 
-  const [checked, setChecked] = useState(false);
-  const [status, setStatus] = useState("Booked");
+
   const [workStatus, setWorkStatus] = useState("")
   const [worker, setWorker] = useState([]);
   const [image, setImage] = useState(
@@ -23,6 +27,25 @@ const ServiceWorkerProfile = () => {
   );
   const [userData, setUserData] = useState([])
   const [isLoading, setLoading] = useState(true);
+  const [checked, setChecked] = useState(worker.status === "1");
+
+  const itemsPerPage = 10; // Number of items to show per page
+  const totalPages = Math.ceil(userData.length / itemsPerPage);
+
+  // State variables for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate the range of items to display on the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = userData.slice(startIndex, endIndex);
+
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -49,47 +72,43 @@ const ServiceWorkerProfile = () => {
   //   statusPayload.append("status", isChecked ? "1" : "0");
   //   dispatch(onstatusUpdate(statusPayload));
   // };
-  const handleChange = (e) => {
-    const isChecked = e.target.checked;
-    console.log(isChecked,"check")
-    setStatus((prevStatus) => isChecked ? "Available" : "Booked");
-    setChecked(isChecked);
   
-    let statusPayload = new FormData();
-    statusPayload.append("id", workerDetails.id);
-    statusPayload.append("status", isChecked ? "1" : "0");
-    dispatch(onstatusUpdate(statusPayload));
-  };
+    const handleChange = (e) => {
+      const isChecked = e.target.checked;
+      setChecked(isChecked);
 
-  // const statusUpdate = (isChecked) => {
-  //   let statusPayload = new FormData();
-  //   statusPayload.append("id", workerDetails.id);
-  //   statusPayload.append("status", isChecked ? "1" : "0");
-  //   dispatch(onstatusUpdate(statusPayload));
-  // };
+      let statusPayload = new FormData();
+      statusPayload.append("id", workerDetails?.id);
+      statusPayload.append("status", isChecked ? "1" : "0"); // Send "1" if checked, "0" if not
+      dispatch(onstatusUpdate(statusPayload));
+    }
 
   const fetchWorkerDetails = () => {
-    let data = {};
-    dispatch(onfetchWorkerDetails(data, setWorker));
+    let workerDataPayload = new FormData();
+    workerDataPayload.append("id", workerDetails?.id)
+    dispatch(onfetchWorkerDetails(workerDataPayload, setWorker));
   };
 
   const fetchUserDetails = () => {
     setLoading(true)
     let workerPayload = new FormData();
-    workerPayload.append("id", workerDetails.id)
-    dispatch(onfetchUserBookingDetails(workerPayload, setUserData , setLoading));
+    workerPayload.append("id", workerDetails?.id)
+    dispatch(onfetchUserBookingDetails(workerPayload, setUserData, setLoading));
   };
 
   useEffect(() => {
     fetchWorkerDetails();
     fetchUserDetails()
-  }, []);
+  }, [checked]);
 
   const handleWorkerBookingStatus = (e, id) => {
     const updatedWorkStatus = e.target.value;
     let bookingStatusPayload = new FormData();
     bookingStatusPayload.append("status", updatedWorkStatus)
     bookingStatusPayload.append("id", id)
+    if (updatedWorkStatus === "2") {
+      bookingStatusPayload.append("worker_name", workerDetails?.name);
+    }
     setWorkStatus(updatedWorkStatus);
     dispatch(onWorkerStatus(bookingStatusPayload));
   }
@@ -108,16 +127,12 @@ const ServiceWorkerProfile = () => {
 
               <Row style={{ padding: "10px", alignContent: "center" }}>
                 <Col xs={8} style={{ display: "flex", padding: "0px", flexDirection: "column", }}>
-                  <h5>Name : {workerDetails.name}</h5>
-                  <p>Mobile No.: {workerDetails.mobileNumber}</p>
+                  <h5>Name : {workerDetails?.name}</h5>
+                  <p>Mobile No.: {workerDetails?.mobileNumber}</p>
                   <div className="d-flex">
                     <h5>Status : </h5>
-                    <h5
-                      style={{
-                        color: status === "Available" ? "black" : "#71a1e9",
-                      }}
-                    >
-                      {status}
+                    <h5 style={{ color: checked ? "#71a1e9" : "black" }}>
+                      {checked ? "Available" : "Not Available"}
                     </h5>
                     <Switch
                       style={{ alignItems: "center" }}
@@ -131,7 +146,7 @@ const ServiceWorkerProfile = () => {
 
                 <Col xs={4} style={{ display: "flex", padding: "0px", }}>
                   <div>
-                    <img className="user-img" src={workerDetails.image ? workerDetails.image : image} roundedCirclealt="avatar" />
+                    <img className="user-img" src={workerDetails?.image ? workerDetails.image : image} roundedCirclealt="avatar" />
                     <br />
                     <input
                       style={{ display: "none" }}
@@ -151,7 +166,7 @@ const ServiceWorkerProfile = () => {
               </Row>
               <Row>
                 <Col>
-                  <h2>Booking Status</h2>
+                  <h2>My Work</h2>
                   <div style={{ overflow: "auto" }}>
                     <Table striped bordered hover>
                       <thead>
@@ -167,19 +182,21 @@ const ServiceWorkerProfile = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {userData.length > 0 ?
-                          userData.map((elem, id) => {
-                            console.log(elem)
+                        {currentItems.length > 0 ?
+                          currentItems.map((elem, id) => {
                             return (
                               <tr>
-                                <td>1</td>
+                                <td>{id + 1}</td>
                                 <td>{elem.user_name}</td>
                                 <td>{elem.number}</td>
                                 <td>{elem.address}</td>
-                                <td>Elctrician</td>
+                                <td>{elem.main_service}</td>
                                 <td>{elem.date}</td>
                                 <td>
-                                  <select onChange={(e) => handleWorkerBookingStatus(e, elem.id)}>
+                                  <select
+                                    onChange={(e) => handleWorkerBookingStatus(e, elem.user_id)}
+                                    // disabled={workStatus === "2" ? true : false}
+                                  >
                                     <option value={"1"}>Select a option</option>
                                     <option value={"2"}> Accept</option>
                                     <option value={"3"}>Reject</option>
@@ -193,16 +210,35 @@ const ServiceWorkerProfile = () => {
                           : ""}
                       </tbody>
                     </Table>
+                    <Pagination>
+                      <Pagination.Prev
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                      />
+                      {Array.from({ length: totalPages }, (_, i) => (
+                        <Pagination.Item
+                          key={i}
+                          active={i + 1 === currentPage}
+                          onClick={() => handlePageChange(i + 1)}
+                        >
+                          {i + 1}
+                        </Pagination.Item>
+                      ))}
+                      <Pagination.Next
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                      />
+                    </Pagination>
                   </div>
                 </Col>
               </Row>
-            {/* <div  style={{ left: "50%",position:"relative" }} >
+              {/* <div  style={{ left: "50%",position:"relative" }} >
                 {!userData ? "No data found" : userData.length >= 0 ? "" : <CircularProgress className="spinner_icon"/>}
             </div> */}
             </div>
           </div>
         </div>
-        <Loader isLoading={isLoading}/>
+        <Loader isLoading={isLoading} />
       </section>
     </>
   );

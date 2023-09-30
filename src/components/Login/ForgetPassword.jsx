@@ -5,18 +5,21 @@ import HOMOSOLUTION from "../../img/logo.png";
 import "../../../src/App.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { loginAccount } from "../../Action/AuthAction";
-import { onSetAlert } from "../../Action/AlertAction";
+import { forget_pass ,forget_pass_worker} from "../../Action/AuthAction";
 import { useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
+import { useLocation } from 'react-router-dom';
 
 const ForgetPasword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const queryString = window.location.search;
+
   const [formData, setFormData] = useState({
     password: "",
-    cnfPassword:""
+    cnfPassword:"",
+    email:''
   });
 const [loader,setLoader] = useState(false)
 
@@ -30,12 +33,23 @@ const [loader,setLoader] = useState(false)
 
 
   let formDataLogin = new FormData();
-  formDataLogin.append("email",formData.password)
-  formDataLogin.append("password",formData.cnfPassword)
+  if(queryString==="?worker"){
+    formDataLogin.append("mobileNumber",formData.mobile)
+  }else{
+    formDataLogin.append("email",formData.email)
+  }
+  formDataLogin.append("password",formData.password)
+  formDataLogin.append("c_password",formData.cnfPassword)
 
   const handleSubmit = (e) => {
     setLoader(true)
     e.preventDefault();
+    if(queryString==="?worker"){
+      dispatch(forget_pass_worker(formDataLogin,navigate,setLoader))
+    }else{
+      dispatch(forget_pass(formDataLogin,navigate,setLoader))
+    }
+   
   };
 
   return (
@@ -64,6 +78,36 @@ const [loader,setLoader] = useState(false)
                   <hr style={{ color: "#0062cc" }} />
                   <Form onSubmit={handleSubmit}>
                     <div className="row">
+                    <div className="col-md-12 p-2">
+                       {!queryString==="?worker"? <Form.Group
+                          controlId="formMobile"
+                          className="input_wrap"
+                        >
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Enter password"
+                            required
+                          />
+                        </Form.Group>:
+                         <Form.Group
+                         controlId="formMobile"
+                         className="input_wrap"
+                       >
+                         <Form.Label>Mobile No.</Form.Label>
+                         <Form.Control
+                           type="text"
+                           name="mobile"
+                           value={formData.mobile}
+                           onChange={handleChange}
+                           placeholder="Enter password"
+                           required
+                         />
+                       </Form.Group>}
+                      </div>
                       
                       <div className="col-md-12 p-2">
                         <Form.Group

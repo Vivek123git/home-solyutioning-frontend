@@ -138,14 +138,14 @@ const UserProfile = () => {
                           <th>Booking ID</th>
                           <th>Technician Name</th>
                           <th>Technician Mobile No.</th>
-                          <th>Services</th>
+                          <th>Services you booked</th>
                           <th>Date</th>
-                          <th>Status</th>
-                          <th>Rating</th>
+                          {/* <th>Status</th>
+                          <th>Rating</th> */}
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        {/* <tr>
                           <td>1</td>
                           <td>Service 1</td>
                           <td>123456789</td>
@@ -155,20 +155,20 @@ const UserProfile = () => {
                           <td>
                             <button onClick={handleShow}>Rating</button>
                           </td>
-                        </tr>
+                        </tr> */}
                         {workerData.length > 0 ?
                           workerData.map((elem, id) => {
                             return (
                               <tr>
-                                <td>{elem.id}</td>
+                                <td>{id+1}</td>
                                 <td>{elem.worker_name}</td>
                                 <td>{elem.worker_number}</td>
-                                <td>Elctrician</td>
+                                <td>{elem.worker_service}</td>
                                 <td>{elem.worker_date}</td>
-                                <td>{elem.status}</td>
-                                <td>
-                                  <button onClick={()=>handleShow(elem.id)}>Rating</button>
-                                </td>
+                                {/* <td>{elem.status}</td> */}
+                                {/* <td>
+                                  <button onClick={()=>handleShow(elem.worker_id)}>Rating</button>
+                                </td> */}
                               </tr>
                             )
                           })
@@ -177,7 +177,7 @@ const UserProfile = () => {
                       </tbody>
                     </Table>
               <div  style={{ left: "50%",position:"relative" }} >
-                {!workerData ? "No data found" : workerData.length > 0 ? "" : <CircularProgress className="spinner_icon"/>}
+                {/* {!workerData ? "No data found" : workerData.length > 0 ? "" : <CircularProgress className="spinner_icon"/>} */}
             </div>
                   </div>
                 </Col>

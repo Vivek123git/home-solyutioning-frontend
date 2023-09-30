@@ -128,14 +128,14 @@ return (
                       <h3 className="" style={{ color: "#71a1e9" }}>
                         About Us
                       </h3>
-                      <p style={{ fontSize: "1.4rem",fontWeight:"600", fontFamily: "roboto" }}>
+                      <p style={{ fontSize: "1.2rem",fontWeight:"500", fontFamily: "roboto" }}>
                         Welcome to our website! We are a one-stop-shop for all
                         your home maintenance and repair needs. Whether you need
                         an electrician, plumber, AC technician, RO service,
                         broadband installation or CCTV installation, we've got
                         you covered.
                       </p>
-                      <p style={{ fontSize: "1.4rem",fontWeight:"600", fontFamily: "roboto" }}>
+                      <p style={{ fontSize: "1.2rem",fontWeight:"500", fontFamily: "roboto" }}>
                         Our team is made up of highly skilled and experienced
                         professionals who are dedicated to providing you with
                         top-quality services at competitive prices. We take

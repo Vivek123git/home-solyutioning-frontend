@@ -17,7 +17,6 @@ export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (d
         navigate("/")
         toast.success('Booking Successfully');
       } else {
-        console.log("failure");
         toast.warning('Booking failed');
       }
       setLoader(false)
@@ -126,10 +125,10 @@ export const onfetchWorkerDetails = (data, setWorker) => (
   dispatch,
   getState
 ) => {
-  commonAxios("", data, dispatch, getState)
+  commonAxios("get-worker-data", data, dispatch, getState)
     .then((res) => {
       if (res.status) {
-        setWorker(res.data);
+        setWorker(res.data[0]);
       }
     })
     .catch((err) => {

@@ -81,6 +81,10 @@ function NavbarHead() {
   useEffect(() => {
     fetchServiceData();
   }, []);
+  
+  const handleLogo=()=>{
+    navigate("/")
+  }
 
   return (
     <>
@@ -92,6 +96,7 @@ function NavbarHead() {
         >
           <Navbar aria-controls="basic-navbar-nav" />
           <img
+          onClick={handleLogo}
             src={logo}
             alt=""
             style={{
@@ -100,6 +105,7 @@ function NavbarHead() {
               padding: "9px",
               position: "absolute",
               left: "0px",
+              cursor:"pointer"
             }}
           />
           <PhoneNumberPopup/>
@@ -307,10 +313,11 @@ function NavbarHead() {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" className="position-relative w-100">
                 Login
-                {loader?<CircularProgress className="spinner_icon" style={{color:"white",height:"30px",width:"30px",position:'absolute',marginLeft:"200px"}}/>:""}
+                {loader?<CircularProgress className="spinner_icon position-absolute" style={{color:"white",height:"30px",width:"30px",position:'absolute'}}/>:""}
               </Button>
+              <Link to='/forget-password?worker' className="mb-0 d-flex fgtPass" >Forget password?</Link>
             </Form>
           </Modal.Body>
         </Modal>
