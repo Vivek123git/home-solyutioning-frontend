@@ -23,12 +23,12 @@ function NavbarHead() {
 
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const [loader , setLoader] = useState(false)
+  const [loader, setLoader] = useState(false)
   // const [profile, setProfile] = useState();
   const [form, setForm] = useState({
     mobile: "",
     password: "",
-    type:"ServiceWorker"
+    type: "ServiceWorker"
   });
 
   const handleShow = () => setShow(true);
@@ -47,22 +47,22 @@ function NavbarHead() {
   };
 
   const handleChange = (e) => {
-    const {name,value} =  e.target;
+    const { name, value } = e.target;
     setForm({
       ...form,
-    [name]:value
+      [name]: value
     })
   };
 
   let formDataLogin = new FormData();
-  formDataLogin.append("number",form.mobile)
-  formDataLogin.append("password",form.password)
+  formDataLogin.append("number", form.mobile)
+  formDataLogin.append("password", form.password)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // navigate("/serviceworkerprofile")
     setLoader(true)
-    dispatch(loginWorkerAccount(formDataLogin,navigate,setLoader))
+    dispatch(loginWorkerAccount(formDataLogin, navigate, setLoader))
   };
 
   const fetchServiceData = () => {
@@ -74,50 +74,33 @@ function NavbarHead() {
     dispatch(logOutUser())
   };
 
-  const handleSignOutWorker = () =>{
+  const handleSignOutWorker = () => {
     dispatch(logOutWorker())
   }
 
   useEffect(() => {
     fetchServiceData();
   }, []);
-  
-  const handleLogo=()=>{
+
+  const handleLogo = () => {
     navigate("/")
   }
 
   return (
     <>
       <div className="nav_head">
-        <Navbar
-          style={{ backgroundColor: "#ffff", borderRadius: "0px" }}
-          expand="lg"
-          className="navigation"
-        >
-          <Navbar aria-controls="basic-navbar-nav" />
-          <img
-          onClick={handleLogo}
-            src={logo}
-            alt=""
-            style={{
-              width: "200px",
-              height: "80px",
-              padding: "9px",
-              position: "absolute",
-              left: "0px",
-              cursor:"pointer"
-            }}
-          />
-          <PhoneNumberPopup/>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} style={{height: "50px",width: "60px"}} />
+        <Navbar style={{ backgroundColor: "#ffff", borderRadius: "0px",justifyContent:"start" }} expand="lg" className="navigation">
+          <img onClick={handleLogo} src={logo} alt="" className="nav-logo"/>
+          <PhoneNumberPopup />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} style={{ height: "50px", width: "60px" }} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
             placement="end"
-            
+
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`} style={{color:"#71a1e9"}}>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`} style={{ color: "#71a1e9" }}>
                 RepairInMinute
               </Offcanvas.Title>
             </Offcanvas.Header>
@@ -133,27 +116,27 @@ function NavbarHead() {
                   Home
                 </NavLink>
 
-              
+
                 {auth && auth.workerAcc && auth.workerAcc.isAuthenticated ? (
-                <NavDropdown title="Technician Account" id="basic-nav-dropdown">
-                    
-                      <>
-                        <NavDropdown.Item as={Link} to="/serviceworkerProfile">
-                          Profile
-                        </NavDropdown.Item>
-                        <NavDropdown.Item onClick={handleSignOutWorker}>
-                          Sign out
-                        </NavDropdown.Item>
-                      </>
-                      </NavDropdown> ) :  
-                     <Nav.Link
+                  <NavDropdown title="Technician Account" id="basic-nav-dropdown">
+
+                    <>
+                      <NavDropdown.Item as={Link} to="/serviceworkerProfile">
+                        Profile
+                      </NavDropdown.Item>
+                      <NavDropdown.Item onClick={handleSignOutWorker}>
+                        Sign out
+                      </NavDropdown.Item>
+                    </>
+                  </NavDropdown>) :
+                  <Nav.Link
                     onClick={handleShow}
                     className="nav-link"
                     activeClassName="active"
                   >
                     Technician Account
                   </Nav.Link>}
-                  
+
 
                 <NavDropdown
                   title="Our Services"
@@ -162,17 +145,16 @@ function NavbarHead() {
                 >
                   {service.length > 0
                     ? service.map((elem, id) => {
-                        return (
-                          <NavDropdown.Item
-                            as={Link}
-                            to={`/servicecard?sId=${elem.id}&name=${
-                              elem.type
+                      return (
+                        <NavDropdown.Item
+                          as={Link}
+                          to={`/servicecard?sId=${elem.id}&name=${elem.type
                             }&id=${"1"}`}
-                          >
-                            {elem.type}
-                          </NavDropdown.Item>
-                        );
-                      })
+                        >
+                          {elem.type}
+                        </NavDropdown.Item>
+                      );
+                    })
                     : ""}
                 </NavDropdown>
                 <NavLink
@@ -187,10 +169,10 @@ function NavbarHead() {
                   className="nav-link"
                   activeClassName="active"
                   to="/contactus"
-                  >
+                >
                   Contact us
                 </NavLink>
-                 
+
                 <NavLink
                   className="nav-link"
                   activeClassName="active"
@@ -204,9 +186,9 @@ function NavbarHead() {
                         <NavDropdown.Item as={Link} to="/userProfile">
                           Profile
                         </NavDropdown.Item>
-                        {auth.login.user.isDeleted==="1"?<NavDropdown.Item as={Link} to="/dashboard">
+                        {auth.login.user.isDeleted === "1" ? <NavDropdown.Item as={Link} to="/dashboard">
                           Dashboard
-                        </NavDropdown.Item>:""}
+                        </NavDropdown.Item> : ""}
                         <NavDropdown.Item onClick={handleSignOut}>
                           Sign out
                         </NavDropdown.Item>
@@ -232,9 +214,10 @@ function NavbarHead() {
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Navbar>
+
       </div>
 
-      <Modal show={show} onHide={handleClose} centered style={{zIndex:"9999"}}>
+      <Modal show={show} onHide={handleClose} centered style={{ zIndex: "9999" }}>
         <Modal.Header closeButton>
           <Modal.Title>
             <h3>Create as a technician account</h3>
@@ -267,7 +250,7 @@ function NavbarHead() {
               size="lg"
               onClick={handleCreate}
               className="my-2 w-100"
-              style={{marginRight:"0px"}}
+              style={{ marginRight: "0px" }}
             >
               Create account
             </Button>
@@ -285,7 +268,7 @@ function NavbarHead() {
       </Modal>
 
       <>
-        <Modal show={show1} onHide={handleClose1}style={{zIndex:"9999"}}>
+        <Modal show={show1} onHide={handleClose1} style={{ zIndex: "9999" }}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
@@ -315,7 +298,7 @@ function NavbarHead() {
 
               <Button variant="primary" type="submit" className="position-relative w-100">
                 Login
-                {loader?<CircularProgress className="spinner_icon position-absolute" style={{color:"white",height:"30px",width:"30px",position:'absolute'}}/>:""}
+                {loader ? <CircularProgress className="spinner_icon position-absolute" style={{ color: "white", height: "30px", width: "30px", position: 'absolute' }} /> : ""}
               </Button>
               <Link to='/forget-password?worker' className="mb-0 d-flex fgtPass" >Forget password?</Link>
             </Form>

@@ -309,6 +309,14 @@ h1 {
   z-index: 9999;
   justify-content: space-around;
 }
+.nav-logo{
+    width: 200px;
+    height: 80px;
+    padding: 9px;
+    /* position: absolute; */
+    left: 0px;
+    cursor: pointer;
+}
 
 @media (max-width: 767px) {
   .nav_head {
@@ -1066,6 +1074,7 @@ font-size: large;
   padding: 10px;
   color: #ffff;
   border-radius: 10px;
+  margin-left: 1rem;
 }
 /* .phone-popup-cross{
     position: fixed;
