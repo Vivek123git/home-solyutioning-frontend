@@ -15,7 +15,7 @@ const PhoneNumberPopup = () => {
 
   const handleCall = () => {
     // Implement your call functionality here
-    window.location.href = 'tel:9140734396';
+    window.location.href = 'tel:9654155927';
   };
 
   const handleCross = () => {
