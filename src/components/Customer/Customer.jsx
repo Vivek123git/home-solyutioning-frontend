@@ -89,7 +89,7 @@ const Customer = () => {
        
               {items.map((elem, id) => {
                 return (
-                  <><div class="col-md-10 ">
+                  <><div class="col-md-10 " style={{marginRight:"1.5rem"}}>
                     <div class=" card">
                       <div class="card-body py-4 mt-2">
                         <div class="d-flex justify-content-center mb-4">
@@ -100,19 +100,19 @@ const Customer = () => {
                         {/* <h6 class="font-weight-bold my-3">Founder at ET Company</h6> */}
                         <ul class="list-unstyled d-flex justify-content-center">
                           <li>
-                            <AiOutlineStar style={{color:"black",fontSize:"20px"}} />
+                            <AiOutlineStar style={{color:"yellow",fontSize:"20px"}} />
                           </li>
                           <li>
-                            <AiOutlineStar style={{color:"black",fontSize:"20px"}} />
+                            <AiOutlineStar style={{color:"yellow",fontSize:"20px"}} />
                           </li>
                           <li>
-                            <AiOutlineStar style={{color:"black",fontSize:"20px"}} />
+                            <AiOutlineStar style={{color:"yellow",fontSize:"20px"}} />
                           </li>
                           <li>
-                            <AiOutlineStar style={{color:"black",fontSize:"20px"}} />
+                            <AiOutlineStar style={{color:"yellow",fontSize:"20px"}} />
                           </li>
                           <li>
-                            <AiOutlineStar style={{color:"black",fontSize:"20px"}} />
+                            <AiOutlineStar style={{color:"yellow",fontSize:"20px"}} />
                           </li>
                      
                         </ul>

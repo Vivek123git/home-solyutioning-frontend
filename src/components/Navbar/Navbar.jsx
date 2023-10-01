@@ -31,7 +31,9 @@ function NavbarHead() {
     type: "ServiceWorker"
   });
 
-  const handleShow = () => setShow(true);
+  const handleShow = () =>{
+    setShow(true);
+  }
   const handleShow1 = () => {
     setShow1(true);
     handleClose(false);
@@ -217,7 +219,7 @@ function NavbarHead() {
 
       </div>
 
-      <Modal show={show} onHide={handleClose} centered style={{ zIndex: "9999" }}>
+      <Modal show={show} onHide={handleClose} centered style={{ zIndex: "11111" }}>
         <Modal.Header closeButton>
           <Modal.Title>
             <h3>Create as a technician account</h3>
@@ -268,7 +270,7 @@ function NavbarHead() {
       </Modal>
 
       <>
-        <Modal show={show1} onHide={handleClose1} style={{ zIndex: "9999" }}>
+        <Modal show={show1} onHide={handleClose1} style={{ zIndex: "11111" }}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
