@@ -43,7 +43,7 @@ const items = [
   },
   {
     description: "This home service company is a homeowner's dream come true. Their workers are like a dream team for all your repair needs.",
-    headline: "Vineet yadav",
+    headline: "Purnesh Dwivedi",
     image: "https://img.freepik.com/free-photo/businessman-black-suit-promoting-something_114579-15897.jpg?w=996&t=st=1695406515~exp=1695407115~hmac=d1945886364851df351e4abd411a7b913399ca1aa6733609f5d9bc81bca2ab67"
   },
   {

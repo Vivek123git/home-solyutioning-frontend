@@ -150,8 +150,8 @@ return (
               {/* ...................................................................................... */}
               <Customer />
 
-              {/* <OurSite /> */}
-              <NewBookingPage/>
+              <OurSite />
+              {/* <NewBookingPage/> */}
               <Faq/>
             </div>
           </div>

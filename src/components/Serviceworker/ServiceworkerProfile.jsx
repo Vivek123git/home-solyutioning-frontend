@@ -27,7 +27,7 @@ const ServiceWorkerProfile = () => {
   );
   const [userData, setUserData] = useState([])
   const [isLoading, setLoading] = useState(true);
-  const [checked, setChecked] = useState(worker.status === "1");
+  const [checked, setChecked] = useState(worker?.status === "1");
 
   const itemsPerPage = 10; // Number of items to show per page
   const totalPages = Math.ceil(userData.length / itemsPerPage);
@@ -45,7 +45,9 @@ const ServiceWorkerProfile = () => {
     setCurrentPage(page);
   };
 
-
+  useEffect(() => {
+    setChecked(worker?.status === "1")
+  }, [worker.status]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -78,7 +80,7 @@ const ServiceWorkerProfile = () => {
       setChecked(isChecked);
 
       let statusPayload = new FormData();
-      statusPayload.append("id", workerDetails?.id);
+      statusPayload.append("id", worker?.id);
       statusPayload.append("status", isChecked ? "1" : "0"); // Send "1" if checked, "0" if not
       dispatch(onstatusUpdate(statusPayload));
     }
@@ -127,11 +129,24 @@ const ServiceWorkerProfile = () => {
 
               <Row style={{ padding: "10px", alignContent: "center" }}>
                 <Col xs={8} style={{ display: "flex", padding: "0px", flexDirection: "column", }}>
-                  <h5>Name : {workerDetails?.name}</h5>
-                  <p>Mobile No.: {workerDetails?.mobileNumber}</p>
+                  <h5>Name : {worker?.name}</h5>
+                  <p>Mobile No.: {worker?.mobileNumber}</p>
+                  <p>Service: {worker?.service === "1"
+                            ? "Electrician"
+                            : worker.service === "4"
+                            ? "R.O."
+                            : worker.service === "2"
+                            ? "Plumber"
+                            : worker.service === "3"
+                            ? "A.C. tech."
+                            : worker.service === "5"
+                            ? "Broadband"
+                            : worker.service === "6"
+                            ? "CCTV"
+                            : ""}</p>
                   <div className="d-flex">
                     <h5>Status : </h5>
-                    <h5 style={{ color: checked ? "#71a1e9" : "black" }}>
+                    <h5 style={{ color: checked ? "green" : "red" }}>
                       {checked ? "Available" : "Not Available"}
                     </h5>
                     <Switch
@@ -146,7 +161,7 @@ const ServiceWorkerProfile = () => {
 
                 <Col xs={4} style={{ display: "flex", padding: "0px", }}>
                   <div>
-                    <img className="user-img" src={workerDetails?.image ? workerDetails.image : image} roundedCirclealt="avatar" />
+                    <img className="user-img" src={worker?.image ? worker.image : image} roundedCirclealt="avatar" />
                     <br />
                     <input
                       style={{ display: "none" }}
@@ -176,6 +191,7 @@ const ServiceWorkerProfile = () => {
                           <th>User Mobile No.</th>
                           <th>User address</th>
                           <th>Service</th>
+                          <th>Payment</th>
                           <th>Date</th>
                           <th>Status</th>
                           {/* <th>Rating</th> */}
@@ -191,6 +207,7 @@ const ServiceWorkerProfile = () => {
                                 <td>{elem.number}</td>
                                 <td>{elem.address}</td>
                                 <td>{elem.main_service}</td>
+                                <td>{elem.price}</td>
                                 <td>{elem.date}</td>
                                 <td>
                                   <select

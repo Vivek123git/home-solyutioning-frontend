@@ -121,7 +121,7 @@ const Login = () => {
 
                               onClick={(e) => handleSubmit(e, "create")}
 
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer" ,color:"#0062cc"}}
                             >
                               Create it
                             </a>

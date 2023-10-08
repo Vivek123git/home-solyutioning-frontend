@@ -20,7 +20,7 @@ export const loginWorkerAccount = (formData, navigate,setLoader) => (dispatch, g
         dispatch(onSetAlert("success",res.msg))
         setLoader(false)
       } else {
-        toast.warning('Login failed');
+        toast.warning('Password incorrect');
         dispatch({ type: "LOGIN_FAILURE_WORKER", error: data.error });
         setLoader(false)
       }
@@ -28,7 +28,7 @@ export const loginWorkerAccount = (formData, navigate,setLoader) => (dispatch, g
     })
     .catch((err) => {
       console.log(err);
-      toast.warning('Login failed');
+      // toast.warning('Login failed');
       setLoader(false)
     });
 };

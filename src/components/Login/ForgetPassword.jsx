@@ -89,7 +89,7 @@ const [loader,setLoader] = useState(false)
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="Enter password"
+                            placeholder="Enter email"
                             required
                           />
                         </Form.Group>:
@@ -103,7 +103,7 @@ const [loader,setLoader] = useState(false)
                            name="mobile"
                            value={formData.mobile}
                            onChange={handleChange}
-                           placeholder="Enter password"
+                           placeholder="Enter mobile no."
                            required
                          />
                        </Form.Group>}
@@ -114,13 +114,13 @@ const [loader,setLoader] = useState(false)
                           controlId="formMobile"
                           className="input_wrap"
                         >
-                          <Form.Label>Password</Form.Label>
+                          <Form.Label>New Password</Form.Label>
                           <Form.Control
                             type="text"
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            placeholder="Enter password"
+                            placeholder="Enter new password"
                             required
                           />
                         </Form.Group>

@@ -139,6 +139,7 @@ const UserProfile = () => {
                           <th>Technician Name</th>
                           <th>Technician Mobile No.</th>
                           <th>Services you booked</th>
+                          <th>Payment</th>
                           <th>Date</th>
                           {/* <th>Status</th>
                           <th>Rating</th> */}
@@ -164,6 +165,7 @@ const UserProfile = () => {
                                 <td>{elem.worker_name}</td>
                                 <td>{elem.worker_number}</td>
                                 <td>{elem.worker_service}</td>
+                                <td>{elem.price} &#x20B9;</td>
                                 <td>{elem.worker_date}</td>
                                 {/* <td>{elem.status}</td> */}
                                 {/* <td>

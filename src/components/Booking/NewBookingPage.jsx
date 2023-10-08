@@ -4,11 +4,12 @@ import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router";
 import { onBookingServiceman } from "../../Action/ServiceAction";
 import { fetchSubServicesData, onFetchServices } from "../../Action/ServiceAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../Navbar/Navbar";
 import { CircularProgress } from "@mui/material";
 import Loader from "../Loader/Loader";
 import { toast } from "react-toastify";
+import Footer from "../Footer/Footer";
 
 function OurSite() {
     const dispatch = useDispatch();
@@ -16,9 +17,10 @@ function OurSite() {
     const location = useLocation();
 
     const auth = JSON.parse(localStorage.getItem("state"));
+    const serviceDetails = useSelector((state) => state.service);
 
     const searchParams = new URLSearchParams(location.search);
-    const name = searchParams.get("name");
+    const name = searchParams.get("type");
     const id = searchParams.get("id");
     const type = searchParams.get("type");
 
@@ -26,12 +28,13 @@ function OurSite() {
         name: "",
         mobile: "",
         address: "",
+        price:"",
         state: "U.P.",
         city: "",
         service: (type ? `${type}` : ""),
-        description: (name ? `${name}` : ""),
+        description: ([]),
         near: "",
-        pinCode: "000000",
+        pinCode: "206028",
         id: (id ? `${id}` : "")
     });
     const [loader, setLoader] = useState(false)
@@ -40,6 +43,7 @@ function OurSite() {
     const [validated, setValidated] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
+    const serviceName = serviceDetails?.servicedesc?.map((elem) => elem.heading);
 
     const handleSelect = (e) => {
         const { name, value } = e.target;
@@ -49,10 +53,15 @@ function OurSite() {
         });
     };
 
-    const obj = [{
-        name: form.description,
-        // id: form.id
-    }];
+    
+    const obj = {
+        name: []
+      };
+      
+      serviceName.forEach((item) => {
+        obj.name.push({ name: item }); 
+      });
+      
 
     let data;
     if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
@@ -60,8 +69,9 @@ function OurSite() {
             name: form.name,
             service: form.service,
             mobile: form.mobile,
-            description: JSON.stringify(obj),
+            description: JSON.stringify(obj.name),
             address: form.address,
+            price:form.price,
             state: form.state,
             city: form.city,
             landmark: form.near,
@@ -70,19 +80,6 @@ function OurSite() {
         });
     }
 
-    // let data = JSON.stringify({
-    //     name: form.name,
-    //     service: form.service,
-    //     mobile: form.mobile,
-    //     description: JSON.stringify(obj),
-    //     address: form.address,
-    //     state: form.state,
-    //     city: form.city,
-    //     landmark: form.near,
-    //     pincode: form.pinCode,
-    //     id: form.id
-    // });
-
     const handleSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -90,7 +87,6 @@ function OurSite() {
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
-            console.log("first")
             setValidated(true);
         } else {
             setValidated(true);
@@ -121,11 +117,20 @@ function OurSite() {
     let formDataFetch = new FormData();
     formDataFetch.append("id", form.service);
 
+    if (serviceDetails.servicedesc.length === 0) {
+        navigate(-1)
+    }
+    const prices = serviceDetails?.servicedesc?.map((elem) => +elem.price);
+    const totalPrice = prices.reduce((acc, price) => acc + price, 0);
+    
     useEffect(() => {
         setLoading(true)
         dispatch(fetchSubServicesData(formDataFetch, setSkill, setLoading))
+        setForm({
+            ...form,
+            price:totalPrice
+        })
     }, [form.service])
-
     return (
         <>
             <Helmet>
@@ -144,8 +149,40 @@ function OurSite() {
                         </div>
                     </div>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-md-9" >
+                <div className="row justify-content-start">
+                <div className="col-md-4" style={{ paddingTop: "4rem" }}>
+                        <div className="payment-box">
+                            <h5>Booking Summary</h5>
+                            <div className="d-flex justify-content-between">
+                                <div>Service Category</div>
+                                <div>{form.service}</div>
+                            </div>
+                            {serviceDetails.servicedesc.map((elem, id) => {
+                               
+                                return (
+                                    <>
+                                        <div className="d-flex justify-content-between">
+                                            <div>{id + 1}.Service name</div>
+                                            <div>{elem.heading}</div>
+                                        </div>
+                                    </>
+                                )
+                            })}
+
+                            <h5 className="mt-4">Payment Summary</h5>
+
+                            <div className="d-flex justify-content-between">
+                                <div>Service Charge</div>
+                                <div>{totalPrice} &#x20B9;</div>
+                            </div>
+
+                            <div className="d-flex justify-content-between">
+                                <div>Total payment</div>
+                                <div>{totalPrice} &#x20B9;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-8" >
                         <h4
                             style={{
                                 fontSize: "18px",
@@ -190,7 +227,28 @@ function OurSite() {
                                     </Form.Group>
                                 </div>
 
-                                <div className="col-md-12 px-4 py-2">
+                                {name ? "" : <div className="col-md-12 px-4 py-2">
+                                    <Form.Group controlId="formService" className="input_wrap ">
+                                        <Form.Label>Service</Form.Label>
+                                        <Form.Control as="select" name="service" onChange={handleSelect} required>
+                                            <option value="1">{form.service}</option>
+
+                                            <>
+                                                <option value="">Select an option</option>
+                                                {servicesData.map((elem, id) => {
+
+                                                    return (
+                                                        <option value={elem.id}>{elem.type}</option>
+                                                    )
+                                                })}</>
+                                        </Form.Control>
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>}
+
+                                {/* <div className="col-md-12 px-4 py-2">
                                     <Form.Group controlId="formService" className="input_wrap ">
                                         <Form.Label>Service</Form.Label>
                                         <Form.Control as="select" name="service" onChange={handleSelect} required>
@@ -209,9 +267,32 @@ function OurSite() {
                                             This field is required.
                                         </Form.Control.Feedback>
                                     </Form.Group>
-                                </div>
+                                </div> */}
 
-                                <div className="col-md-12 px-4 py-2">
+                                {name ? "" : <div className="col-md-12 px-4 py-2">
+                                    <p className="p-0 m-0 text-sm">Please first choose services</p>
+                                    <Form.Group controlId="formDescription" className="input_wrap ">
+                                        <Form.Label>
+                                            Select your problem ${isLoading ? "(Please wait...)" : ""}
+                                        </Form.Label>
+
+                                        <Form.Select style={{ height: "2.5rem" }} name="description" onChange={(e) => handlehange(e)} required>
+                                            <option value="">Select an option</option>
+                                            {skill.map((elem) => {
+                                                return (
+                                                    <option value={elem.heading}>{elem.heading}</option>
+                                                )
+                                            })}
+                                        </Form.Select>
+
+
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>}
+
+                                {/* <div className="col-md-12 px-4 py-2">
                                     {name ? "" : <p className="p-0 m-0 text-sm">Please first choose services</p>}
                                     <Form.Group controlId="formDescription" className="input_wrap ">
                                         <Form.Label>
@@ -241,7 +322,8 @@ function OurSite() {
                                             This field is required.
                                         </Form.Control.Feedback>
                                     </Form.Group>
-                                </div>
+                                </div> */}
+
                                 <div className="col-md-12 px-4 py-2">
                                     <Form.Group controlId="formAddress" className="input_wrap ">
                                         <Form.Label>Address</Form.Label>
@@ -322,9 +404,11 @@ function OurSite() {
                             </div>
                         </Form>
                     </div>
+                    
                 </div>
                 {/* <Loader isLoading={isLoading}/> */}
             </section>
+            {name?<Footer/>:""}
         </>
     );
 }

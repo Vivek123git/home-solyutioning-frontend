@@ -1,315 +1,337 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import { Helmet } from "react-helmet";
-import { useLocation, useNavigate } from "react-router";
-import { onBookingServiceman } from "../../Action/ServiceAction";
-import { fetchSubServicesData, onFetchServices } from "../../Action/ServiceAction";
-import { useDispatch } from "react-redux";
-import Navbar from "../Navbar/Navbar";
-import Multiselect from "multiselect-react-dropdown";
-import { onSetAlert } from "../../Action/AlertAction";
-import { CircularProgress } from "@mui/material";
-import Alert1 from "../Alert";
+import { Form, Button, Col } from "react-bootstrap";
 import Loader from "../Loader/Loader";
-import Footer from "../Footer/Footer";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Multiselect from "multiselect-react-dropdown";
 
-function OurSite() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+const UserPage = () => {
+    const navigate = useNavigate();
 
-  const auth = JSON.parse(localStorage.getItem("state"));
-
-  const searchParams = new URLSearchParams(location.search);
-  const name = searchParams.get("name");
-  const id = searchParams.get("id");
-  const type = searchParams.get("type");
-
-  const [form, setForm] = useState({
-    name: "",
-    mobile: "",
-    address: "",
-    state: "U.P.",
-    city: "",
-    service: (type ? `${type}` : ""),
-    description: (name ? `${name}` : ""),
-    near: "",
-    pinCode: "000000",
-    id: (id ? `${id}` : "1")
-  });
-  const [loader, setLoader] = useState(false)
-  const [servicesData, setServicesData] = useState([]);
-  const [skill, setSkill] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-
-  const handleSelect = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-      skills: []
+    const [form, setForm] = useState({
+        name: "",
+        mobile: "",
+        address: "",
+        state: "U.P.",
+        price:"",
+        city: "",
+        service: "",
+        skills: [],
+        near: "",
+        pinCode: "000000",
+        id: "1"
     });
-  };
+    const [loader, setLoader] = useState(false)
+    const [servicesData, setServicesData] = useState([]);
+    const [skill, setSkill] = useState([])
+    const [validated, setValidated] = useState(false);
+    const [isLoading, setLoading] = useState(true);
 
-  const obj = [{
-    name: form.description,
-    // id: form.id
-  }];
+    const options = skill?.map((elem) => ({ name: elem.heading, id: elem.id ,price:elem.price}));
 
-  // let data;
-  // if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
-  //   data = JSON.stringify({
-  //     name: form.name,
-  //     service: form.service,
-  //     mobile: form.mobile,
-  //     description: JSON.stringify(obj),
-  //     address: form.address,
-  //     state: form.state,
-  //     city: form.city,
-  //     landmark: form.near,
-  //     pincode: form.pinCode,
-  //     id: auth.login.user.id
-  //   });
-  // }
+    function onSelect(selectedList, selectedItem) {
+    const a = selectedList.map((elem)=>+elem.price)
+    const totalPrice = a.reduce((acc, price) => acc + price, 0);
+    setForm({ ...form, skills: selectedList })
+    setForm({
+        ...form,
+        price:totalPrice
+    })
+    }
 
- let data = JSON.stringify({
+
+    function onRemove(selectedList, removedItem) {
+        const updatedSelectedList = selectedList.filter(item => item.id !== removedItem.id);
+        setForm({ ...form, skills: updatedSelectedList });
+        const a = selectedList.map((elem)=>+elem.price)
+    const totalPrice = a.reduce((acc, price) => acc + price, 0);
+    setForm({
+        ...form,
+        price:totalPrice
+    })
+    }
+
+    const handleSelect = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value,
+        });
+    };
+
+    const obj = [{
+        name: form.description,
+        // id: form.id
+    }];
+
+    let data = JSON.stringify({
         name: form.name,
         service: form.service,
         mobile: form.mobile,
-        description: JSON.stringify(obj),
+        description: JSON.stringify(form.skills),
         address: form.address,
+        price:form.price,
         state: form.state,
         city: form.city,
         landmark: form.near,
         pincode: form.pinCode,
         id: "1"
-      });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoader(true)
-    dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate))
-
-    // if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
-    //   dispatch(onBookingServiceman(data, setLoader, setForm, form, navigate));
-    // } else {
-    //   dispatch(onSetAlert("warning", "Please login then book the form"))
-    //   setLoader(false)
-    //   console.log("logout")
-    // }
-
-  };
-
-  const handlehange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
     });
-  };
 
 
-  const options = skill.map((elem) => ({ name: elem.heading, id: elem.id }));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+            setValidated(true);
+        } else {
+            setValidated(true);
+            let config = {
+                method: "post",
+                url: "https://onehomesolution.000webhostapp.com/booking",
+                data: data
+            };
+            axios(config)
+                .then((res) => {
+                    if (res.status) {
+                        toast.success('Booking Successfully');
+                        navigate("/")
+                        setForm({
+                          ...form,
+                          name: "",
+                          mobile: "",
+                          address: "",
+                          state: "U.P.",
+                          price:"",
+                          city: "",
+                          service: "",
+                          skills: [],
+                          near: "",
+                          pinCode: "",
+                          id: ""
+                        })
+                    } else {
+                        toast.success('Booking not Successfully');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.msg);
+                });
+        }
+    };
+
+    const handlehange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value,
+        });
+    };
+
+    useEffect(() => {
+        let config = {
+            method: "get",
+            url: "https://onehomesolution.000webhostapp.com/fetch-service",
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+            },
+        };
+        axios(config)
+            .then((res) => {
+                if (res.status) {
+                    setServicesData(res.data.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err.msg);
+            });
+    }, [])
+
+    let formDataFetch = new FormData();
+    formDataFetch.append("id", form.service);
+
+    useEffect(() => {
+        let config = {
+            method: "post",
+            url: "https://onehomesolution.000webhostapp.com/fetch-service-type",
+            data: formDataFetch,
+        };
+        axios(config)
+            .then((res) => {
+                if (res.status) {
+                    setSkill(res.data.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err.msg);
+            });
+
+    }, [form.service])
+
+    return (
+        <>
 
 
-  function onSelect(selectedList, selectedItem) {
-    setForm({ ...form, description: selectedList })
-  }
-
-  function onRemove(selectedList, removedItem) {
-    setForm({ ...form, description: selectedList })
-  }
-
-  useEffect(() => {
-    dispatch(onFetchServices(setServicesData, {}))
-  }, [])
-
-  let formDataFetch = new FormData();
-  formDataFetch.append("id", form.service);
-
-  console.log(setLoading,"fgh")
-
-  useEffect(() => {
-    setLoading(true)
-    dispatch(fetchSubServicesData(formDataFetch, setSkill,setLoading))
-  }, [form.service])
-
-  // const parsedDescription = JSON.parse(form.description);
-  // console.log(parsedDescription, "desc0", typeof(parsedDescription));
-
-  return (
-    <>
-      <Helmet>
-        <title>Repairinminute | Book your skilled technician</title>
-        <meta
-          name="description"
-          content="Book your skilled technician"
-        />
-      </Helmet>
-      {name ? <Navbar /> : ""}
-      <section className="contact-section ">
-        <div className="container">
-          <div className="row">
-            <div className="contact_heading text-center py-4">
-              <h3>Book your Technician</h3>
-            </div>
-          </div>
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-md-9" >
-            <h4
-              style={{
-                fontSize: "18px",
-                paddingTop: "15px",
-                paddingBottom: "15px",
-              }}
-            >
-              Fill this form we will contact you soon...
-            </h4>
-            <Form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-md-6 p-2">
-                  <Form.Group controlId="formName" className="input_wrap ">
-                    <Form.Label>Enter your name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter name"
-                      name="name"
-                      value={form.name}
-                      onChange={(e) => handlehange(e)}
-                    />
-                  </Form.Group>
+            <section className="contact-section ">
+                <div className="container">
+                    <div className="row">
+                        <div className="contact_heading text-center py-4">
+                            <h3>Book Your Technician Now</h3>
+                        </div>
+                    </div>
                 </div>
-                <div className="col-md-6 p-2">
-                  <Form.Group controlId="formMobile" className="input_wrap ">
-                    <Form.Label>Mobile Number</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter mobile number"
-                      name="mobile"
-                      value={form.mobile}
-                      onChange={(e) => handlehange(e)}
-                    />
-                  </Form.Group>
-                </div>
+                <div className="row justify-content-center">
+                    <div className="col-md-9" >
+                        <h4
+                            style={{
+                                fontSize: "18px",
+                                paddingTop: "15px",
+                                paddingBottom: "15px",
+                            }}
+                        >
+                            Fill this form we will contact you soon...
+                        </h4>
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formName" className="input_wrap ">
+                                        <Form.Label>Enter your name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter name"
+                                            name="name"
+                                            value={form.name}
+                                            onChange={(e) => handlehange(e)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formMobile" className="input_wrap ">
+                                        <Form.Label>Mobile Number</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter mobile number"
+                                            name="mobile"
+                                            value={form.mobile}
+                                            onChange={(e) => handlehange(e)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
 
-                <div className="col-md-12 p-2">
-                  <Form.Group controlId="formService" className="input_wrap ">
-                    <Form.Label>Service</Form.Label>
-                    <Form.Control as="select" name="service" onChange={handleSelect}>
-                      {name ? <option value="1">{form.service}</option>
-                        :
-                        <>
-                          <option value="">Select an option</option>
-                          {servicesData.map((elem, id) => {
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formService" className="input_wrap ">
+                                        <Form.Label>Service</Form.Label>
+                                        <Form.Control as="select" name="service" onChange={handleSelect} required>
 
-                            return (
-                              <option value={elem.id}>{elem.type}</option>
-                            )
-                          })}</>}
-                    </Form.Control>
-                  </Form.Group>
-                </div>
 
-                <div className="col-md-12 p-2">
-                  {name ? "" : <p className="p-0 m-0 text-sm">Please first choose services</p>}
-                  <Form.Group controlId="formDescription" className="input_wrap ">
-                    <Form.Label>
-                      {name ? "Service that you want" : "Select your problem"}
-                    </Form.Label>
-                    {name ? <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Enter a description"
-                      name="description"
-                      value={obj[0].name}
-                      readOnly={name ? true : false}
-                      onChange={(e) => handlehange(e)}
-                    /> :
-                      <Multiselect
-                        options={options}
-                        selectedValues={form.description}
-                        onSelect={onSelect}
-                        onRemove={onRemove}
-                        displayValue="name"
-                      />}
-                  </Form.Group>
-                </div>
-                <div className="col-md-12 p-2">
-                  <Form.Group controlId="formAddress" className="input_wrap ">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter address"
-                      name="address"
-                      value={form.address}
-                      onChange={(e) => handlehange(e)}
-                    />
-                  </Form.Group>
-                </div>
+                                            <>
+                                                <option value="">Select an option</option>
+                                                {servicesData.map((elem, id) => {
 
-                {/* <div className="col-md-6 p-2">
-                  <Form.Group controlId="formState" className="input_wrap ">
-                   
-                    <Form.Select name="state" onChange={(e) => handlehange(e)}>
-                      <option>Select your State</option>
-                      <option value="UP">Uttar Pradesh</option>
-                    </Form.Select>
-                  </Form.Group>
-                </div> */}
-                <div className="col-md-6 p-2">
-                  <Form.Group controlId="formCity" className="input_wrap">
-                   
-                    <Form.Select name="city" onChange={(e) => handlehange(e)}>
-                      <option>Select your City</option>
-                      <option value="Lucknow">Lucknow</option>
-                      <option value="Barabanki">Barabanki</option>
-                    </Form.Select>
-                  </Form.Group>
+                                                    return (
+                                                        <option value={elem.id}>{elem.type}</option>
+                                                    )
+                                                })}</>
+                                        </Form.Control>
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group as={Col} className="input_wrap">
+                                        <Form.Label>Choose Your Skills (First choose service)</Form.Label>
+                                        <Multiselect
+                                            options={options}
+                                            selectedValues={form.skills}
+                                            onSelect={onSelect}
+                                            onRemove={onRemove}
+                                            displayValue="name"
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formAddress" className="input_wrap ">
+                                        <Form.Label>Address</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter address"
+                                            name="address"
+                                            value={form.address}
+                                            onChange={(e) => handlehange(e)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+
+
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formCity" className="input_wrap">
+
+                                        <Form.Select name="city" onChange={(e) => handlehange(e)} required>
+                                            <option value="">Select your City</option>
+                                            <option value="Lucknow">Lucknow</option>
+                                            <option value="Barabanki">Barabanki</option>
+                                        </Form.Select>
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-md-6 px-4 py-2">
+                                    <Form.Group controlId="formName" className="input_wrap" >
+                                        <Form.Label>Near By</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter Landmark"
+                                            name="near"
+                                            value={form.near}
+                                            onChange={(e) => handlehange(e)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            This field is required.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+
+                                <div className="contact_btn">
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        style={{ width: "26%", height: "60px" }}
+                                    >
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
-                <div className="col-md-6 p-2">
-                  <Form.Group controlId="formName" className="input_wrap">
-                    <Form.Label>Near By</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Landmark"
-                      name="near"
-                      value={form.near}
-                      onChange={(e) => handlehange(e)}
-                    />
-                  </Form.Group>
-                </div>
-                {/* <div className="col-md-6 p-2">
-                  <Form.Group controlId="formMobile" className="input_wrap">
-                    <Form.Label>Pin Code</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Pin Code"
-                      name="pinCode"
-                      value={form.pinCode}
-                      onChange={(e) => handlehange(e)}
-                    />
-                  </Form.Group>
-                </div> */}
-                <div className="contact_btn">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    style={{ width: "26%", height: "60px" }}
-                  >
-                    Submit
-                    {loader ? <CircularProgress className="spinner_icon" style={{ color: "white", height: "30px", width: "30px", position: 'inherit', marginLeft: "0px" }} /> : ""}
-                  </Button>
-                </div>
-              </div>
-            </Form>
-          </div>
-        </div>
-      </section>
-        <Loader isLoading={isLoading}/>
-        <Footer/>
-    </>
-  );
+                {/* <Loader isLoading={isLoading}/> */}
+            </section>
+        </>
+    );
 }
 
-export default OurSite;
+export default UserPage;

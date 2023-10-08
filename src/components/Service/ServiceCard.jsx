@@ -5,7 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import { useNavigate } from "react-router";
 import "../../../src/App.css";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSubServices } from "../../Action/ServiceAction";
 import Skelton from "./Skelton";
 import Alert1 from "../Alert";
@@ -16,6 +16,7 @@ const ServiceCard = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const serviceDetails = useSelector((state) => state.service);
   const searchParams = new URLSearchParams(location.search);
   const sId = searchParams.get("sId");
   const name = searchParams.get("name");
@@ -23,6 +24,10 @@ const ServiceCard = () => {
 
   const [services, setServices] = useState([]);
   const [sid, setSid] = useState(sId);
+  const [show, setShow] = useState(false);
+  const [cartNames, setCartNames] = useState(Array(28).fill("Add in Cart")); // Initialize with "Add in Cart" for each element
+  const [servicedata, setServiceData] = useState([])
+  const [cartdata ,setCartData] = useState({})
 
   const [search, setSearch] = useState("");
 
@@ -33,26 +38,55 @@ const ServiceCard = () => {
     dispatch(fetchSubServices(formData, setServices));
   };
 
-  const handleClick = (head, ind) => {
-    if (id == "1") {
-      navigate(`/byown?name=${head}&id=${ind}`);
+  const handleClick = (elem, ind) => {
+    setCartData(elem)
+    if (id === "1") {
+      navigate(`/byown?name=${elem.heading}&id=${elem.id}`);
     } else if (id === "2") {
-      navigate(`/oursite?name=${head}&type=${name}&id=${ind}`);
+      // navigate(`/oursite?name=${elem.heading}&type=${name}&id=${elem.id}`);
+      setServiceData((prevServiceData) => {
+        const serviceId = elem.serviceId;
+        const isServiceIdInArray = prevServiceData.some((item) => item.serviceId === serviceId);
+
+        let updatedServiceData;
+
+        if (isServiceIdInArray) {
+          updatedServiceData = prevServiceData.filter((item) => item.serviceId !== serviceId);
+        } else {
+          updatedServiceData = [...prevServiceData, elem];
+        }
+
+        dispatch({ type: "SERVICE_DISC", payload: updatedServiceData });
+        return updatedServiceData;
+      });
+
+      setCartNames((prevCartNames) => {
+        const updatedCartNames = [...prevCartNames];
+        updatedCartNames[ind] =
+          prevCartNames[ind] === "Add in Cart" ? "Remove from Cart" : "Add in Cart";
+        return updatedCartNames;
+      });
+
+      setShow(true);
     }
   };
 
+  const handleCart=()=>{
+    const elem = cartdata
+    navigate(`/oursite?name=${elem.heading}&type=${name}&id=${elem.id}`)
+  }
+
   const handleSearch = (e) => {
-    setSearch(e.target.value)
+    setSearch(e.target.value);
   };
 
-  const filterServices = services.filter((elem,id)=>{
-    if(search !==""){
-      return elem.heading.toLowerCase().includes(search.toLowerCase())
-    }else{
+  const filterServices = services.filter((elem, id) => {
+    if (search !== "") {
+      return elem.heading.toLowerCase().includes(search.toLowerCase());
+    } else {
       return elem;
     }
   });
- 
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -65,9 +99,12 @@ const ServiceCard = () => {
     onFetchSubServices();
   }, [sid]);
 
+  const prices = serviceDetails?.servicedesc?.map((elem) => +elem.price);
+  const totalPrice = prices.reduce((acc, price) => acc + price, 0);
+
   return (
     <>
-       <Helmet>
+      <Helmet>
         <title>Repairinminute | Book Your Skilled {name}</title>
         <meta
           name="description"
@@ -90,8 +127,7 @@ const ServiceCard = () => {
                 placeholder="Enter service name"
                 value={search}
                 onChange={(e) => handleSearch(e)}
-                // required
-               
+              // required
               />
             </Form.Group>
           </div>
@@ -106,7 +142,7 @@ const ServiceCard = () => {
                     className="mb-4 bg-white rounded cardBody"
                   >
                     <Card>
-                      <Card.Img variant="top" rel="preload"  src={elem.image} />
+                      <Card.Img variant="top" rel="preload" src={elem.image} />
                       <Card.Body
                         style={{
                           backgroundColor: "#71a1e9",
@@ -115,7 +151,6 @@ const ServiceCard = () => {
                         }}
                       >
                         <Card.Title>{elem.heading}</Card.Title>
-                        {/* <Card.Text>{elem.paragraph}</Card.Text> */}
                         <div
                           className=" text-center"
                           style={{
@@ -124,21 +159,16 @@ const ServiceCard = () => {
                           }}
                         >
                           <Button
-                          className="m-0"
+                            className="m-0"
                             variant="primary"
-                            onClick={() =>
-                              handleClick(elem.heading, elem.id)
-                            }
+                            onClick={() => handleClick(elem, ind)}
                           >
-                            {id === "2"
-                              ? "Book Now"
-                              : "Get technician details"}
+                            {id === "2" ? `${cartNames[ind]}` : "Get technician details"}
                           </Button>
                           {id === "2" ? (
-                            <Button    className="m-0" style={{ float: "right" }}>
+                            <Button className="m-0" style={{ float: "right" }}>
                               Visiting Charge {elem.price} &#x20B9;
                             </Button>
-                            
                           ) : (
                             ""
                           )}
@@ -149,16 +179,28 @@ const ServiceCard = () => {
                 );
               })
             ) : (
-              <div
-                className="p-3 m-2"
-                style={{ justifyContent: "space-evenly" }}
-              >
+              <div className="p-3 m-2" style={{ justifyContent: "space-evenly" }}>
                 <Skelton />
               </div>
             )}
           </Row>
+          {show ? (
+            <div className="cart-container">
+              <div className="row">
+                <div className="col-md-12 p-4 d-flex justify-content-between align-items-center">
+
+                  <h5 className="text-light">
+                   
+                   Total price : {totalPrice} &#8377;
+                  </h5>
+                  <Button onClick={handleCart} className="m-0">View Cart</Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </Container>
-        
       </section>
       <div className="container-fluid">
         <div className="row">

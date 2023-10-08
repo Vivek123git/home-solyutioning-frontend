@@ -104,6 +104,8 @@ function ServiceWorker() {
   formData.append("password", form.password);
   formData.append("image", form.img);
   formData.append("file", form.aadhar);
+  formData.append("status", "1");
+  formData.append("approved", "1");
   
   const handleSubmit = (e, type) => {
     e.preventDefault();

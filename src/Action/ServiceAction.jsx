@@ -20,7 +20,7 @@ export const onBookingServiceman = (data,setLoader,setForm, form,navigate) => (d
         toast.warning('Booking failed');
       }
       setLoader(false)
-      window.location.reload();
+      // window.location.reload();
     })
     
     .catch((err) => {

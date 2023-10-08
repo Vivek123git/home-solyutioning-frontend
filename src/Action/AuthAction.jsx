@@ -34,19 +34,19 @@ export const loginAccount = (formData, navigate,setLoader) => (dispatch, getStat
       const data = res.data;
       if (res.status) {
         toast.success('Login Successfully');
-        navigate("/");
+        navigate(-1);
         //  localStorage.setItem("user", JSON.stringify(res.data));
         dispatch({ type: "LOGIN_SUCCESS", payload: data });
         dispatch(onSetAlert("success","Login successfully"))
         
       } else {
-        toast.warning('Login failed');
+        toast.warning('Password incorrect');
         dispatch({ type: "LOGIN_FAILURE", error: data.error });
       }
            setLoader(false)
     })
     .catch((error) => {
-      toast.warning('Login failed');
+      // toast.warning('Login failed');
       // dispatch({ type: "LOGIN_FAILURE", error: error.message });
       setLoader(false)
     });
@@ -64,14 +64,14 @@ export const forget_pass = (formDataLogin, navigate,setLoader) => (dispatch, get
   commonAxios("reset-password", formDataLogin, dispatch)
     .then((res) => {
       if (res.status) {
-        toast.success(res.message);
+        toast.success(res.msg);
         navigate("/login");
         //  localStorage.setItem("user", JSON.stringify(res.data));
         
-      } else {
-        toast.warning(res.message)
+      } else{
+        toast.warning(res.msg)
+             setLoader(false)
       }
-           setLoader(false)
     })
     .catch((error) => {
       // toast.warning('Login failed');
@@ -82,16 +82,14 @@ export const forget_pass_worker = (formDataLogin, navigate,setLoader) => (dispat
   commonAxios("reset-worker-password", formDataLogin, dispatch)
     .then((res) => {
       if (res.status) {
-        console.log(res)
-        toast.success(res.message);
+        toast.success(res.msg);
         navigate("/");
         //  localStorage.setItem("user", JSON.stringify(res.data));
         
-      } else {
-        toast.warning(res.message)
+      } else{
+        toast.warning(res.msg)
+             setLoader(false)
       }
-      toast.warning(res.message)
-           setLoader(false)
     })
     .catch((error) => {
       // toast.warning('Login failed');

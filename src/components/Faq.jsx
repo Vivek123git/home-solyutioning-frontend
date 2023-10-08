@@ -90,15 +90,15 @@ const FaqSection = () => {
                                 className="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree"
+                                data-bs-target="#collapseFour"
                                 aria-expanded="false"
-                                aria-controls="collapseThree"
+                                aria-controls="collapseFour"
                             >
                                 What About the Warranty for the Work and Replacements?
                             </button>
                         </h2>
                         <div
-                            id="collapseThree"
+                            id="collapseFour"
                             className="accordion-collapse collapse"
                             aria-labelledby="headingFour"
                             data-bs-parent="#accordionExample"
@@ -114,15 +114,15 @@ const FaqSection = () => {
                                 className="accordion-button collapsed"
                                 type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree"
+                                data-bs-target="#collapseFive"
                                 aria-expanded="false"
-                                aria-controls="collapseThree"
+                                aria-controls="collapseFive"
                             >
                                 What If the Worker Charges More Than the Visiting Charge?
                             </button>
                         </h2>
                         <div
-                            id="collapseThree"
+                            id="collapseFive"
                             className="accordion-collapse collapse"
                             aria-labelledby="headingFive"
                             data-bs-parent="#accordionExample"
