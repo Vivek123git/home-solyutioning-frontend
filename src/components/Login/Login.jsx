@@ -46,8 +46,16 @@ const Login = () => {
   };
 
   const responseGoogle = (response) => {
-    // Handle the response from Google login
-    console.log(response);
+    if (response.error === 'popup_closed_by_user') {
+      // Handle the case where the user closed the login popup
+      console.log('Login popup closed by the user.');
+    } else if (response.profileObj) {
+      // Handle the successful login, response.profileObj contains user information
+      console.log('Successful login:', response.profileObj);
+    } else {
+      // Handle other errors
+      console.error('An error occurred:', response);
+    }
   };
 
   return (
@@ -142,7 +150,7 @@ const Login = () => {
                         </div>
                       </div>
                       <Link to="/forget-password" className="mb-0 d-flex fgtPass" >Forget password?</Link>
-                      {/* <div>
+                      <div>
                         <GoogleLogin
                         className="google_btn"
                           clientId="384608491688-p5pbvda9h7mfklit55gfm880tqlgbu1p.apps.googleusercontent.com"
@@ -150,7 +158,7 @@ const Login = () => {
                           onSuccess={responseGoogle}
                           onFailure={responseGoogle}
                           cookiePolicy={'single_host_origin'}
-                        /></div> */}
+                        /></div>
                     </div>
                   </Form>
                 </div>
