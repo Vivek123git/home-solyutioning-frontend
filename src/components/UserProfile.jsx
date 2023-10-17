@@ -6,13 +6,13 @@ import Navbar from "./Navbar/Navbar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useDispatch, useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
-import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails } from "../Action/ServiceAction";
+import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails ,onEditProfileImg} from "../Action/ServiceAction";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
 
   const auth = JSON.parse(localStorage.getItem('state'))
-  const userDetails = auth.login.user
+  const userDetails = auth?.login?.user
 
 
   const [rating, setRating] = useState({
@@ -30,11 +30,15 @@ const UserProfile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setImage(reader.result);
-    };
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onload = () => {
+    //   setImage(reader.result);
+    // };
+    let formDataImage = new FormData();
+    formDataImage.append("image", file);
+    formDataImage.append("userId", userDetails.id);
+    dispatch(onEditProfileImg(formDataImage ,setImage))
   };
 
   const handleChange = (e) => {
@@ -70,7 +74,7 @@ const UserProfile = () => {
 
   const fetchWorkerDetails = () => {
     let userPayload = new FormData();
-    userPayload.append("id", userDetails.id)
+    userPayload.append("id", userDetails?.id)
     dispatch(onfetchWorkerBookingDetails(userPayload, setWorkerData));
   };
 
@@ -98,8 +102,8 @@ const UserProfile = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <h5>Name : {userDetails.name}</h5>
-                  <p>Mobile No.: {userDetails.mobileNumber}</p>
+                  <h5>Name : {userDetails?.name}</h5>
+                  <p>Mobile No.: {userDetails?.mobileNumber}</p>
                 </Col>
                 <Col
                   xs={4}
@@ -157,16 +161,16 @@ const UserProfile = () => {
                             <button onClick={handleShow}>Rating</button>
                           </td>
                         </tr> */}
-                        {workerData.length > 0 ?
-                          workerData.map((elem, id) => {
+                        {workerData?.length > 0 ?
+                          workerData?.map((elem, id) => {
                             return (
                               <tr>
                                 <td>{id+1}</td>
-                                <td>{elem.worker_name}</td>
-                                <td>{elem.worker_number}</td>
-                                <td>{elem.worker_service}</td>
-                                <td>{elem.price} &#x20B9;</td>
-                                <td>{elem.worker_date}</td>
+                                <td>{elem?.worker_name}</td>
+                                <td>{elem?.worker_number}</td>
+                                <td>{elem?.worker_service}</td>
+                                <td>{elem?.price} &#x20B9;</td>
+                                <td>{elem?.worker_date}</td>
                                 {/* <td>{elem.status}</td> */}
                                 {/* <td>
                                   <button onClick={()=>handleShow(elem.worker_id)}>Rating</button>
@@ -178,12 +182,12 @@ const UserProfile = () => {
                           ""}
                       </tbody>
                     </Table>
-              <div  style={{ left: "50%",position:"relative" }} >
-                {/* {!workerData ? "No data found" : workerData.length > 0 ? "" : <CircularProgress className="spinner_icon"/>} */}
-            </div>
                   </div>
                 </Col>
               </Row>
+              {/* <div  style={{ left: "50%",position:"relative" }} >
+                {!workerData ? "No data found" : workerData?.length > 0 ? "" : <CircularProgress className="spinner_icon"/>}
+            </div> */}
               <>
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>

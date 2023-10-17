@@ -331,4 +331,56 @@ export const onContactSubmit = (data, setLoader) => (dispatch,getState) => {
   });
 };
 
+
+///servidecbj
+
+export const setServicesWorker = (data) => (dispatch,getState) => {
+  commonAxios("edit-worker-service", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      toast.success('Edit successfully');
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+};
+
+export const onCancelBooking = (data) => (dispatch,getState) => {
+  commonAxios("delete-booking", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      toast.success('Cancel successfully');
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+};
+
+export const onPaymentStatus = (data) => (dispatch,getState) => {
+  commonAxios("payment-status", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      toast.success(' Pament update successfully');
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+};
+
+export const onEditProfileImg = (data,setImage) => (dispatch,getState) => {
+  commonAxios("update-profile", data, dispatch, getState)
+  .then((res) => {
+    if (res.status) {
+      setImage(res.data)
+      toast.success(res.message);
+    }
+  })
+  .catch((err) => {
+    console.log(err.msg);
+  });
+};
+
 // No axios........................................................................

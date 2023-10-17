@@ -28,7 +28,7 @@ function OurSite() {
         name: "",
         mobile: "",
         address: "",
-        price:"",
+        price: "",
         state: "U.P.",
         city: "",
         service: (type ? `${type}` : ""),
@@ -53,15 +53,15 @@ function OurSite() {
         });
     };
 
-    
+
     const obj = {
         name: []
-      };
-      
-      serviceName.forEach((item) => {
-        obj.name.push({ name: item }); 
-      });
-      
+    };
+
+    serviceName.forEach((item) => {
+        obj.name.push({ name: item });
+    });
+
 
     let data;
     if (auth && auth.login && auth.login.isAuthenticated && auth.login.user) {
@@ -71,7 +71,7 @@ function OurSite() {
             mobile: form.mobile,
             description: JSON.stringify(obj.name),
             address: form.address,
-            price:form.price,
+            price: form.price,
             state: form.state,
             city: form.city,
             landmark: form.near,
@@ -122,13 +122,13 @@ function OurSite() {
     }
     const prices = serviceDetails?.servicedesc?.map((elem) => +elem.price);
     const totalPrice = prices.reduce((acc, price) => acc + price, 0);
-    
+
     useEffect(() => {
         setLoading(true)
         dispatch(fetchSubServicesData(formDataFetch, setSkill, setLoading))
         setForm({
             ...form,
-            price:totalPrice
+            price: totalPrice
         })
     }, [form.service])
     return (
@@ -150,7 +150,7 @@ function OurSite() {
                     </div>
                 </div>
                 <div className="row justify-content-start">
-                <div className="col-md-4" style={{ paddingTop: "4rem" }}>
+                    <div className="col-md-4" style={{ paddingTop: "4rem" }}>
                         <div className="payment-box">
                             <h5>Booking Summary</h5>
                             <div className="d-flex justify-content-between">
@@ -158,7 +158,7 @@ function OurSite() {
                                 <div>{form.service}</div>
                             </div>
                             {serviceDetails.servicedesc.map((elem, id) => {
-                               
+
                                 return (
                                     <>
                                         <div className="d-flex justify-content-between">
@@ -404,11 +404,11 @@ function OurSite() {
                             </div>
                         </Form>
                     </div>
-                    
+
                 </div>
                 {/* <Loader isLoading={isLoading}/> */}
             </section>
-            {name?<Footer/>:""}
+            {name ? <Footer /> : ""}
         </>
     );
 }

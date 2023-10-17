@@ -56,14 +56,14 @@ const [loader,setLoader] = useState(false)
     <>
       <div className="container-fluid main_bg">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 p-0">
             <div className="logo">
               <img src={HOMOSOLUTION} />
             </div>
           </div>
           <div className="col-md-12">
             <div className="header p-4">
-              <h1 style={{ fontSize: "33px" }}>
+              <h1 style={{ fontSize: "25px" }}>
                 Welcome to Our Home Services Website
               </h1>
             </div>
@@ -74,7 +74,7 @@ const [loader,setLoader] = useState(false)
             <div className="row justify-content-center">
               <div className="col-md-6">
                 <div className="create_page ">
-                  <h1 style={{ fontSize: "28px" }}>Reset Password!</h1>
+                  <h1 style={{ fontSize: "22px" }}>Reset Password!</h1>
                   <hr style={{ color: "#0062cc" }} />
                   <Form onSubmit={handleSubmit}>
                     <div className="row">

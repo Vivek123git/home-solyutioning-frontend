@@ -97,6 +97,26 @@ export const forget_pass_worker = (formDataLogin, navigate,setLoader) => (dispat
     });
 };
 
+export const onGoogleLogin=(data ,navigate)=>(dispatch)=>{
+  commonAxios("google-login", data , dispatch)
+  .then((res) => {
+    const data = res.data;
+    if (res) {
+      toast.success('Login Successfully');
+      navigate(-1);
+      //  localStorage.setItem("user", JSON.stringify(res.data));
+      dispatch({ type: "LOGIN_SUCCESS", payload: data });
+      dispatch(onSetAlert("success","Login successfully"))
+      
+    } 
+  })
+  .catch((error) => {
+    // toast.warning('Login failed');
+    // dispatch({ type: "LOGIN_FAILURE", error: error.message });
+    console.log(error)
+  });
+}
+
 
 
 

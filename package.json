@@ -19,6 +19,7 @@
     "axios-react": "^2.0.8",
     "bongga-react-simple-chatbot": "^1.0.0",
     "bootstrap": "^5.3.2",
+    "gapi-script": "^1.2.0",
     "google-maps-react": "^2.0.6",
     "immer": "^9.0.21",
     "js-cookie": "^3.0.5",

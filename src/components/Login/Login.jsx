@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import HOMOSOLUTION from "../../img/logo.png";
 import "../../../src/App.css";
 import { useNavigate } from "react-router";
 import { GoogleLogin } from 'react-google-login';
+import { gapi } from "gapi-script";
 import { Link } from "react-router-dom";
-import { loginAccount } from "../../Action/AuthAction";
+import { loginAccount,onGoogleLogin } from "../../Action/AuthAction";
 import { useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import Alert1 from "../Alert";
@@ -45,18 +46,24 @@ const Login = () => {
     }
   };
 
+  const clientId="384608491688-p5pbvda9h7mfklit55gfm880tqlgbu1p.apps.googleusercontent.com"
+
+  useEffect(()=>{
+    gapi.load("client:auth2",()=>{
+      gapi.auth2.init({clientId:clientId})
+    })
+  },[])
   const responseGoogle = (response) => {
-    if (response.error === 'popup_closed_by_user') {
-      // Handle the case where the user closed the login popup
-      console.log('Login popup closed by the user.');
-    } else if (response.profileObj) {
-      // Handle the successful login, response.profileObj contains user information
-      console.log('Successful login:', response.profileObj);
-    } else {
-      // Handle other errors
-      console.error('An error occurred:', response);
-    }
+
+    let formDataPayloadLogin = new FormData();
+    formDataPayloadLogin.append("name", response.wt.Ad)
+    formDataPayloadLogin.append("email", response.wt.cu)
+  
+    dispatch(onGoogleLogin (formDataPayloadLogin , navigate))
+    
   };
+
+
 
   return (
     <>
@@ -81,7 +88,7 @@ const Login = () => {
             <div className="row justify-content-center">
               <div className="col-md-6">
                 <div className="create_page ">
-                  <h1 style={{ fontSize: "28px" }}>Welcome back!</h1>
+                  <h1 style={{ fontSize: "22px" }}>Welcome back!</h1>
                   <hr style={{ color: "#0062cc" }} />
                   <Form>
                     <div className="row">

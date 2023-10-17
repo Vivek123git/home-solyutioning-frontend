@@ -32,7 +32,7 @@ body {
 
 @media only screen and (max-width: 350px) {
   .button[type="submit"] {
-   margin: 4px !important;
+    margin: 4px !important;
   }
 }
 
@@ -67,7 +67,7 @@ h6 {
     padding: 5px;
     font-size: small;
   }
- }
+}
 
 a {
   color: #587a9e;
@@ -75,9 +75,9 @@ a {
 }
 
 @media (max-width: 767px) {
- h3{
-  font-size: 16px;
- }
+  h3 {
+    font-size: 16px;
+  }
 }
 
 a:hover {
@@ -167,8 +167,6 @@ a:hover {
   text-decoration: none;
 }
 
-
-
 .logo {
   display: flex;
   justify-content: center;
@@ -222,15 +220,14 @@ h1 {
   background-color: cornflowerblue;
   padding-bottom: 10px;
 }
-.logo_div{
- 
-    background-color: cornflowerblue;
-    display: flex;
-    justify-content: center;
+.logo_div {
+  background-color: cornflowerblue;
+  display: flex;
+  justify-content: center;
 }
 .logo img {
   width: 200px;
-  height: 80px;
+  height: 67px;
 }
 .main_bg {
   height: calc(100vh);
@@ -275,19 +272,19 @@ h1 {
   /* align-items: center; */
 }
 
-.fgtPass{
+.fgtPass {
   flex-direction: row-reverse;
   padding-right: 70px;
   color: #0a3f79;
 }
 
 @media (max-width: 767px) {
-  .fgtPass{
+  .fgtPass {
     flex-direction: row-reverse;
     padding-right: 20px;
     color: #0a3f79;
   }
- }
+}
 
 .contact_btn {
   display: flex;
@@ -309,13 +306,13 @@ h1 {
   z-index: 9999;
   justify-content: space-around;
 }
-.nav-logo{
-    width: 200px;
-    height: 80px;
-    padding: 9px;
-    /* position: absolute; */
-    left: 0px;
-    cursor: pointer;
+.nav-logo {
+  width: 200px;
+  height: 80px;
+  padding: 9px;
+  /* position: absolute; */
+  left: 0px;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -373,10 +370,6 @@ h3::after {
   }
 }
 
-
-
-
-
 /* carousel css */
 
 .carousel-caption {
@@ -392,7 +385,7 @@ h3::after {
   height: 100vh;
 }
 
-.modal-content{
+.modal-content {
   margin-top: 20px !important;
   margin-right: 15px !important;
 }
@@ -513,7 +506,7 @@ swiper-slide img {
   object-fit: cover;
 }
 
-.form-select{
+.form-select {
   border: none;
 }
 
@@ -560,7 +553,7 @@ swiper-slide img {
   margin-bottom: 10px;
 }
 
-@media (max-width:767px){
+@media (max-width: 767px) {
   .main-section h2 {
     font-size: 20px !important;
   }
@@ -590,7 +583,7 @@ swiper-slide img {
   object-fit: cover;
   padding: 20px;
   border-radius: 25px; */
-height: 17rem;
+  height: 17rem;
   /* height: 100%; */
   object-fit: cover;
 }
@@ -702,7 +695,7 @@ height: 17rem;
   max-height: 100%;
   color: var(--bs-offcanvas-color);
   visibility: hidden;
-  background-color:#fff;
+  background-color: #fff;
   background-clip: padding-box;
   outline: 0;
   transition: transform 0.5s ease-in-out;
@@ -724,13 +717,13 @@ height: 17rem;
   background: #66a3e2d4; */
 
   max-height: 95%;
-    margin: 10px;
-    max-width: 100%;
-    border: 3px solid #0069d9;
-    /* background: #66a3e2d4; */
-    border: 3px solid #71a1e9 !important;
+  margin: 10px;
+  max-width: 100%;
+  border: 3px solid #0069d9;
+  /* background: #66a3e2d4; */
+  border: 3px solid #71a1e9 !important;
 }
-.payment-box{
+.payment-box {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;
   border-radius: 10px;
@@ -863,8 +856,6 @@ height: 17rem;
   border-radius: 10px;
 }
 
-
-
 .footer h5 {
   font-size: 18px;
   font-weight: 600;
@@ -895,22 +886,22 @@ height: 17rem;
 }
 
 /* chatbot ................*/
-.godhbL{
+.godhbL {
   background: #71a1e9 !important;
   height: 60px !important;
-  width: 60px !important
+  width: 60px !important;
 }
-.glfuN{
+.glfuN {
   background: #71a1e9 !important;
 }
-.hQsUiY{
+.hQsUiY {
   background: #71a1e9 !important;
 }
-.ipSaXD{
+.ipSaXD {
   background: #71a1e9 !important;
 }
-.cRmLCo{
-  background: #71a1e9 !important
+.cRmLCo {
+  background: #71a1e9 !important;
 }
 
 @media screen and (max-width: 568px) {
@@ -922,35 +913,34 @@ height: 17rem;
     right: 0 !important;
     top: initial !important;
     width: 70% !important;
-}
+  }
 }
 
-
-.contact-container{
+.contact-container {
   background-color: white;
-    /* width: 83%; */
-    padding: 50px;
-    /* margin: 50px; */
-    /* position: absolute; */
-    /* right: 125px; */
-    /* left: 120px; */
-    border-radius: 10px;
+  /* width: 83%; */
+  padding: 50px;
+  /* margin: 50px; */
+  /* position: absolute; */
+  /* right: 125px; */
+  /* left: 120px; */
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 568px) {
- .contact-container{
-  left:45px
- }
- .contact-section .btn-primary{
-  width: 50% !important;
- }
+  .contact-container {
+    left: 45px;
+  }
+  .contact-section .btn-primary {
+    width: 50% !important;
+  }
 }
 
-.icon-Btn{
+.icon-Btn {
   display: flex;
-    justify-content: center;
-    margin-bottom: 13px;
-    margin-top: 0px !important;
+  justify-content: center;
+  margin-bottom: 13px;
+  margin-top: 0px !important;
 }
 
 /* Benifits page */
@@ -974,17 +964,17 @@ height: 17rem;
 
 .benefit-card {
   /* border: 1px solid #fff; */
-  
+
   /* border-radius: 10px; */
   /* padding: 20px; */
   text-align: center;
 }
 
-.css-julti5-MuiSwitch-root{
+.css-julti5-MuiSwitch-root {
   bottom: 5px !important;
 }
 
-.footer-content{
+.footer-content {
   /* color: rgb(2, 46, 111); */
   color: #fff;
   font-family: Roboto, sans-serif;
@@ -992,48 +982,47 @@ height: 17rem;
   font-weight: 500 !important;
 }
 
-.spinner_icon{
-      width: 30px;
-    height: 30px;
-    color: white;
-    position: absolute;
-    margin-left: 40px
-}
-
-@media (max-width: 767px) {
-  .spinner_icon{
-    width: 30px;
+.spinner_icon {
+  width: 30px;
   height: 30px;
   color: white;
   position: absolute;
-  margin-left: 5px
+  margin-left: 40px;
 }
-}
-
-.chip{
-  height: 45px !important;
-}
-
 
 @media (max-width: 767px) {
-  .otp_btn{
-  margin-left: 80px;
+  .spinner_icon {
+    width: 30px;
+    height: 30px;
+    color: white;
+    position: absolute;
+    margin-left: 5px;
   }
 }
 
-.benefit-card h4{
-/* style={{textAlign:"left",fontSize:"large"}} */
-text-align: left;
-font-size: large;
+.chip {
+  height: 45px !important;
 }
 
-@media (max-width:450px) {
-  .benefit-card h4{
+@media (max-width: 767px) {
+  .otp_btn {
+    margin-left: 80px;
+  }
+}
+
+.benefit-card h4 {
+  /* style={{textAlign:"left",fontSize:"large"}} */
+  text-align: left;
+  font-size: large;
+}
+
+@media (max-width: 450px) {
+  .benefit-card h4 {
     font-size: 15px;
   }
 }
 
-.benefit-card p{
+.benefit-card p {
   /* style={{ fontSize:"16px",fontWeight:"100",fontFamily:"roboto",textAlign:"left"}} */
   font-size: 16px;
   font-weight: 100;
@@ -1042,8 +1031,8 @@ font-size: large;
 }
 
 @media (max-width: 450px) {
-  .benefit-card p{
-    font-size:12px;
+  .benefit-card p {
+    font-size: 12px;
     font-weight: 100;
     font-family: "roboto";
     text-align: left;
@@ -1055,11 +1044,12 @@ font-size: large;
   border-radius: 8px !important;
 }
 
-.google_btn{
+.google_btn {
   background-color: rgb(255, 255, 255);
   display: inline-flex;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px,
+    rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
   padding: 0px;
   border: 1px solid transparent;
   font-size: 14px;
@@ -1071,20 +1061,23 @@ font-size: large;
   border-radius: 5px !important;
 }
 
-.user-img{
+.user-img {
   max-width: 150px;
+    border-radius: 50%;
+    max-height: 150px;
+
 }
 
-@media (max-width:767px){
-  .user-img{
+@media (max-width: 767px) {
+  .user-img {
     max-width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    width: 150px;
   }
 }
 
-.phone-popup{
+.phone-popup {
   cursor: pointer;
   background-color: #0453a8;
   padding: 10px;
@@ -1102,8 +1095,16 @@ font-size: large;
     color:#000
 } */
 
-.form-select{
+.form-select {
   height: 4.5rem;
+}
+.select-box {
+  border: 1px solid #007bff;
+  border-radius: 10px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px;
 }
 /* .multi-banner-carousel{
   margin: 0px;
@@ -1115,6 +1116,4 @@ font-size: large;
   position: relative;
 }  */
 
-
 /* testimonials........................................................... */
-
