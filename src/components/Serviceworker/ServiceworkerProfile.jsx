@@ -45,9 +45,11 @@ const ServiceWorkerProfile = () => {
   const [skill, setSkill] = useState([])
   const [checked, setChecked] = useState(worker?.status === "1");
   const [cancel, setCancel] = useState(false)
-  const [show , setShow] = useState(false)
-  const [pStatus , setpStatus] = useState("Pending")
-  const [bid , setBid] = useState("")
+  const [show, setShow] = useState(false)
+  const [pStatus, setpStatus] = useState("Pending")
+  const [bid, setBid] = useState("")
+  const [history, setHistory] = useState(true);
+  const [active , setActive] = useState(false);
 
   const itemsPerPage = 10; // Number of items to show per page
   const totalPages = Math.ceil(userData.length / itemsPerPage);
@@ -167,22 +169,22 @@ const ServiceWorkerProfile = () => {
   formDataServices.append("skill", JSON.stringify(form.skill));
   formDataServices.append("id", worker?.id);
 
-  const handleServices = () => {
-    dispatch(setServicesWorker(formDataServices));
-  };
+  // const handleServices = () => {
+  //   dispatch(setServicesWorker(formDataServices));
+  // };
   const handleCancel = (elem) => {
     let formDataDelete = new FormData();
     formDataDelete.append("bid", elem.booking_id);
     dispatch(onCancelBooking(formDataDelete))
   }
 
-  const handlePaymentStatus = (e ,elem) => {
+  const handlePaymentStatus = (e, elem) => {
     // setBid(elem.booking_id)
     // setShow(!show);
-    if(pStatus==="Complete"){
+    if (pStatus === "Complete") {
       toast.warning("You already mark Complete")
-    }else{
-     setBid(elem.booking_id)
+    } else {
+      setBid(elem.booking_id)
       setShow(!show);
       setCancel(false)
     }
@@ -192,7 +194,7 @@ const ServiceWorkerProfile = () => {
   //     let parsedArray = [];
   //      parsedArray = JSON.parse(worker.skill);
   //      console.log(parsedArray)
-  
+
   //     if (Array.isArray(parsedArray)) {
   //       const names = parsedArray.map(item => item.name);
   //       console.log(names);
@@ -205,7 +207,15 @@ const ServiceWorkerProfile = () => {
   // } else {
   //   console.log('worker.skill is undefined or empty.');
   // }
-  
+
+  const handleHistory = () => {
+    setHistory(!history)
+    setActive(!active)
+  }
+
+  const hasPaymentStatusZero = currentItems[currentItems.length-1]?.payment_status === "0";
+  console.log(hasPaymentStatusZero)
+
   return (
     <>
       <Navbar />
@@ -219,26 +229,28 @@ const ServiceWorkerProfile = () => {
 
               <Row style={{ padding: "10px", alignContent: "center" }}>
                 <Col xs={8} style={{ display: "flex", padding: "0px", flexDirection: "column", }}>
-                  <h5>Name : {worker?.name}</h5>
-                  <h5>Mobile No.: {worker?.mobileNumber}</h5>
-                  <h5>Service: {worker?.service === "1"
-                    ? "Electrician"
-                    : worker.service === "4"
-                      ? "R.O."
-                      : worker.service === "2"
-                        ? "Plumber"
-                        : worker.service === "3"
-                          ? "A.C. tech."
-                          : worker.service === "5"
-                            ? "Broadband"
-                            : worker.service === "6"
-                              ? "CCTV"
-                              : ""}</h5>
+                  <h5 className="text-worker-head">Name : <span className="text-worker">{worker?.name}</span></h5>
+                  <h5 className="text-worker-head d-flex">Mobile No.: <span className="text-worker">{worker?.mobileNumber}</span></h5>
+                  <h5 className="text-worker-head">Service:<span className="text-worker">
+                    {worker?.service === "1"
+                      ? "Electrician"
+                      : worker.service === "4"
+                        ? "R.O."
+                        : worker.service === "2"
+                          ? "Plumber"
+                          : worker.service === "3"
+                            ? "A.C. tech."
+                            : worker.service === "5"
+                              ? "Broadband"
+                              : worker.service === "6"
+                                ? "CCTV"
+                                : ""}
+                  </span></h5>
                   <div className="d-flex">
-            
+
                     {/* <p>Skill: </p> */}
-                    <h5>Status : </h5>
-                    <h5 style={{ color: checked ? "green" : "red" }}>
+                    <h5 className="text-worker-head">Status : </h5>
+                    <h5 className="text-worker" style={{ color: checked ? "green" : "red" }}>
                       {checked ? "Available" : "Not Available"}
                     </h5>
                     <Switch
@@ -291,11 +303,16 @@ const ServiceWorkerProfile = () => {
                 </Col>
 
               </Row>
-              <Row>
+              <Row className="m-0">
                 <Col>
-                  <h2>My Work</h2>
-                  <div style={{ overflow: "auto" }}>
-                    <Table striped bordered hover>
+                  <div className="d-flex justify-content-between">
+                    <h2 className={!active ? "text-decoration-underline text-primary" : ""}
+                      onClick={handleHistory}>My Pending Work</h2>
+                    <h2 className={active ? "text-decoration-underline text-primary" : ""}
+                      onClick={handleHistory}>My History Work</h2>
+                  </div>
+                  {/* <div style={{ overflow: "auto" }}>
+                    <Table striped  hover>
                       <thead>
                         <tr>
                           <th>Booking ID</th>
@@ -308,7 +325,6 @@ const ServiceWorkerProfile = () => {
                           <th>Status</th>
                           <th>Payment Status</th>
                           {cancel ? <th>Cancel</th> : ""}
-                          {/* <th>Rating</th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -334,7 +350,6 @@ const ServiceWorkerProfile = () => {
                                     <option value={"3"}>Reject</option>
                                   </select>
                                 </td>
-                                {/* <td>******</td> */}
                                 <td>
                                  <Button 
                                  variant={elem.payment_status==1?"success":"primary"}
@@ -370,7 +385,105 @@ const ServiceWorkerProfile = () => {
                         disabled={currentPage === totalPages}
                       />
                     </Pagination>
-                  </div>
+                  </div> */}
+                  <h4 className="text-center mt-5">{history?hasPaymentStatusZero?"":"No work found":"" }</h4>
+                  {currentItems.length > 0 ?
+                    currentItems.map((elem, id) => {
+                      return (
+                        <div>
+                          
+                          {history ?
+                            elem.payment_status === "1" ? "":
+                              <div className="row  ">
+                                <div className="col-md-4 booking-box">
+                                  <div className="">
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Username :</div>
+                                      <div className="text-worker">{elem.user_name}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">User Mobile No. :</div>
+                                      <div className="text-worker">{elem.number}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">User Address :</div>
+                                      <div className="text-worker">{elem.address}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Service :</div>
+                                      <div className="text-worker">{elem.main_service}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Charge :</div>
+                                      <div className="text-worker">{elem.price}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Work Status :</div>
+                                      <div className="text-worker"><select
+                                        onChange={(e) => handleWorkerBookingStatus(e, elem)}
+                                        className="select-box"
+                                        disabled={elem.status === "2" ? true : false}
+                                      >
+                                        <option value={""}>{elem.status === "2" ? "Accepted" : "Select a option"}</option>
+                                        <option value={"2"}> Accept</option>
+                                        <option value={"3"}>Reject</option>
+                                      </select></div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Paymnent Status :</div>
+                                      <div className="text-worker"> <Button
+                                        className="m-0"
+                                        variant={elem.payment_status === "1" ? "success" : "primary"}
+                                        disabled={elem.payment_status === "1" ? true : false}
+                                        onClick={(e) => handlePaymentStatus(e, elem)}>
+                                        {elem.payment_status == 1 ? "Complete" : pStatus}
+                                      </Button></div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      <div className="text-worker-head">Date :</div>
+                                      <div className="text-worker">{elem.date}</div>
+                                    </div>
+                                    <div className="booking-box-text">
+                                      {cancel ? <div className="text-worker-head">Cancel :</div> : ""}
+                                      <div className="text-worker"> {cancel ? <button onClick={() => handleCancel(elem)}>Cancel</button> : ""}</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            :
+
+                            elem.payment_status === "1" ? <div className="row  ">
+                              <div className="col-md-4 booking-box">
+                                <div className="">
+                                  <div className="booking-box-text">
+                                    <div className="text-worker-head">Username :</div>
+                                    <div className="text-worker">{elem.user_name}</div>
+                                  </div>
+                                  <div className="booking-box-text">
+                                    <div className="text-worker-head">Payment Status :</div>
+                                    <div className="text-worker"> <Button
+                                      variant={elem.payment_status === "1" ? "success" : "primary"}
+                                      disabled={elem.payment_status === "1" ? true : false}
+                                      onClick={(e) => handlePaymentStatus(e, elem)}>
+                                      {elem.payment_status === "1" ? "Complete" : pStatus}
+                                    </Button></div>
+                                  </div>
+                                  <div className="booking-box-text">
+                                    <div className="text-worker-head">Date :</div>
+                                    <div className="text-worker">{elem.date}</div>
+                                  </div>
+                                  <div className="booking-box-text">
+                                    <div className="text-worker-head">View Details :</div>
+                                    <div className="text-worker"><Button className="m-0">View</Button></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> : ""
+                          }
+                        </div>
+                      )
+                    })
+                    : ""}
                 </Col>
               </Row>
               {/* <div  style={{ left: "50%",position:"relative" }} >
@@ -380,7 +493,7 @@ const ServiceWorkerProfile = () => {
           </div>
         </div>
         <Loader isLoading={isLoading} />
-        <ModalBox show={show} setShow={setShow} bid={bid} setpStatus={setpStatus} pStatus={pStatus}/>
+        <ModalBox show={show} setShow={setShow} bid={bid} setpStatus={setpStatus} pStatus={pStatus} />
       </section>
     </>
   );
