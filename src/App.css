@@ -548,14 +548,15 @@ swiper-slide img {
 }
 
 .main-section h2 {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 @media (max-width: 767px) {
   .main-section h2 {
-    font-size: 20px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
   }
 }
 
@@ -1118,6 +1119,7 @@ swiper-slide img {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
   padding: 1rem;
+  margin:0.5rem
 }
 .booking-box-text {
   display: flex;
@@ -1139,5 +1141,22 @@ swiper-slide img {
 }
 @media only screen and (max-width: 767px) {
  
+}
+
+.active-work{
+  text-decoration: underline;
+  color: #fff;
+  background-color: #0453a8;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.notactive-work{
+  color: #000;
+  background-color: #bec3c7;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
 }
 /* testimonials........................................................... */

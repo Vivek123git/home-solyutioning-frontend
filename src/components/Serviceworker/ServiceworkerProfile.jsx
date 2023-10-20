@@ -214,7 +214,6 @@ const ServiceWorkerProfile = () => {
   }
 
   const hasPaymentStatusZero = currentItems[currentItems.length-1]?.payment_status === "0";
-  console.log(hasPaymentStatusZero)
 
   return (
     <>
@@ -306,10 +305,10 @@ const ServiceWorkerProfile = () => {
               <Row className="m-0">
                 <Col>
                   <div className="d-flex justify-content-between">
-                    <h2 className={!active ? "text-decoration-underline text-primary" : ""}
+                    <h2 className={!active ? "active-work " : "notactive-work"}
                       onClick={handleHistory}>My Pending Work</h2>
-                    <h2 className={active ? "text-decoration-underline text-primary" : ""}
-                      onClick={handleHistory}>My History Work</h2>
+                    <h2 className={active ? "active-work" : "notactive-work"}
+                      onClick={handleHistory}>My Work History</h2>
                   </div>
                   {/* <div style={{ overflow: "auto" }}>
                     <Table striped  hover>
@@ -398,15 +397,15 @@ const ServiceWorkerProfile = () => {
                                 <div className="col-md-4 booking-box">
                                   <div className="">
                                     <div className="booking-box-text">
-                                      <div className="text-worker-head">Username :</div>
+                                      <div className="text-worker-head">Customername :</div>
                                       <div className="text-worker">{elem.user_name}</div>
                                     </div>
                                     <div className="booking-box-text">
-                                      <div className="text-worker-head">User Mobile No. :</div>
+                                      <div className="text-worker-head">Customr Mobile No. :</div>
                                       <div className="text-worker">{elem.number}</div>
                                     </div>
                                     <div className="booking-box-text">
-                                      <div className="text-worker-head">User Address :</div>
+                                      <div className="text-worker-head">Customr Address :</div>
                                       <div className="text-worker">{elem.address}</div>
                                     </div>
                                     <div className="booking-box-text">
@@ -443,10 +442,10 @@ const ServiceWorkerProfile = () => {
                                       <div className="text-worker-head">Date :</div>
                                       <div className="text-worker">{elem.date}</div>
                                     </div>
-                                    <div className="booking-box-text">
+                                    {/* <div className="booking-box-text">
                                       {cancel ? <div className="text-worker-head">Cancel :</div> : ""}
                                       <div className="text-worker"> {cancel ? <button onClick={() => handleCancel(elem)}>Cancel</button> : ""}</div>
-                                    </div>
+                                    </div> */}
                                   </div>
                                 </div>
                               </div>
@@ -456,7 +455,7 @@ const ServiceWorkerProfile = () => {
                               <div className="col-md-4 booking-box">
                                 <div className="">
                                   <div className="booking-box-text">
-                                    <div className="text-worker-head">Username :</div>
+                                    <div className="text-worker-head">Customer Name  :</div>
                                     <div className="text-worker">{elem.user_name}</div>
                                   </div>
                                   <div className="booking-box-text">

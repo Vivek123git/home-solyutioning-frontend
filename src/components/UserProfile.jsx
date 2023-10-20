@@ -6,7 +6,7 @@ import Navbar from "./Navbar/Navbar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useDispatch, useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
-import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails ,onEditProfileImg} from "../Action/ServiceAction";
+import { onRating, onfetchUserrDetails, onfetchWorkerBookingDetails, onEditProfileImg } from "../Action/ServiceAction";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,9 @@ const UserProfile = () => {
 
   const [workerData, setWorkerData] = useState([])
   const [user, setUser] = useState([]);
-  const [workId , setWorkId] = useState("")
+  const [workId, setWorkId] = useState("")
+  const [active, setActive] = useState(false);
+  const [history, setHistory] = useState(true);
   const [image, setImage] = useState(
     "https://img.freepik.com/free-vector/repair-elements-round-template_1284-37691.jpg?w=740&t=st=1680349046~exp=1680349646~hmac=01f506fa402adb9a53b74df1f76fa944ac021ca14fcf1875cc7ead5d08f6cb62"
   );
@@ -38,7 +40,7 @@ const UserProfile = () => {
     let formDataImage = new FormData();
     formDataImage.append("image", file);
     formDataImage.append("userId", userDetails.id);
-    dispatch(onEditProfileImg(formDataImage ,setImage))
+    dispatch(onEditProfileImg(formDataImage, setImage))
   };
 
   const handleChange = (e) => {
@@ -58,12 +60,12 @@ const UserProfile = () => {
     ratingPayload.append("name", rating.name)
     ratingPayload.append("description", rating.text)
     ratingPayload.append("rating", rating.rating)
-    dispatch(onRating(ratingPayload,handleClose))
+    dispatch(onRating(ratingPayload, handleClose))
   };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = (id) =>{
+  const handleShow = (id) => {
     setShow(true)
     setWorkId(id)
   };
@@ -82,6 +84,13 @@ const UserProfile = () => {
     fetchUserDetails();
     fetchWorkerDetails();
   }, []);
+
+  const handleHistory = () => {
+    setHistory(!history)
+    setActive(!active)
+  }
+
+  const hasPaymentStatusZero = workerData[workerData.length-1]?.status === "0";
 
   return (
     <>
@@ -111,7 +120,7 @@ const UserProfile = () => {
                 >
                   <div>
                     <img
-                    className="user-img"
+                      className="user-img"
                       src={image}
                       roundedCircle
                       alt="avatar"
@@ -134,60 +143,88 @@ const UserProfile = () => {
               </Row>
               <Row>
                 <Col>
-                  <h2>Your Booking</h2>
-                  <div className="userTable" style={{ overflow: "auto" }}>
-                    <Table striped bordered hover>
-                      <thead>
-                        <tr >
-                          <th>Booking ID</th>
-                          <th>Technician Name</th>
-                          <th>Technician Mobile No.</th>
-                          <th>Services you booked</th>
-                          <th>Payment</th>
-                          <th>Date</th>
-                          {/* <th>Status</th>
-                          <th>Rating</th> */}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* <tr>
-                          <td>1</td>
-                          <td>Service 1</td>
-                          <td>123456789</td>
-                          <td>Elctrician</td>
-                          <td>2023-04-02</td>
-                          <td>Pending</td>
-                          <td>
-                            <button onClick={handleShow}>Rating</button>
-                          </td>
-                        </tr> */}
-                        {workerData?.length > 0 ?
-                          workerData?.map((elem, id) => {
-                            return (
-                              <tr>
-                                <td>{id+1}</td>
-                                <td>{elem?.worker_name}</td>
-                                <td>{elem?.worker_number}</td>
-                                <td>{elem?.worker_service}</td>
-                                <td>{elem?.price} &#x20B9;</td>
-                                <td>{elem?.worker_date}</td>
-                                {/* <td>{elem.status}</td> */}
-                                {/* <td>
-                                  <button onClick={()=>handleShow(elem.worker_id)}>Rating</button>
-                                </td> */}
-                              </tr>
-                            )
-                          })
-                          :
-                          ""}
-                      </tbody>
-                    </Table>
+                  <div className="d-flex justify-content-between">
+                    <h2 className={!active ? "active-work " : "notactive-work"}
+                      onClick={handleHistory}>Currently Booking</h2>
+                    <h2 className={active ? "active-work" : "notactive-work"}
+                      onClick={handleHistory}>Booking History</h2>
                   </div>
+
+                  <h4 className="text-center mt-5">{history?hasPaymentStatusZero?"":"No Booking found":"" }</h4>
+                  {workerData.length > 0 ?
+                    workerData.map((elem, id) => {
+                      return (
+                        <div>
+                          {history?
+                          elem.status === "1" ? "":
+                          <div className="row  ">
+                            <div className="col-md-4 booking-box">
+                              <div className="">
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Technician Name:</div>
+                                  <div className="text-worker">{elem.worker_name}</div>
+                                </div>
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Technician Mobile No. :</div>
+                                  <div className="text-worker">{elem.worker_number}</div>
+                                </div>
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Services you booked :</div>
+                                  <div className="text-worker">{elem.worker_service}</div>
+                                </div>
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Charge :</div>
+                                  <div className="text-worker">{elem?.price} &#x20B9;</div>
+                                </div>
+
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Date :</div>
+                                  <div className="text-worker">{elem.worker_date}</div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                          :
+                          elem.status === "1" ?  <div className="row  ">
+                            <div className="col-md-4 booking-box">
+                              <div className="">
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Technician Name:</div>
+                                  <div className="text-worker">{elem.worker_name}</div>
+                                </div>
+                                {/* <div className="booking-box-text">
+                                  <div className="text-worker-head">Technician Mobile No. :</div>
+                                  <div className="text-worker">{elem.worker_number}</div>
+                                </div> */}
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Services you booked :</div>
+                                  <div className="text-worker">{elem.worker_service}</div>
+                                </div>
+                                {/* <div className="booking-box-text">
+                                  <div className="text-worker-head">Charge :</div>
+                                  <div className="text-worker">{elem?.price} &#x20B9;</div>
+                                </div> */}
+
+                                <div className="booking-box-text">
+                                  <div className="text-worker-head">Date :</div>
+                                  <div className="text-worker">{elem.worker_date}</div>
+                                </div>
+                                <div className="booking-box-text">
+                                    <div className="text-worker-head">View Details :</div>
+                                    <div className="text-worker"><Button className="m-0">View</Button></div>
+                                  </div>
+
+                              </div>
+                            </div>
+                          </div>:""}
+                        </div>
+                      )
+                    })
+                    : ""}
                 </Col>
               </Row>
-              {/* <div  style={{ left: "50%",position:"relative" }} >
-                {!workerData ? "No data found" : workerData?.length > 0 ? "" : <CircularProgress className="spinner_icon"/>}
-            </div> */}
+
               <>
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -237,7 +274,7 @@ const UserProfile = () => {
                         </Row>
                       </Form.Group>
                       <Button variant="primary" type="submit">
-                        
+
                         Submit
                       </Button>
                     </Form>
